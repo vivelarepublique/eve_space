@@ -1,24 +1,12 @@
-# eve_space
+# EVE Space
 
-## Project setup
-```
-npm install
-```
+## Data interface
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+<https://esi.evepc.163.com/ui/>
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## API document
 
-### Lints and fixes files
-```
-npm run lint
-```
+<https://www.ceve-market.org/api/>
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Simple example
+<https://shimo.im/docs/DhCG9tWHtjVyTqwc/read>

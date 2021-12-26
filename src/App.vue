@@ -1,18 +1,25 @@
 <template>
   <div>
-    <router-link active-class="active" to="/main">Main</router-link>
-    <router-link to="/almanac">Almanac</router-link>
+    <router-link to="/main">
+      <n-button type="primary">Main</n-button>
+    </router-link>
+    <br>
+    <router-link to="/almanac">
+      <n-button type="primary">Almanac</n-button>
+    </router-link>
+
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import { defineComponent } from 'vue';
+import { NButton } from 'naive-ui';
 
-
-export default {
+export default defineComponent({
   name: 'App',
   components: {
-    
+    NButton,
   },
-};
+});
 </script>

@@ -1,18 +1,18 @@
 <template>
-<div>
-  <Almanac></Almanac>
-</div>
-
+  <div>
+    <router-link active-class="active" to="/main">Main</router-link>
+    <router-link to="/almanac">Almanac</router-link>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import Almanac from './components/Almanac.vue';
+
 
 export default {
   name: 'App',
   components: {
-    Almanac,
-  }
-}
+    
+  },
+};
 </script>
-

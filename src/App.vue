@@ -23,3 +23,7 @@ export default defineComponent({
   },
 });
 </script>
+
+<style  module>
+  @import './assets/css/bootstrap.css';
+</style>

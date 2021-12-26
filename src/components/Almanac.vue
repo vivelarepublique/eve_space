@@ -407,7 +407,7 @@ body {
     margin-bottom: 10px;
     background: #555;
     padding: 5px 15px;
-    height: 30px;
+    height: 40px;
     a {
       color: #bbb;
       &:hover {

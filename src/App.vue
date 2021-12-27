@@ -3,7 +3,6 @@
     <router-link to="/main">
       <n-button type="primary">Main</n-button>
     </router-link>
-    <br>
     <router-link to="/almanac">
       <n-button type="primary">Almanac</n-button>
     </router-link>
@@ -24,6 +23,6 @@ export default defineComponent({
 });
 </script>
 
-<style  module>
-  @import './assets/css/bootstrap.css';
+<style module>
+@import './assets/css/bootstrap.css';
 </style>

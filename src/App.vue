@@ -1,10 +1,10 @@
 <template>
   <div>
-    <router-link to="/main">
-      <n-button type="primary">Main</n-button>
+    <router-link to="/">
+      <n-button color='#00918a'>主页</n-button>
     </router-link>
     <router-link to="/almanac">
-      <n-button type="primary">Almanac</n-button>
+      <n-button color='#00918a'>老黄历</n-button>
     </router-link>
 
     <router-view></router-view>
@@ -23,6 +23,8 @@ export default defineComponent({
 });
 </script>
 
-<style module>
-@import './assets/css/bootstrap.css';
+<style scoped>
+  button{
+    margin: 15px;
+  }
 </style>

@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 
 import Main from '../components/Main.vue';
 import Almanac from '../components/Almanac.vue';
+import Campaigns from '../components/Campaigns.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -13,6 +14,10 @@ const router = createRouter({
     {
       path: '/almanac',
       component: Almanac,
+    },
+    {
+      path: '/campaigns',
+      component: Campaigns,
     },
   ],
 });

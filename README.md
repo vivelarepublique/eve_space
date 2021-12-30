@@ -12,7 +12,8 @@
 <https://shimo.im/docs/DhCG9tWHtjVyTqwc/read>
 
 ## Development Dependency Document
-1. [VUE3](https://v3.cn.vuejs.org/)
-2. [Naive-UI](https://www.naiveui.com/zh-CN/light/components/button)
+1. [Vue3](https://v3.cn.vuejs.org/)
+2. [Naive-UI](https://www.naiveui.com/zh-CN/)
 3. [Electorn](https://www.electronjs.org/)
 4. [Less](https://less.bootcss.com/)
+5. [bootstrap3](https://v3.bootcss.com/css/)

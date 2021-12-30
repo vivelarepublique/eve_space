@@ -388,6 +388,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '../assets/css/bootstrap.css';
 body {
   background: white;
   margin: 0;
@@ -418,7 +419,7 @@ body {
 }
 
 .date {
-  font-size: 17pt;
+  font-size: 15pt;
   font-weight: bold;
   line-height: 30pt;
   text-align: center;

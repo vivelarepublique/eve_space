@@ -1,10 +1,13 @@
 <template>
   <div>
     <router-link to="/">
-      <n-button color='#00918a'>主页</n-button>
+      <n-button color="#00918a">主页</n-button>
     </router-link>
     <router-link to="/almanac">
-      <n-button color='#00918a'>老黄历</n-button>
+      <n-button color="#00918a">老黄历</n-button>
+    </router-link>
+    <router-link to="/campaigns">
+      <n-button color="#00918a">增强信息</n-button>
     </router-link>
 
     <router-view></router-view>
@@ -24,7 +27,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  button{
-    margin: 15px;
-  }
+button {
+  margin: 15px;
+}
 </style>

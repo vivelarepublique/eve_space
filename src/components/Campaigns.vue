@@ -38,16 +38,34 @@ import { onMounted, reactive } from 'vue';
 export default {
   name: 'Campaigns',
   setup() {
-    let campaignsData = reactive([]); 
+    let campaignsData = [];
+    let processedData = reactive([]);
+
     onMounted(() => {
-      axios
-        .get('https://esi.evepc.163.com/latest/sovereignty/campaigns/?datasource=serenity')
-        .then((res) => campaignsData.push(...res.data))
-        .catch((error) => console.log(error));
+      getCampaigns();
       console.log(campaignsData);
     });
 
-    return { campaignsData };
+    async function getCampaigns() {
+      try {
+        const res = await axios.get('https://esi.evepc.163.com/latest/sovereignty/campaigns/?datasource=serenity');
+        const data = res.data;
+        campaignsData.push(...data);
+        dataProcess();
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    function dataProcess(){
+      for(let data of campaignsData){
+        console.log(data);
+        processedData.push({
+          
+        });
+      }
+    }
+    return { processedData };
   },
 };
 </script>

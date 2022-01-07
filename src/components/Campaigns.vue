@@ -1,26 +1,42 @@
 <template>
-  <div class="contain">
+  <div class="container">
     <div class="row">
-      <div class="col-md-3">
-        <div id="evt_26259" class="blockcontent">
+      <div class="col-md-3" v-for="data in processedData" :key="data.campaignID">
+        <div class="blockcontent">
           <div class="mainblock forceyellow" style="display: block">
             <div class="block-header">
-              <div class="header-sysname shfont">YWS0-Z</div>
-              <div class="header-info shfont"><span>普罗维登斯</span><br /><span>北方联盟</span></div>
+              <div class="header-sysname shfont">{{ data.solarSystem }}</div>
+              <div class="header-info shfont">
+                <span>{{ data.region }}</span
+                ><br /><span>{{ data.defender }}</span>
+              </div>
             </div>
             <div class="block-body">
               <div class="block-body-left" style="position: relative">
-                <div class="block-body-left-text shfont" style="position: absolute">增强</div>
+                <div class="block-body-left-text shfont" style="position: absolute" v-if="!data.inTime">增强</div>
+                <div class="block-body-left-text shfont blink_white blink_red" style="position: absolute" v-if="data.inTime">争夺</div>
               </div>
-              <div class="block-body-info-main">
+              <div class="block-body-info-main" v-if="!data.inTime">
                 <div class="block-body-info">
-                  <div class="block-body-suct">主权</div>
-                  <div class="block-body-timer xdnum main_timer" tm="2021-12-30T08:44:48.149+00:00"><span>16:35:11</span><small>.946</small></div>
+                  <div class="block-body-suct">{{ data.type }}</div>
+                  <div class="block-body-timer xdnum main_timer" tm="2021-12-30T08:44:48.149+00:00"><span>12:34:56</span><small>.789</small></div>
                   <div class="block-body-info-plus shfont">剩余</div>
                 </div>
                 <div class="block-body-info blue">
-                  <div class="block-body-suct">主权</div>
+                  <div class="block-body-suct">{{ data.type }}</div>
                   <div class="block-body-timer xdnum" tm="2021-12-30T08:44:48.149+00:00"><span>00:00:00</span><small>.000</small></div>
+                  <div class="block-body-info-plus shfont">防守进度</div>
+                </div>
+              </div>
+              <div class="block-body-info-main" v-if="data.inTime">
+                <div class="block-body-info">
+                  <div class="block-body-suct">{{ data.type }}</div>
+                  <div class="block-body-timer xdnum main_timer" tm="2022-01-07T18:36:38.526+00:00" def="1">60%</div>
+                  <div class="block-body-info-plus shfont">防守进度</div>
+                </div>
+                <div class="block-body-info blue" style="display: block; clip: rect(0px, 120px, 110px, 0px)">
+                  <div class="block-body-suct">{{ data.type }}</div>
+                  <div class="block-body-timer xdnum" tm="2022-01-07T18:36:38.526+00:00" def="1">60%</div>
                   <div class="block-body-info-plus shfont">防守进度</div>
                 </div>
               </div>
@@ -33,6 +49,7 @@
 </template>
 
 <script>
+import regions from '@/data/regions.js';
 import axios from 'axios';
 import { onMounted, reactive } from 'vue';
 export default {
@@ -57,11 +74,34 @@ export default {
       }
     }
 
-    function dataProcess(){
-      for(let data of campaignsData){
+    async function dataProcess() {
+      for (let data of campaignsData) {
         console.log(data);
+        let recivedName = [];
+        let id;
+        let pendingData = [data.defender_id, data.solar_system_id];
+        try {
+          const res = await axios.post('https://esi.evepc.163.com/latest/universe/names/?datasource=serenity', pendingData);
+          recivedName = res.data;
+          const res2 = await axios.get(`https://esi.evepc.163.com/latest/universe/constellations/${data.constellation_id}/?datasource=serenity&language=zh`);
+          id = res2.data.region_id;
+        } catch (e) {
+          console.log(e);
+        }
+        let regionName;
+        for (let region of regions) {
+          if (region.id === id) {
+            regionName = region.name;
+          }
+        }
+
         processedData.push({
-          
+          campaignID: data.campaign_id,
+          solarSystem: recivedName[1].name,
+          defender: recivedName[0].name,
+          region: regionName,
+          type: data.event_type === 'tcu_defense' ? '主权' : '设施',
+          inTime: false, //pending...
         });
       }
     }

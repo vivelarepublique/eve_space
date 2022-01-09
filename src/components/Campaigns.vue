@@ -1,5 +1,16 @@
 <template>
   <div class="container">
+    <div style="width: 100%; height: 130px; border-bottom: solid 1px white">
+      <div style="height: 130px; float: left; font-size: 40px; line-height: 130px; overflow: hidden" class="shfont">科学的手电筒</div>
+      <div style="width: 200px; height: 130px; float: right" class="xdnum">
+        <div style="padding-top: 25px" class="shfont">EVE标准时刻</div>
+        <div style="font-size: 30px">
+          <span id="clock">{{ now }}</span
+          ><small id="clockmisc">.{{ ms }}</small>
+        </div>
+      </div>
+    </div>
+    <div class="clearfloat"></div>
     <div class="row">
       <div class="col-md-3" v-for="data in processedData" :key="data.campaignID">
         <div class="blockcontent">
@@ -19,24 +30,27 @@
               <div class="block-body-info-main" v-if="!data.inTime">
                 <div class="block-body-info">
                   <div class="block-body-suct">{{ data.type }}</div>
-                  <div class="block-body-timer xdnum main_timer" tm="2021-12-30T08:44:48.149+00:00"><span>12:34:56</span><small>.789</small></div>
+                  <div class="block-body-timer xdnum main_timer">
+                    <span>{{ data.remainingTime }}</span
+                    ><small>.{{ msNegative }}</small>
+                  </div>
                   <div class="block-body-info-plus shfont">剩余</div>
                 </div>
                 <div class="block-body-info blue">
                   <div class="block-body-suct">{{ data.type }}</div>
-                  <div class="block-body-timer xdnum" tm="2021-12-30T08:44:48.149+00:00"><span>00:00:00</span><small>.000</small></div>
+                  <div class="block-body-timer xdnum"><span>00:00:00</span><small>.000</small></div>
                   <div class="block-body-info-plus shfont">防守进度</div>
                 </div>
               </div>
               <div class="block-body-info-main" v-if="data.inTime">
                 <div class="block-body-info">
                   <div class="block-body-suct">{{ data.type }}</div>
-                  <div class="block-body-timer xdnum main_timer" tm="2022-01-07T18:36:38.526+00:00" def="1">60%</div>
+                  <div class="block-body-timer xdnum main_timer" def="1">{{ data.defenderScore }}</div>
                   <div class="block-body-info-plus shfont">防守进度</div>
                 </div>
-                <div class="block-body-info blue" style="display: block; clip: rect(0px, 120px, 110px, 0px)">
+                <div class="block-body-info blue" :style="{ display: 'block', clip: 'rect(0px,' + data.defenderScore * 200 + 'px, 105px, 0px)' }">
                   <div class="block-body-suct">{{ data.type }}</div>
-                  <div class="block-body-timer xdnum" tm="2022-01-07T18:36:38.526+00:00" def="1">60%</div>
+                  <div class="block-body-timer xdnum" def="1">{{ data.defenderScore * 100 + '%' }}</div>
                   <div class="block-body-info-plus shfont">防守进度</div>
                 </div>
               </div>
@@ -49,18 +63,42 @@
 </template>
 
 <script>
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import regions from '@/data/regions.js';
 import axios from 'axios';
-import { onMounted, reactive } from 'vue';
+import { onMounted, onUnmounted, reactive, ref } from 'vue';
 export default {
   name: 'Campaigns',
   setup() {
+    dayjs.extend(duration);
     let campaignsData = [];
     let processedData = reactive([]);
+    let remainingTime = ref();
+
+    let now = ref(dayjs().format('HH:mm:ss'));
+    let ms = ref(dayjs().format('SSS'));
+    let msNegative = ref();
+
+    let nowTimer;
+    let msTimer;
 
     onMounted(() => {
       getCampaigns();
-      console.log(campaignsData);
+      nowTimer = setInterval(() => {
+        ms.value = dayjs().format('SSS');
+        msNegative.value = 999 - Number(ms.value) < 100 ? (999 - Number(ms.value) < 10 ? '00' + (999 - Number(ms.value)).toString() : '0' + (999 - Number(ms.value)).toString()) : (999 - Number(ms.value)).toString();
+      }, 1);
+
+      msTimer = setInterval(() => {
+        now.value = dayjs().format('HH:mm:ss');
+        dynamicTimer();
+      }, 1e3);
+    });
+
+    onUnmounted(() => {
+      clearInterval(nowTimer);
+      clearInterval(msTimer);
     });
 
     async function getCampaigns() {
@@ -76,7 +114,6 @@ export default {
 
     async function dataProcess() {
       for (let data of campaignsData) {
-        console.log(data);
         let recivedName = [];
         let id;
         let pendingData = [data.defender_id, data.solar_system_id];
@@ -95,17 +132,41 @@ export default {
           }
         }
 
+        let times = dayjs.duration(dayjs(data.start_time).diff(dayjs())).format('HH:mm:ss');
+        if (dayjs.duration(dayjs(data.start_time).diff(dayjs())).get('days') === 0) {
+          remainingTime.value = times;
+        } else {
+          remainingTime.value = times.replace(/^\d{2}(?=:)/, Number(times.slice(0, 2)) + dayjs.duration(dayjs(data.start_time).diff(dayjs())).get('days') * 24);
+        }
+
         processedData.push({
           campaignID: data.campaign_id,
           solarSystem: recivedName[1].name,
           defender: recivedName[0].name,
           region: regionName,
           type: data.event_type === 'tcu_defense' ? '主权' : '设施',
-          inTime: false, //pending...
+          inTime: dayjs().isAfter(dayjs(data.start_time)),
+          defenderScore: data.defender_score,
+          remainingTime: remainingTime.value,
+          startTime: data.start_time,
         });
       }
     }
-    return { processedData };
+
+    function dynamicTimer() {
+      for (let data of processedData) {
+        let times = dayjs.duration(dayjs(data.startTime).diff(dayjs())).format('HH:mm:ss');
+        if (dayjs.duration(dayjs(data.startTime).diff(dayjs())).get('days') === 0) {
+          data.remainingTime = times;
+        } else {
+          data.remainingTime = times.replace(/^\d{2}(?=:)/, Number(times.slice(0, 2)) + dayjs.duration(dayjs(data.startTime).diff(dayjs())).get('days') * 24);
+        }
+        if(dayjs().isBefore(dayjs(data.start_time))){
+          data.inTime = true;
+        }
+      }
+    }
+    return { processedData, now, ms, msNegative };
   },
 };
 </script>
@@ -191,7 +252,7 @@ body {
   padding-top: 15px;
   text-align: center;
   width: 49px;
-  height: 94px;
+  height: 105px;
   line-height: 40px;
   font-size: 30px;
 }

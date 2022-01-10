@@ -9,6 +9,12 @@
     <router-link to="/campaigns">
       <n-button color="#00918a">增强信息</n-button>
     </router-link>
+    <router-link to="/Market">
+      <n-button color="#00918a">市场</n-button>
+    </router-link>
+    <router-link to="/Map">
+      <n-button color="#00918a">星图</n-button>
+    </router-link>
 
     <router-view></router-view>
   </div>

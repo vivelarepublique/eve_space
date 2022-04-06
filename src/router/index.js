@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import Main from '../components/Main.vue';
+import Main from '../home/Main.vue';
 import Almanac from '../pages/Almanac.vue';
 import Campaigns from '../pages/Campaigns.vue';
 import Market from '../pages/Market.vue';
-import Map from '../pages/Map.vue';
+import StarMap from '../pages/StarMap.vue';
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -26,8 +26,8 @@ const router = createRouter({
       component: Market,
     },
     {
-      path: '/map',
-      component: Map,
+      path: '/starmap',
+      component: StarMap,
     },
   ],
 });

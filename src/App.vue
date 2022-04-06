@@ -1,19 +1,19 @@
 <template>
   <div>
     <router-link to="/">
-      <n-button color="#00918a">主页</n-button>
+      <n-button color="##FF5252">主页</n-button>
     </router-link>
     <router-link to="/almanac">
-      <n-button color="#00918a">老黄历</n-button>
+      <n-button color="##FFB300">老黄历</n-button>
     </router-link>
     <router-link to="/campaigns">
-      <n-button color="#00918a">增强信息</n-button>
+      <n-button color="##FFFF00">增强信息</n-button>
     </router-link>
     <router-link to="/Market">
-      <n-button color="#00918a">市场</n-button>
+      <n-button color="##52FFFF">市场</n-button>
     </router-link>
-    <router-link to="/Map">
-      <n-button color="#00918a">星图</n-button>
+    <router-link to="/StarMap">
+      <n-button color="##ADFFDD">星图</n-button>
     </router-link>
 
     <router-view></router-view>

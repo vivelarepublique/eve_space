@@ -6,7 +6,7 @@
     </div>
   </div>
   <video autoplay loop id="bgvid">
-    <source src="../assets/video/AmarrSpace.mp4" type="video/mp4" />
+    <source src="../assets/video/Space.mp4" type="video/mp4" />
   </video>
 </template>
 

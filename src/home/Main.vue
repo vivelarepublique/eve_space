@@ -59,7 +59,7 @@ export default {
 <style scoped>
 @import "../assets/css/bootstrap.css";
 #bgvid {
-  position: fixed;
+  position: absolute;
   right: 0;
   bottom: 0;
   min-width: 100%;
@@ -67,7 +67,7 @@ export default {
   height: auto;
   width: auto;
   overflow: hidden;
-  z-index: -1000;
+  z-index: -1;
   opacity: 1;
 }
 div {

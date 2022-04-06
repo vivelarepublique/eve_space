@@ -18,22 +18,38 @@ export default {
   setup() {
     let playerCN = ref(0);
     let playerG = ref(0);
-    onMounted(() => {
-      checkServerinformation();
-      setInterval(() => {
-        checkServerinformation();
+    onMounted(async () => {
+      let checkResult = await checkServerinformation();
+      playerCN.value = checkResult.playerCN;
+      playerG.value = checkResult.playerG;
+      setInterval(async () => {
+        let checkResult = await checkServerinformation();
+        playerCN.value = checkResult.playerCN;
+        playerG.value = checkResult.playerG;
       }, 3e4);
     });
 
-    function checkServerinformation() {
-      axios
-        .get("https://esi.evepc.163.com/dev/status/")
-        .then((res) => (playerCN.value = res.data.players))
-        .catch((error) => console.log(error));
-      axios
-        .get("https://esi.evetech.net/dev/status/")
-        .then((res) => (playerG.value = res.data.players))
-        .catch((error) => console.log(error));
+    async function checkServerinformation() {
+      let playerCN = 0;
+      let playerG = 0;
+      try {
+        let response = await axios.get("https://esi.evepc.163.com/dev/status/");
+        let data = await response.data;
+        playerCN = data.players;
+      } catch (error) {
+        console.log(error);
+      }
+      try {
+        let response = await axios.get("https://esi.evetech.net/dev/status/");
+        let data = await response.data;
+        playerG = data.players;
+      } catch (error) {
+        console.log(error);
+      }
+      return {
+        playerCN,
+        playerG,
+      };
     }
     return { playerCN, playerG };
   },
@@ -52,7 +68,7 @@ export default {
   width: auto;
   overflow: hidden;
   z-index: -1000;
-  opacity: 0.9;
+  opacity: 1;
 }
 div {
   color: #fff;

@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 import Main from '../components/Main.vue';
-import Almanac from '../components/Almanac.vue';
-import Campaigns from '../components/Campaigns.vue';
-import Market from '../components/Market.vue';
-import Map from '../components/Map.vue';
+import Almanac from '../pages/Almanac.vue';
+import Campaigns from '../pages/Campaigns.vue';
+import Market from '../pages/Market.vue';
+import Map from '../pages/Map.vue';
 
 const router = createRouter({
   history: createWebHashHistory(),

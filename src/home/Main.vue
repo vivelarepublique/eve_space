@@ -5,6 +5,8 @@
       <div class="col-md-2">宁静服务器玩家在线数量: {{ playerG }}</div>
     </div>
   </div>
+  <h1 id="map_title">EVE国服市场</h1>
+  <IndexMarket></IndexMarket>
   <video autoplay loop id="bgvid">
     <source src="../assets/video/Space.mp4" type="video/mp4" />
   </video>
@@ -13,8 +15,12 @@
 <script>
 import axios from "axios";
 import { onMounted, ref } from "vue";
+import IndexMarket from "../components/IndexMarket.vue";
 export default {
   name: "Main",
+  components: {
+    IndexMarket,
+  },
   setup() {
     let playerCN = ref(0);
     let playerG = ref(0);
@@ -57,7 +63,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../assets/css/bootstrap.css";
+/* @import "../assets/css/bootstrap.css"; */
 #bgvid {
   position: absolute;
   right: 0;
@@ -72,5 +78,10 @@ export default {
 }
 div {
   color: #fff;
+}
+#map_title {
+  margin-left: 10%;
+  color:#fff;
+  font-size: 36px;
 }
 </style>

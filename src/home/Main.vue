@@ -10,6 +10,7 @@
   <video autoplay loop id="bgvid">
     <source src="../assets/video/Space.mp4" type="video/mp4" />
   </video>
+  <img src="../assets/image/Space.gif" id="bgiid" />
 </template>
 
 <script>
@@ -76,12 +77,23 @@ export default {
   z-index: -1;
   opacity: 1;
 }
+#bgiid{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  height: auto;
+  width: auto;
+  overflow: hidden;
+  z-index: -10;
+}
 div {
   color: #fff;
 }
 #map_title {
   margin-left: 10%;
-  color:#fff;
+  color: #fff;
   font-size: 36px;
 }
 </style>

@@ -125,7 +125,7 @@ export default defineComponent({
         } else if (row.type === "卫星原材料") {
           return "moon";
         } else if (row.type === "行星材料") {
-          return "star";
+          return "planet";
         } else {
           return "";
         }
@@ -158,7 +158,7 @@ export default defineComponent({
 :deep(.moon .type) {
   color: rgba(128, 128, 0, 0.75) !important;
 }
-:deep(.star .type) {
+:deep(.planet .type) {
   color: rgba(0, 128, 0, 0.75) !important;
 }
 </style>

@@ -5,6 +5,10 @@ import Almanac from '../pages/Almanac.vue';
 import Campaigns from '../pages/Campaigns.vue';
 import Market from '../pages/Market.vue';
 import StarMap from '../pages/StarMap.vue';
+import Mineral from '../pages/Mineral.vue';
+import Ice from '../pages/Ice.vue';
+import Moon from '../pages/Moon.vue';
+import Planet from '../pages/Planet.vue';
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -28,6 +32,22 @@ const router = createRouter({
     {
       path: '/starmap',
       component: StarMap,
+    },
+    {
+      path: '/mineral',
+      component: Mineral,
+    },
+    {
+      path: '/ice',
+      component: Ice,
+    },
+    {
+      path: '/moon',
+      component: Moon,
+    },
+    {
+      path: '/planet',
+      component: Planet,
     },
   ],
 });

@@ -9,11 +9,23 @@
     <router-link to="/campaigns">
       <n-button color="#DDDD00">增强信息</n-button>
     </router-link>
-    <router-link to="/Market">
+    <router-link to="/market">
       <n-button color="#52DDDD">市场</n-button>
     </router-link>
-    <router-link to="/StarMap">
+    <router-link to="/starmap">
       <n-button color="#ADEEDD">星图</n-button>
+    </router-link>
+        <router-link to="/mineral">
+      <n-button color="#DD5252">矿物</n-button>
+    </router-link>
+    <router-link to="/ice">
+      <n-button color="#1976D2">冰矿</n-button>
+    </router-link>
+        <router-link to="/moon">
+      <n-button color="#EE9800">月矿</n-button>
+    </router-link>
+        <router-link to="/planet">
+      <n-button color="#00BFA5">行星材料</n-button>
     </router-link>
 
     <router-view></router-view>

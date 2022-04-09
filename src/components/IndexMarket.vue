@@ -66,7 +66,7 @@ export default defineComponent({
 
     const paginationReactive = reactive({
       page: 1,
-      pageSize: 10,
+      pageSize: 8,
       onChange: (page) => {
         paginationReactive.page = page;
       },

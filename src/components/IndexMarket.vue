@@ -6,28 +6,59 @@
       :data="data"
       :pagination="pagination"
       :bordered="false"
+      :max-height="400"
+      :row-class-name="rowClassName"
+      size="large"
     />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import { defineComponent, reactive, ref } from "vue";
-import { NDataTable } from "naive-ui";
+import { h, defineComponent, reactive, ref } from "vue";
+import { NDataTable, NGradientText } from "naive-ui";
 import item from "../data/item.js";
 
 const createColumns = () => {
   return [
     {
-      title: "名称",
       key: "name",
+      title() {
+        return h(
+          NGradientText,
+          {
+            size: "24",
+            type: "info",
+          },
+          { default: () => "名称" }
+        );
+      },
+      className: "type",
     },
     {
-      title: "晨曦",
+      title() {
+        return h(
+          NGradientText,
+          {
+            size: "24",
+            type: "info",
+          },
+          { default: () => "晨曦" }
+        );
+      },
       key: "priceCN",
     },
     {
-      title: "宁静",
+      title() {
+        return h(
+          NGradientText,
+          {
+            size: "24",
+            type: "info",
+          },
+          { default: () => "宁静" }
+        );
+      },
       key: "priceG",
     },
   ];
@@ -51,8 +82,14 @@ export default defineComponent({
             if (i.typeID === r.type_id) {
               data.push({
                 name: i.name,
-                priceCN: r.average_price,
+                priceCN:
+                  r.average_price >= 1e8
+                    ? (r.average_price / 1e8).toFixed(2) + " 亿"
+                    : r.average_price >= 1e4
+                    ? (r.average_price / 1e4).toFixed(2) + " 万"
+                    : r.average_price,
                 priceG: "NA",
+                type: i.type,
               });
               break;
             }
@@ -80,6 +117,19 @@ export default defineComponent({
       data,
       columns: createColumns(),
       pagination: paginationReactive,
+      rowClassName(row) {
+        if (row.type === "矿物") {
+          return "mineral";
+        } else if (row.type === "冰矿产物") {
+          return "ice";
+        } else if (row.type === "卫星原材料") {
+          return "moon";
+        } else if (row.type === "行星材料") {
+          return "star";
+        } else {
+          return "";
+        }
+      },
     };
   },
 });
@@ -91,5 +141,24 @@ export default defineComponent({
   margin-left: auto;
   margin-right: auto;
   opacity: 0.85;
+}
+
+:deep(td) {
+  color: rgba(0, 0, 0, 0.75) !important;
+}
+:deep(.type) {
+  color: rgba(128, 0, 128, 0.75) !important;
+}
+:deep(.mineral .type) {
+  color: rgba(128, 0, 0, 0.75) !important;
+}
+:deep(.ice .type) {
+  color: rgba(0, 0, 128, 0.75) !important;
+}
+:deep(.moon .type) {
+  color: rgba(128, 128, 0, 0.75) !important;
+}
+:deep(.star .type) {
+  color: rgba(0, 128, 0, 0.75) !important;
 }
 </style>

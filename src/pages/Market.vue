@@ -180,12 +180,15 @@ export default defineComponent({
 
 <style>
 .n-layout-sider {
-  background: rgba(128, 128, 128, 0.5);
-  opacity: 0.5;
+  background-color: black;
+  opacity: 0.8;
+  color: white;
 }
 
 .n-layout-content {
-  background: rgba(128, 128, 128, 0.5);
-  opacity: 0.5;
+  background-color: black;
+  opacity: 0.8;
+  color: white;
+  height: 100%;
 }
 </style>

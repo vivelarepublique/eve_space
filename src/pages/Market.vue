@@ -159,7 +159,7 @@
 <script>
 import { defineComponent } from "vue";
 import { NTree, NSpace, NLayout, NLayoutSider, NLayoutContent } from "naive-ui";
-import marketTree from "../data/marketTree.js";
+import marketTree from "../data/marketTree.json";
 
 export default defineComponent({
   name: "market",

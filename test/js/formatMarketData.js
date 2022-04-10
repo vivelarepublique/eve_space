@@ -111,37 +111,72 @@ function checkData(item, level) {
 }
 
 function checkArray(r, item, level) {
-    if (Object.hasOwn(r, 'key')) {
-        if (r.key === item[`classification${level}`]) {
+    if (r && Object.hasOwn(r, 'key')) {
+        if (r.label === item[`classification${level}`]) {
             if (Object.hasOwn(r, 'children')) {
-                let flag;
-                for (let c of r.children) {
-                    if (c.key === item[`classification${level + 1}`]) {
-                        flag = true;
-                        break;
+                let flag = false;
+                if (r.children.length !== 0) {
+                    for (let c of r.children) {
+                        if (c.label === item[`classification${level + 1}`]) {
+                            flag = true;
+                            break;
+                        }
                     }
                 }
                 if (!flag) {
-                    r.children.push({
-                        label: item[`classification${level + 1}`],
-                        key: item[`classification${level + 1}`],
-                    });
+                    if (Object.hasOwn(item, `classification${level + 1}`)) {
+                        let keyid = '';
+                        for (let l = level; l--; l > 2) {
+                            keyid += '-' + item[`classification${l + 1}`];
+                        }
+                        r.children.push({
+                            label: item[`classification${level + 1}`],
+                            key: item[`classification${level + 1}`] + keyid,
+                        });
+                    } else {
+                        r.children.push({
+                            label: item.name,
+                            key: item.typeID,
+                        });
+                    }
                 }
             } else {
-                r.children = [];
-                r.children.push({
-                    label: item[`classification${level + 1}`],
-                    key: item[`classification${level + 1}`],
-                });
+                if (Object.hasOwn(item, `classification${level + 1}`)) {
+                    let keyid = '';
+                    for (let l = level; l--; l > 2) {
+                        keyid += '-' + item[`classification${l + 1}`];
+                    }
+                    r.children = [];
+                    r.children.push({
+                        label: item[`classification${level + 1}`],
+                        key: item[`classification${level + 1}`] + keyid,
+                    });
+                } else {
+                    r.children = [];
+                    r.children.push({
+                        label: item.name,
+                        key: item.typeID,
+                    });
+                }
+            }
+        } else {
+            return;
+        }
+    }
+    if (level <= 5 && r && r.children) {
+        let child;
+        let flag = false;
+        for (let c of r.children) {
+            if (c.label === item[`classification${level + 1}`]) {
+                child = c;
+                flag = true;
+                break;
             }
         }
-    } else {
-        r.push({
-            label: item[`classification${level}`],
-            key: item[`classification${level}`],
-        });
+        if (flag) {
+            checkArray(child, item, level + 1);
+        }
     }
-    //checkArray();
 }
 
 fs.writeFile('result.json', JSON.stringify(result), function (err) {

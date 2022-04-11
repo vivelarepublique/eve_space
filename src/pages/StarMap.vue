@@ -1,16 +1,12 @@
 <template>
   <div>
-    <img
-      src="https://www.ceve-market.org/app/influence.png"
-      alt="加载中..."
-      id="map"
-    />
+    <img src="https://www.ceve-market.org/app/influence.png" alt="加载中..." id="map" />
   </div>
 </template>
 
 <script>
 export default {
-  name: "starmap",
+  name: 'starmap',
 };
 </script>
 

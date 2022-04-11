@@ -1,71 +1,62 @@
 <template>
   <div class="row">
-    <n-data-table
-      v-if="flag"
-      :columns="columns"
-      :data="data"
-      :pagination="pagination"
-      :bordered="false"
-      :max-height="400"
-      :row-class-name="rowClassName"
-      size="large"
-    />
+    <n-data-table v-if="flag" :columns="columns" :data="data" :pagination="pagination" :bordered="false" :max-height="400" :row-class-name="rowClassName" size="large" />
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import { h, defineComponent, reactive, ref } from "vue";
-import { NDataTable, NGradientText } from "naive-ui";
-import item from "../data/item.js";
+import axios from 'axios';
+import { h, defineComponent, reactive, ref } from 'vue';
+import { NDataTable, NGradientText } from 'naive-ui';
+import item from '../data/item.js';
 
 const createColumns = () => {
   return [
     {
-      key: "name",
+      key: 'name',
       title() {
         return h(
           NGradientText,
           {
-            size: "24",
-            type: "info",
+            size: '24',
+            type: 'info',
           },
-          { default: () => "名称" }
+          { default: () => '名称' }
         );
       },
-      className: "type",
+      className: 'type',
     },
     {
       title() {
         return h(
           NGradientText,
           {
-            size: "24",
-            type: "info",
+            size: '24',
+            type: 'info',
           },
-          { default: () => "晨曦" }
+          { default: () => '晨曦' }
         );
       },
-      key: "priceCN",
+      key: 'priceCN',
     },
     {
       title() {
         return h(
           NGradientText,
           {
-            size: "24",
-            type: "info",
+            size: '24',
+            type: 'info',
           },
-          { default: () => "宁静" }
+          { default: () => '宁静' }
         );
       },
-      key: "priceG",
+      key: 'priceG',
     },
   ];
 };
 
 export default defineComponent({
-  name: "indexmap",
+  name: 'indexmap',
   components: { NDataTable },
   setup() {
     let flag = ref(false);
@@ -73,22 +64,15 @@ export default defineComponent({
     getMarketData();
     async function getMarketData() {
       try {
-        let response = await axios.get(
-          "https://esi.evepc.163.com/latest/markets/prices/?datasource=serenity"
-        );
+        let response = await axios.get('https://esi.evepc.163.com/latest/markets/prices/?datasource=serenity');
         let res = await response.data;
         for (let i of item) {
           for (let r of res) {
             if (i.typeID === r.type_id) {
               data.push({
                 name: i.name,
-                priceCN:
-                  r.average_price >= 1e8
-                    ? (r.average_price / 1e8).toFixed(2) + " 亿"
-                    : r.average_price >= 1e4
-                    ? (r.average_price / 1e4).toFixed(2) + " 万"
-                    : r.average_price,
-                priceG: "NA",
+                priceCN: r.average_price >= 1e8 ? (r.average_price / 1e8).toFixed(2) + ' 亿' : r.average_price >= 1e4 ? (r.average_price / 1e4).toFixed(2) + ' 万' : r.average_price,
+                priceG: 'NA',
                 type: i.type,
               });
               break;
@@ -104,10 +88,10 @@ export default defineComponent({
     const paginationReactive = reactive({
       page: 1,
       pageSize: 8,
-      onChange: (page) => {
+      onChange: page => {
         paginationReactive.page = page;
       },
-      onUpdatePageSize: (pageSize) => {
+      onUpdatePageSize: pageSize => {
         paginationReactive.pageSize = pageSize;
         paginationReactive.page = 1;
       },
@@ -118,16 +102,16 @@ export default defineComponent({
       columns: createColumns(),
       pagination: paginationReactive,
       rowClassName(row) {
-        if (row.type === "矿物") {
-          return "mineral";
-        } else if (row.type === "冰矿产物") {
-          return "ice";
-        } else if (row.type === "卫星原材料") {
-          return "moon";
-        } else if (row.type === "行星材料") {
-          return "planet";
+        if (row.type === '矿物') {
+          return 'mineral';
+        } else if (row.type === '冰矿产物') {
+          return 'ice';
+        } else if (row.type === '卫星原材料') {
+          return 'moon';
+        } else if (row.type === '行星材料') {
+          return 'planet';
         } else {
-          return "";
+          return '';
         }
       },
     };

@@ -15,16 +15,16 @@
     <router-link to="/starmap">
       <n-button color="#ADEEDD">星图</n-button>
     </router-link>
-        <router-link to="/mineral">
+    <router-link to="/mineral">
       <n-button color="#DD5252">矿物</n-button>
     </router-link>
     <router-link to="/ice">
       <n-button color="#1976D2">冰矿</n-button>
     </router-link>
-        <router-link to="/moon">
+    <router-link to="/moon">
       <n-button color="#EE9800">月矿</n-button>
     </router-link>
-        <router-link to="/planet">
+    <router-link to="/planet">
       <n-button color="#00BFA5">行星材料</n-button>
     </router-link>
 
@@ -34,11 +34,11 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import { NButton } from "naive-ui";
+import { defineComponent } from 'vue';
+import { NButton } from 'naive-ui';
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   components: {
     NButton,
   },

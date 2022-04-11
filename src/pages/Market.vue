@@ -17,16 +17,8 @@
                       {{ r.name }}
                     </option>
                   </select>
-                  <label for="search">物品名称</label
-                  ><input
-                    type="text"
-                    id="search"
-                    class="form-control input-sm"
-                    style="width: 100px"
-                  />
-                  <button id="searchbtn" class="btn btn-default btn-sm">
-                    搜索
-                  </button>
+                  <label for="search">物品名称</label><input type="text" id="search" class="form-control input-sm" style="width: 100px" />
+                  <button id="searchbtn" class="btn btn-default btn-sm">搜索</button>
                 </form>
               </td>
             </tr>
@@ -52,13 +44,13 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
-import { NTree, NSpace, NLayout, NLayoutSider, NLayoutContent } from "naive-ui";
-import marketTree from "../data/marketTree.json";
-import regions from "@/data/regions.js";
+import { defineComponent, ref } from 'vue';
+import { NTree, NSpace, NLayout, NLayoutSider, NLayoutContent } from 'naive-ui';
+import marketTree from '../data/marketTree.json';
+import regions from '@/data/regions.js';
 
 export default defineComponent({
-  name: "market",
+  name: 'market',
   components: {
     NTree,
     NSpace,
@@ -67,7 +59,7 @@ export default defineComponent({
     NLayoutContent,
   },
   setup() {
-    let galaxy = ref("吉他");
+    let galaxy = ref('吉他');
     return {
       data: marketTree,
       regions,

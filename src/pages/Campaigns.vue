@@ -161,7 +161,7 @@ export default {
         } else {
           data.remainingTime = times.replace(/^\d{2}(?=:)/, Number(times.slice(0, 2)) + dayjs.duration(dayjs(data.startTime).diff(dayjs())).get('days') * 24);
         }
-        if(dayjs().isBefore(dayjs(data.start_time))){
+        if (dayjs().isBefore(dayjs(data.start_time))) {
           data.inTime = true;
         }
       }

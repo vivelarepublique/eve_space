@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import axios from "axios";
-import { onMounted, ref } from "vue";
-import IndexMarket from "../components/IndexMarket.vue";
+import axios from 'axios';
+import { onMounted, ref } from 'vue';
+import IndexMarket from '../components/IndexMarket.vue';
 export default {
-  name: "Main",
+  name: 'Main',
   components: {
     IndexMarket,
   },
@@ -40,14 +40,14 @@ export default {
       let playerCN = 0;
       let playerG = 0;
       try {
-        let response = await axios.get("https://esi.evepc.163.com/dev/status/");
+        let response = await axios.get('https://esi.evepc.163.com/dev/status/');
         let data = await response.data;
         playerCN = data.players;
       } catch (error) {
         console.log(error);
       }
       try {
-        let response = await axios.get("https://esi.evetech.net/dev/status/");
+        let response = await axios.get('https://esi.evetech.net/dev/status/');
         let data = await response.data;
         playerG = data.players;
       } catch (error) {
@@ -77,7 +77,7 @@ export default {
   z-index: -1;
   opacity: 1;
 }
-#bgiid{
+#bgiid {
   position: absolute;
   right: 0;
   bottom: 0;

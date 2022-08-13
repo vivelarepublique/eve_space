@@ -1,3 +1,9 @@
+interface Result {
+  typeID: number;
+  name: string;
+  type: string;
+}
+
 const item = [
   {
     typeID: 34,
@@ -522,7 +528,7 @@ const item = [
 ];
 
 function convert(i: Array<any>) {
-  let result = [];
+  let result: Result[] = [];
   for (let key of i) {
     result.push({
       typeID: Number.parseInt(key.typeID),

@@ -60,12 +60,12 @@ export default defineComponent({
   components: { NDataTable },
   setup() {
     let flag = ref(false);
-    let data = [];
+    const data = [];
     getMarketData();
     async function getMarketData() {
       try {
-        let response = await axios.get('https://esi.evepc.163.com/latest/markets/prices/?datasource=serenity');
-        let res = await response.data;
+        const response = await axios.get('https://esi.evepc.163.com/latest/markets/prices/?datasource=serenity');
+        const res = await response.data;
         for (let i of item) {
           for (let r of res) {
             if (i.typeID === r.type_id) {
@@ -88,9 +88,7 @@ export default defineComponent({
     const paginationReactive = reactive({
       page: 1,
       pageSize: 8,
-      onChange: page => {
-        paginationReactive.page = page;
-      },
+      onChange: page => (paginationReactive.page = page),
       onUpdatePageSize: pageSize => {
         paginationReactive.pageSize = pageSize;
         paginationReactive.page = 1;

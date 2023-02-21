@@ -87,7 +87,7 @@ export default {
       getCampaigns();
       nowTimer = setInterval(() => {
         ms.value = dayjs().format('SSS');
-        msNegative.value = 999 - Number(ms.value) < 100 ? (999 - Number(ms.value) < 10 ? '00' + (999 - Number(ms.value)).toString() : '0' + (999 - Number(ms.value)).toString()) : (999 - Number(ms.value)).toString();
+        msNegative.value = (999 - Number(ms.value)).toString().padStart(3, '0');
       }, 1);
 
       msTimer = setInterval(() => {
@@ -114,35 +114,27 @@ export default {
 
     async function dataProcess() {
       for (let data of campaignsData) {
-        let recivedName = [];
+        let receivedName = [];
         let id;
-        let pendingData = [data.defender_id, data.solar_system_id];
+        const pendingData = [data.defender_id, data.solar_system_id];
         try {
           const res = await axios.post('https://esi.evepc.163.com/latest/universe/names/?datasource=serenity', pendingData);
-          recivedName = res.data;
+          receivedName = res.data;
           const res2 = await axios.get(`https://esi.evepc.163.com/latest/universe/constellations/${data.constellation_id}/?datasource=serenity&language=zh`);
           id = res2.data.region_id;
         } catch (e) {
           console.log(e);
         }
-        let regionName;
-        for (let region of regions) {
-          if (region.id === id) {
-            regionName = region.name;
-          }
-        }
 
-        let times = dayjs.duration(dayjs(data.start_time).diff(dayjs())).format('HH:mm:ss');
-        if (dayjs.duration(dayjs(data.start_time).diff(dayjs())).get('days') === 0) {
-          remainingTime.value = times;
-        } else {
-          remainingTime.value = times.replace(/^\d{2}(?=:)/, Number(times.slice(0, 2)) + dayjs.duration(dayjs(data.start_time).diff(dayjs())).get('days') * 24);
-        }
+        const regionName = regions.find(region => region.id === id.toString())?.name;
+
+        const times = dayjs.duration(dayjs(data.start_time).diff(dayjs())).format('HH:mm:ss');
+        remainingTime.value = dayjs.duration(dayjs(data.start_time).diff(dayjs())).get('days') === 0 ? times : times.replace(/^\d{2}(?=:)/, Number(times.slice(0, 2)) + dayjs.duration(dayjs(data.start_time).diff(dayjs())).get('days') * 24);
 
         processedData.push({
           campaignID: data.campaign_id,
-          solarSystem: recivedName[1].name,
-          defender: recivedName[0].name,
+          solarSystem: receivedName[1].name,
+          defender: receivedName[0].name,
           region: regionName,
           type: data.event_type === 'tcu_defense' ? '主权' : '设施',
           inTime: dayjs().isAfter(dayjs(data.start_time)),
@@ -155,15 +147,9 @@ export default {
 
     function dynamicTimer() {
       for (let data of processedData) {
-        let times = dayjs.duration(dayjs(data.startTime).diff(dayjs())).format('HH:mm:ss');
-        if (dayjs.duration(dayjs(data.startTime).diff(dayjs())).get('days') === 0) {
-          data.remainingTime = times;
-        } else {
-          data.remainingTime = times.replace(/^\d{2}(?=:)/, Number(times.slice(0, 2)) + dayjs.duration(dayjs(data.startTime).diff(dayjs())).get('days') * 24);
-        }
-        if (dayjs().isBefore(dayjs(data.start_time))) {
-          data.inTime = true;
-        }
+        const times = dayjs.duration(dayjs(data.startTime).diff(dayjs())).format('HH:mm:ss');
+        data.remainingTime = dayjs.duration(dayjs(data.startTime).diff(dayjs())).get('days') === 0 ? times : times.replace(/^\d{2}(?=:)/, Number(times.slice(0, 2)) + dayjs.duration(dayjs(data.startTime).diff(dayjs())).get('days') * 24);
+        data.inTime = dayjs().isBefore(dayjs(data.start_time));
       }
     }
     return { processedData, now, ms, msNegative };

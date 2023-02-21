@@ -43,12 +43,7 @@ export default defineComponent({
     NButton,
   },
   setup() {
-    let number = 4;
-    if (Math.floor(Math.random() * 10) <= 4) {
-      number = 4;
-    } else {
-      number = 5;
-    }
+    const number = Math.floor(Math.random() * 10) <= 4 ? 4 : 5;
     return { number };
   },
 });

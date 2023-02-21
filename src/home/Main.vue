@@ -26,29 +26,29 @@ export default {
     let playerCN = ref(0);
     let playerG = ref(0);
     onMounted(async () => {
-      let checkResult = await checkServerinformation();
+      const checkResult = await checkServerInformation();
       playerCN.value = checkResult.playerCN;
       playerG.value = checkResult.playerG;
       setInterval(async () => {
-        let checkResult = await checkServerinformation();
+        const checkResult = await checkServerInformation();
         playerCN.value = checkResult.playerCN;
         playerG.value = checkResult.playerG;
       }, 3e4);
     });
 
-    async function checkServerinformation() {
+    async function checkServerInformation() {
       let playerCN = 0;
       let playerG = 0;
       try {
-        let response = await axios.get('https://esi.evepc.163.com/dev/status/');
-        let data = await response.data;
+        const response = await axios.get('https://esi.evepc.163.com/dev/status/');
+        const data = await response.data;
         playerCN = data.players;
       } catch (error) {
         console.log(error);
       }
       try {
-        let response = await axios.get('https://esi.evetech.net/dev/status/');
-        let data = await response.data;
+        const response = await axios.get('https://esi.evetech.net/dev/status/');
+        const data = await response.data;
         playerG = data.players;
       } catch (error) {
         console.log(error);

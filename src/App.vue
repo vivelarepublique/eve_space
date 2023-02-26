@@ -54,6 +54,7 @@ button {
   margin: 15px;
   color: black;
 }
+
 #bgimg {
   position: fixed;
   right: 0;

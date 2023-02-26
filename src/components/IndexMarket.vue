@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <n-data-table v-if="flag" :columns="columns" :data="data" :pagination="pagination" :bordered="false" :max-height="400" :row-class-name="rowClassName" size="large" />
+    <n-data-table v-if="flag" :columns="columns" :data="data" :pagination="pagination" :max-height="400" :row-class-name="rowClassName" size="large" striped bordered/>
   </div>
 </template>
 
@@ -37,7 +37,7 @@ const createColumns = () => {
           { default: () => '晨曦' }
         );
       },
-      key: 'priceCN',
+      key: 'serenityPrice',
     },
     {
       title() {
@@ -50,7 +50,7 @@ const createColumns = () => {
           { default: () => '宁静' }
         );
       },
-      key: 'priceG',
+      key: 'tranquilityPrice',
     },
   ];
 };
@@ -71,8 +71,8 @@ export default defineComponent({
             if (i.typeID === r.type_id) {
               data.push({
                 name: i.name,
-                priceCN: r.average_price >= 1e8 ? (r.average_price / 1e8).toFixed(2) + ' 亿' : r.average_price >= 1e4 ? (r.average_price / 1e4).toFixed(2) + ' 万' : r.average_price,
-                priceG: 'NA',
+                serenityPrice: r.average_price >= 1e8 ? (r.average_price / 1e8).toFixed(2) + ' 亿' : r.average_price >= 1e4 ? (r.average_price / 1e4).toFixed(2) + ' 万' : r.average_price,
+                tranquilityPrice: 'N/A',
                 type: i.type,
               });
               break;
@@ -122,7 +122,7 @@ export default defineComponent({
   width: 80%;
   margin-left: auto;
   margin-right: auto;
-  opacity: 0.85;
+  opacity: 0.95;
 }
 
 :deep(td) {

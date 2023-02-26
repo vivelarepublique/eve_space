@@ -1,64 +1,66 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-2">晨曦服务器玩家在线数量: {{ playerCN }}</div>
-      <div class="col-md-2">宁静服务器玩家在线数量: {{ playerG }}</div>
+      <n-gradient-text class="col-md-3" type="success" size="24px"> 晨曦在线: {{ serenityOnline }} </n-gradient-text>
+      <n-gradient-text class="col-md-3" type="error" size="24px"> 宁静在线: {{ tranquilityOnline }} </n-gradient-text>
     </div>
   </div>
-  <h1 id="map_title">EVE国服市场</h1>
+  <h1 id="map_title">EVE市场</h1>
   <IndexMarket></IndexMarket>
   <video autoplay loop id="bgvid">
     <source src="../assets/video/Space.mp4" type="video/mp4" />
   </video>
-  <img src="../assets/image/Space.gif" id="bgiid" />
+  <!-- <img src="../assets/image/Space.gif" id="bgiid" /> -->
 </template>
 
 <script>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import IndexMarket from '../components/IndexMarket.vue';
+import { NGradientText } from 'naive-ui';
 export default {
   name: 'Main',
   components: {
     IndexMarket,
+    NGradientText,
   },
   setup() {
-    let playerCN = ref(0);
-    let playerG = ref(0);
+    let serenityOnline = ref(0);
+    let tranquilityOnline = ref(0);
     onMounted(async () => {
       const checkResult = await checkServerInformation();
-      playerCN.value = checkResult.playerCN;
-      playerG.value = checkResult.playerG;
+      serenityOnline.value = checkResult.serenityOnline;
+      tranquilityOnline.value = checkResult.tranquilityOnline;
       setInterval(async () => {
         const checkResult = await checkServerInformation();
-        playerCN.value = checkResult.playerCN;
-        playerG.value = checkResult.playerG;
+        serenityOnline.value = checkResult.serenityOnline;
+        tranquilityOnline.value = checkResult.tranquilityOnline;
       }, 3e4);
     });
 
     async function checkServerInformation() {
-      let playerCN = 0;
-      let playerG = 0;
+      let serenityOnline = 0;
+      let tranquilityOnline = 0;
       try {
         const response = await axios.get('https://esi.evepc.163.com/dev/status/');
         const data = await response.data;
-        playerCN = data.players;
+        ({ players: serenityOnline } = data);
       } catch (error) {
         console.log(error);
       }
       try {
         const response = await axios.get('https://esi.evetech.net/dev/status/');
         const data = await response.data;
-        playerG = data.players;
+        ({ players: tranquilityOnline } = data);
       } catch (error) {
         console.log(error);
       }
       return {
-        playerCN,
-        playerG,
+        serenityOnline,
+        tranquilityOnline,
       };
     }
-    return { playerCN, playerG };
+    return { serenityOnline, tranquilityOnline };
   },
 };
 </script>
@@ -77,6 +79,7 @@ export default {
   z-index: -1;
   opacity: 1;
 }
+
 #bgiid {
   position: absolute;
   right: 0;
@@ -88,12 +91,17 @@ export default {
   overflow: hidden;
   z-index: -10;
 }
+
 div {
   color: #fff;
 }
+
 #map_title {
   margin-left: 10%;
   color: #fff;
   font-size: 36px;
+}
+.n-gradient-text {
+  font-weight: bold;
 }
 </style>

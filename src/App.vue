@@ -37,6 +37,11 @@
 import { defineComponent } from 'vue';
 import { NButton } from 'naive-ui';
 
+import pinia from './shared/store';
+import { useMarketStore } from './shared/marketStore';
+const store = useMarketStore(pinia);
+store.update();
+
 export default defineComponent({
   name: 'App',
   components: {

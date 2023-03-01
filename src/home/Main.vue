@@ -18,6 +18,7 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import IndexMarket from '../components/IndexMarket.vue';
 import { NGradientText } from 'naive-ui';
+
 export default {
   name: 'Main',
   components: {

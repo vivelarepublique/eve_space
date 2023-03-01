@@ -1,14 +1,17 @@
 <template>
   <div class="row">
-    <n-data-table v-if="flag" :columns="columns" :data="data" :pagination="pagination" :max-height="400" :row-class-name="rowClassName" size="large" striped bordered/>
+    <n-data-table v-if="flag" :columns="columns" :data="data" :pagination="pagination" :max-height="400" :row-class-name="rowClassName" size="large" striped bordered />
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 import { h, defineComponent, reactive, ref } from 'vue';
 import { NDataTable, NGradientText } from 'naive-ui';
 import item from '../data/item.js';
+
+import pinia from '../shared/store';
+import { useMarketStore } from '../shared/marketStore';
+const store = useMarketStore(pinia);
 
 const createColumns = () => {
   return [
@@ -64,10 +67,8 @@ export default defineComponent({
     getMarketData();
     async function getMarketData() {
       try {
-        const response = await axios.get('https://esi.evepc.163.com/latest/markets/prices/?datasource=serenity');
-        const res = await response.data;
         for (let i of item) {
-          for (let r of res) {
+          for (let r of store.data) {
             if (i.typeID === r.type_id) {
               data.push({
                 name: i.name,

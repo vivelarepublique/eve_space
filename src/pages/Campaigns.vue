@@ -65,7 +65,7 @@
 <script>
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
-import regions from '@/data/regions.js';
+import regions from '../data/regions.js';
 import axios from 'axios';
 import { onMounted, onUnmounted, reactive, ref } from 'vue';
 export default {

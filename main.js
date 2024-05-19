@@ -5,9 +5,10 @@ const createWindow = () => {
     const win = new BrowserWindow({
         width: 1600,
         height: 1000,
-        // webPreferences: {
-        //     preload: path.join(__dirname, './preload/preload.js'),
-        // },
+        webPreferences: {
+            webSecurity: false,
+            // preload: path.join(__dirname, './preload/preload.js'),
+        },
     });
 
     win.loadFile('./index.html');

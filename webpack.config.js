@@ -26,7 +26,7 @@ const config = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.(eot|svg|ttf|woff|woff2|png|jpg|mp4)$/i,
+                test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif|mp4)$/i,
                 type: 'asset',
             },
         ],

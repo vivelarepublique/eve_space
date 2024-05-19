@@ -8,23 +8,14 @@
 
 No yet.
 
-## Manually build and install
+## Start
 
 ```bash
 git clone https://github.com/vivelarepublique/eve_space
 cd eve_space
 npm install
-npm run electron:serve
+npm run start
 ```
-
-If you get an `electron` installation error during the `npm install` process, please refer to the following command:
-
-```bash
-cd node_modules\electron
-node install.js
-```
-
-This should alleviate problems with electron's package downloads.
 
 ## API
 
@@ -35,10 +26,6 @@ This should alleviate problems with electron's package downloads.
 ### API document
 
 <https://www.ceve-market.org/api/>
-
-### Simple example
-
-<https://shimo.im/docs/DhCG9tWHtjVyTqwc/read>
 
 ### Development Dependency
 

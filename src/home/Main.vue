@@ -6,7 +6,7 @@
     </div>
   </div>
   <h1 id="map_title">EVE市场</h1>
-  <IndexMarket></IndexMarket>
+  <!-- <IndexMarket></IndexMarket> -->
   <video autoplay loop id="bgvid">
     <source src="../assets/video/Space.mp4" type="video/mp4" />
   </video>
@@ -16,13 +16,14 @@
 <script>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
-import IndexMarket from '../components/IndexMarket.vue';
+// import IndexMarket from '../components/IndexMarket.vue';
+// todo
 import { NGradientText } from 'naive-ui';
 
 export default {
   name: 'Main',
   components: {
-    IndexMarket,
+    // IndexMarket,
     NGradientText,
   },
   setup() {

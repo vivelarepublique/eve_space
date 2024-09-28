@@ -1,41 +1,40 @@
 <template>
     <div>
         <router-link to="/">
-            <n-button color="#EE5252">主页</n-button>
+            <v-btn color="#EE5252">主页</v-btn>
         </router-link>
         <router-link to="/almanac">
-            <n-button color="#EEB300">老黄历</n-button>
+            <v-btn color="#EEB300">老黄历</v-btn>
         </router-link>
         <router-link to="/campaigns">
-            <n-button color="#DDDD00">增强信息</n-button>
+            <v-btn color="#DDDD00">增强信息</v-btn>
         </router-link>
         <router-link to="/market">
-            <n-button color="#52DDDD">市场</n-button>
+            <v-btn color="#52DDDD">市场</v-btn>
         </router-link>
         <router-link to="/starmap">
-            <n-button color="#ADEEDD">星图</n-button>
+            <v-btn color="#ADEEDD">星图</v-btn>
         </router-link>
         <router-link to="/mineral">
-            <n-button color="#DD5252">矿物</n-button>
+            <v-btn color="#DD5252">矿物</v-btn>
         </router-link>
         <router-link to="/ice">
-            <n-button color="#1976D2">冰矿</n-button>
+            <v-btn color="#1976D2">冰矿</v-btn>
         </router-link>
         <router-link to="/moon">
-            <n-button color="#EE9800">月矿</n-button>
+            <v-btn color="#EE9800">月矿</v-btn>
         </router-link>
         <router-link to="/planet">
-            <n-button color="#00BFA5">行星材料</n-button>
+            <v-btn color="#00BFA5">行星材料</v-btn>
         </router-link>
 
         <router-view></router-view>
-        <img :src="'./assets/image/page' + number + '.jpg'" id="bgimg" />
+        <img :src="'src/assets/image/page' + number + '.jpg'" id="bgimg" />
     </div>
 </template>
 
 <script setup>
     import { ref } from 'vue';
-    import { NButton } from 'naive-ui';
 
     import { useMarketStore } from './shared/marketStore';
     const store = useMarketStore();

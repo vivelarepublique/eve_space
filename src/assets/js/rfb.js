@@ -1,1 +1,6782 @@
-!function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.rfb=e():t.rfb=e()}(this,(()=>(()=>{var t={481:()=>{"function"!=typeof Object.assign&&Object.defineProperty(Object,"assign",{value:function(t,e){"use strict";if(null==t)throw new TypeError("Cannot convert undefined or null to object");const s=Object(t);for(let t=1;t<arguments.length;t++){const e=arguments[t];if(null!=e)for(let t in e)Object.prototype.hasOwnProperty.call(e,t)&&(s[t]=e[t])}return s},writable:!0,configurable:!0}),(()=>{function t(t,e){e=e||{bubbles:!1,cancelable:!1,detail:void 0};const s=document.createEvent("CustomEvent");return s.initCustomEvent(t,e.bubbles,e.cancelable,e.detail),s}t.prototype=window.Event.prototype,"function"!=typeof window.CustomEvent&&(window.CustomEvent=t)})(),Number.isInteger=Number.isInteger||function(t){return"number"==typeof t&&isFinite(t)&&Math.floor(t)===t}}},e={};function s(i){var n=e[i];if(void 0!==n)return n.exports;var r=e[i]={exports:{}};return t[i](r,r.exports,s),r.exports}s.d=(t,e)=>{for(var i in e)s.o(e,i)&&!s.o(t,i)&&Object.defineProperty(t,i,{enumerable:!0,get:e[i]})},s.o=(t,e)=>Object.prototype.hasOwnProperty.call(t,e),s.r=t=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})};var i={};return(()=>{"use strict";function t(t){return 0|t}s.r(i),s.d(i,{default:()=>Gs});let e="warn",n=()=>{},r=()=>{},a=()=>{},o=()=>{};function h(t,e=!1){try{return decodeURIComponent(escape(t))}catch(s){if(s instanceof URIError&&e)return t;throw s}}function l(t){return unescape(encodeURIComponent(t))}!function(t){if(void 0===t?t=e:e=t,n=r=a=o=()=>{},void 0!==window.console)switch(t){case"debug":n=console.debug.bind(window.console);case"info":r=console.info.bind(window.console);case"warn":a=console.warn.bind(window.console);case"error":o=console.error.bind(window.console);case"none":break;default:throw new window.Error("invalid logging type '"+t+"'")}}();let c="ontouchstart"in document.documentElement||void 0!==document.ontouchstart||navigator.maxTouchPoints>0||navigator.msMaxTouchPoints>0;window.addEventListener("touchstart",(function t(){c=!0,window.removeEventListener("touchstart",t,!1)}),!1);let d=10*(window.devicePixelRatio||1),_=!1;try{const t=document.createElement("canvas");t.style.cursor='url("data:image/x-icon;base64,AAACAAEACAgAAAIAAgA4AQAAFgAAACgAAAAIAAAAEAAAAAEAIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAD/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AAAAAAAAAAAAAAAAAAAAAA==") 2 2, default',0===t.style.cursor.indexOf("url")?(r("Data URI scheme cursor supported"),_=!0):a("Data URI scheme cursor not supported")}catch(t){o("Data URI scheme cursor test exception: "+t)}const u=_;let f=!1;try{new ImageData(new Uint8ClampedArray(4),1,1),f=!0}catch(t){}const p=f;let g=!0;try{const t=document.createElement("div");t.style.visibility="hidden",t.style.overflow="scroll",document.body.appendChild(t);const e=document.createElement("div");t.appendChild(e);const s=t.offsetWidth-e.offsetWidth;t.parentNode.removeChild(t),g=0!=s}catch(t){o("Scrollbar test exception: "+t)}function m(){return navigator&&!!/mac/i.exec(navigator.platform)}function w(){return navigator&&!!/win/i.exec(navigator.platform)}function b(){return navigator&&(!!/ipad/i.exec(navigator.platform)||!!/iphone/i.exec(navigator.platform)||!!/ipod/i.exec(navigator.platform))}function v(){return navigator&&!!/trident/i.exec(navigator.userAgent)}function y(){return navigator&&!!/edge/i.exec(navigator.userAgent)}function k(){return navigator&&!!/firefox/i.exec(navigator.userAgent)}function x(t,e,s){const i=s.getBoundingClientRect();let n={x:0,y:0};return t<i.left?n.x=0:t>=i.right?n.x=i.width-1:n.x=t-i.left,e<i.top?n.y=0:e>=i.bottom?n.y=i.height-1:n.y=e-i.top,n}function C(t){t.stopPropagation(),t.preventDefault()}let S=!1,Q=null;function A(t){if(S)return;const e=new t.constructor(t.type,t);S=!0,document.captureElement?document.captureElement.dispatchEvent(e):Q.dispatchEvent(e),S=!1,t.stopPropagation(),e.defaultPrevented&&t.preventDefault(),"mouseup"===t.type&&T()}function M(){document.getElementById("noVNC_mouse_capture_elem").style.cursor=window.getComputedStyle(document.captureElement).cursor}document.captureElement=null;const E=new MutationObserver(M);function T(){if(document.releaseCapture)document.releaseCapture(),document.captureElement=null;else{if(!document.captureElement)return;Q=document.captureElement,document.captureElement=null,E.disconnect(),document.getElementById("noVNC_mouse_capture_elem").style.display="none",window.removeEventListener("mousemove",A),window.removeEventListener("mouseup",A)}}class F{constructor(){this._listeners=new Map}addEventListener(t,e){this._listeners.has(t)||this._listeners.set(t,new Set),this._listeners.get(t).add(e)}removeEventListener(t,e){this._listeners.has(t)&&this._listeners.get(t).delete(e)}dispatchEvent(t){return!this._listeners.has(t.type)||(this._listeners.get(t.type).forEach((e=>e.call(this,t))),!t.defaultPrevented)}}const L={toBase64Table:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".split(""),base64Pad:"=",encode(t){let e="";const s=t.length,i=s%3;for(let i=0;i<s-2;i+=3)e+=this.toBase64Table[t[i]>>2],e+=this.toBase64Table[((3&t[i])<<4)+(t[i+1]>>4)],e+=this.toBase64Table[((15&t[i+1])<<2)+(t[i+2]>>6)],e+=this.toBase64Table[63&t[i+2]];const n=s-i;return 2===i?(e+=this.toBase64Table[t[n]>>2],e+=this.toBase64Table[((3&t[n])<<4)+(t[n+1]>>4)],e+=this.toBase64Table[(15&t[n+1])<<2],e+=this.toBase64Table[64]):1===i&&(e+=this.toBase64Table[t[n]>>2],e+=this.toBase64Table[(3&t[n])<<4],e+=this.toBase64Table[64],e+=this.toBase64Table[64]),e},toBinaryTable:[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,62,-1,-1,-1,63,52,53,54,55,56,57,58,59,60,61,-1,-1,-1,0,-1,-1,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,-1,-1,-1,-1,-1,-1,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,-1,-1,-1,-1,-1],decode(t,e=0){let s=t.indexOf("=")-e;s<0&&(s=t.length-e);const i=3*(s>>2)+Math.floor(s%4/1.5),n=new Array(i);let r=0,a=0;for(let s=0,i=e;i<t.length;i++){const e=this.toBinaryTable[127&t.charCodeAt(i)],h=t.charAt(i)===this.base64Pad;-1!==e?(a=a<<6|e,r+=6,r>=8&&(r-=8,h||(n[s++]=a>>r&255),a&=(1<<r)-1)):o("Illegal character code "+t.charCodeAt(i)+" at position "+i)}if(r){const t=new Error("Corrupted base64 string");throw t.name="Base64-Error",t}return n}};class D{constructor(t){if(this._drawCtx=null,this._renderQ=[],this._flushing=!1,this._fbWidth=0,this._fbHeight=0,this._prevDrawStyle="",this._tile=null,this._tile16x16=null,this._tileX=0,this._tileY=0,n(">> Display.constructor"),this._target=t,!this._target)throw new Error("Target must be set");if("string"==typeof this._target)throw new Error("target must be a DOM element");if(!this._target.getContext)throw new Error("no getContext method");if(this._targetCtx=this._target.getContext("2d"),this._viewportLoc={x:0,y:0,w:this._target.width,h:this._target.height},this._backbuffer=document.createElement("canvas"),this._drawCtx=this._backbuffer.getContext("2d"),this._damageBounds={left:0,top:0,right:this._backbuffer.width,bottom:this._backbuffer.height},n("User Agent: "+navigator.userAgent),!("createImageData"in this._drawCtx))throw new Error("Canvas does not support createImageData");this._tile16x16=this._drawCtx.createImageData(16,16),n("<< Display.constructor"),this._scale=1,this._clipViewport=!1,this.onflush=()=>{}}get scale(){return this._scale}set scale(t){this._rescale(t)}get clipViewport(){return this._clipViewport}set clipViewport(t){this._clipViewport=t;const e=this._viewportLoc;this.viewportChangeSize(e.w,e.h),this.viewportChangePos(0,0)}get width(){return this._fbWidth}get height(){return this._fbHeight}viewportChangePos(t,e){const s=this._viewportLoc;t=Math.floor(t),e=Math.floor(e),this._clipViewport||(t=-s.w,e=-s.h);const i=s.x+s.w-1,r=s.y+s.h-1;t<0&&s.x+t<0&&(t=-s.x),i+t>=this._fbWidth&&(t-=i+t-this._fbWidth+1),s.y+e<0&&(e=-s.y),r+e>=this._fbHeight&&(e-=r+e-this._fbHeight+1),0===t&&0===e||(n("viewportChange deltaX: "+t+", deltaY: "+e),s.x+=t,s.y+=e,this._damage(s.x,s.y,s.w,s.h),this.flip())}viewportChangeSize(t,e){this._clipViewport&&void 0!==t&&void 0!==e||(n("Setting viewport to full display region"),t=this._fbWidth,e=this._fbHeight),t=Math.floor(t),e=Math.floor(e),t>this._fbWidth&&(t=this._fbWidth),e>this._fbHeight&&(e=this._fbHeight);const s=this._viewportLoc;if(s.w!==t||s.h!==e){s.w=t,s.h=e;const i=this._target;i.width=t,i.height=e,this.viewportChangePos(0,0),this._damage(s.x,s.y,s.w,s.h),this.flip(),this._rescale(this._scale)}}absX(e){return 0===this._scale?0:t(e/this._scale+this._viewportLoc.x)}absY(e){return 0===this._scale?0:t(e/this._scale+this._viewportLoc.y)}resize(t,e){this._prevDrawStyle="",this._fbWidth=t,this._fbHeight=e;const s=this._backbuffer;if(s.width!==t||s.height!==e){let i=null;s.width>0&&s.height>0&&(i=this._drawCtx.getImageData(0,0,s.width,s.height)),s.width!==t&&(s.width=t),s.height!==e&&(s.height=e),i&&this._drawCtx.putImageData(i,0,0)}const i=this._viewportLoc;this.viewportChangeSize(i.w,i.h),this.viewportChangePos(0,0)}_damage(t,e,s,i){t<this._damageBounds.left&&(this._damageBounds.left=t),e<this._damageBounds.top&&(this._damageBounds.top=e),t+s>this._damageBounds.right&&(this._damageBounds.right=t+s),e+i>this._damageBounds.bottom&&(this._damageBounds.bottom=e+i)}flip(t){if(0===this._renderQ.length||t){let t=this._damageBounds.left,e=this._damageBounds.top,s=this._damageBounds.right-t,i=this._damageBounds.bottom-e,n=t-this._viewportLoc.x,r=e-this._viewportLoc.y;n<0&&(s+=n,t-=n,n=0),r<0&&(i+=r,e-=r,r=0),n+s>this._viewportLoc.w&&(s=this._viewportLoc.w-n),r+i>this._viewportLoc.h&&(i=this._viewportLoc.h-r),s>0&&i>0&&this._targetCtx.drawImage(this._backbuffer,t,e,s,i,n,r,s,i),this._damageBounds.left=this._damageBounds.top=65535,this._damageBounds.right=this._damageBounds.bottom=0}else this._renderQPush({type:"flip"})}pending(){return this._renderQ.length>0}flush(){0===this._renderQ.length?this.onflush():this._flushing=!0}fillRect(t,e,s,i,n,r){0===this._renderQ.length||r?(this._setFillColor(n),this._drawCtx.fillRect(t,e,s,i),this._damage(t,e,s,i)):this._renderQPush({type:"fill",x:t,y:e,width:s,height:i,color:n})}copyImage(t,e,s,i,n,r,a){0===this._renderQ.length||a?(this._drawCtx.mozImageSmoothingEnabled=!1,this._drawCtx.webkitImageSmoothingEnabled=!1,this._drawCtx.msImageSmoothingEnabled=!1,this._drawCtx.imageSmoothingEnabled=!1,this._drawCtx.drawImage(this._backbuffer,t,e,n,r,s,i,n,r),this._damage(s,i,n,r)):this._renderQPush({type:"copy",oldX:t,oldY:e,x:s,y:i,width:n,height:r})}imageRect(t,e,s,i,n,r){if(0===s||0===i)return;const a=new Image;a.src="data: "+n+";base64,"+L.encode(r),this._renderQPush({type:"img",img:a,x:t,y:e,width:s,height:i})}startTile(t,e,s,i,n){this._tileX=t,this._tileY=e,this._tile=16===s&&16===i?this._tile16x16:this._drawCtx.createImageData(s,i);const r=n[2],a=n[1],o=n[0],h=this._tile.data;for(let t=0;t<s*i*4;t+=4)h[t]=r,h[t+1]=a,h[t+2]=o,h[t+3]=255}subTile(t,e,s,i,n){const r=n[2],a=n[1],o=n[0],h=t+s,l=e+i,c=this._tile.data,d=this._tile.width;for(let s=e;s<l;s++)for(let e=t;e<h;e++){const t=4*(e+s*d);c[t]=r,c[t+1]=a,c[t+2]=o,c[t+3]=255}}finishTile(){this._drawCtx.putImageData(this._tile,this._tileX,this._tileY),this._damage(this._tileX,this._tileY,this._tile.width,this._tile.height)}blitImage(t,e,s,i,n,r,a){if(0===this._renderQ.length||a)this._bgrxImageData(t,e,s,i,n,r);else{const r=new Uint8Array(s*i*4);r.set(new Uint8Array(n.buffer,0,r.length)),this._renderQPush({type:"blit",data:r,x:t,y:e,width:s,height:i})}}blitRgbImage(t,e,s,i,n,r,a){if(0===this._renderQ.length||a)this._rgbImageData(t,e,s,i,n,r);else{const r=new Uint8Array(s*i*3);r.set(new Uint8Array(n.buffer,0,r.length)),this._renderQPush({type:"blitRgb",data:r,x:t,y:e,width:s,height:i})}}blitRgbxImage(t,e,s,i,n,r,a){if(0===this._renderQ.length||a)this._rgbxImageData(t,e,s,i,n,r);else{const r=new Uint8Array(s*i*4);r.set(new Uint8Array(n.buffer,0,r.length)),this._renderQPush({type:"blitRgbx",data:r,x:t,y:e,width:s,height:i})}}drawImage(t,e,s){this._drawCtx.drawImage(t,e,s),this._damage(e,s,t.width,t.height)}autoscale(t,e){let s;if(0===t||0===e)s=0;else{const i=this._viewportLoc,n=t/e;s=i.w/i.h>=n?t/i.w:e/i.h}this._rescale(s)}_rescale(t){this._scale=t;const e=this._viewportLoc,s=t*e.w+"px",i=t*e.h+"px";this._target.style.width===s&&this._target.style.height===i||(this._target.style.width=s,this._target.style.height=i)}_setFillColor(t){const e="rgb("+t[2]+","+t[1]+","+t[0]+")";e!==this._prevDrawStyle&&(this._drawCtx.fillStyle=e,this._prevDrawStyle=e)}_rgbImageData(t,e,s,i,n,r){const a=this._drawCtx.createImageData(s,i),o=a.data;for(let t=0,e=r;t<s*i*4;t+=4,e+=3)o[t]=n[e],o[t+1]=n[e+1],o[t+2]=n[e+2],o[t+3]=255;this._drawCtx.putImageData(a,t,e),this._damage(t,e,a.width,a.height)}_bgrxImageData(t,e,s,i,n,r){const a=this._drawCtx.createImageData(s,i),o=a.data;for(let t=0,e=r;t<s*i*4;t+=4,e+=4)o[t]=n[e+2],o[t+1]=n[e+1],o[t+2]=n[e],o[t+3]=255;this._drawCtx.putImageData(a,t,e),this._damage(t,e,a.width,a.height)}_rgbxImageData(t,e,s,i,n,r){let a;p?a=new ImageData(new Uint8ClampedArray(n.buffer,n.byteOffset,s*i*4),s,i):(a=this._drawCtx.createImageData(s,i),a.data.set(new Uint8ClampedArray(n.buffer,n.byteOffset,s*i*4))),this._drawCtx.putImageData(a,t,e),this._damage(t,e,a.width,a.height)}_renderQPush(t){this._renderQ.push(t),1===this._renderQ.length&&this._scanRenderQ()}_resumeRenderQ(){this.removeEventListener("load",this._noVNCDisplay._resumeRenderQ),this._noVNCDisplay._scanRenderQ()}_scanRenderQ(){let t=!0;for(;t&&this._renderQ.length>0;){const e=this._renderQ[0];switch(e.type){case"flip":this.flip(!0);break;case"copy":this.copyImage(e.oldX,e.oldY,e.x,e.y,e.width,e.height,!0);break;case"fill":this.fillRect(e.x,e.y,e.width,e.height,e.color,!0);break;case"blit":this.blitImage(e.x,e.y,e.width,e.height,e.data,0,!0);break;case"blitRgb":this.blitRgbImage(e.x,e.y,e.width,e.height,e.data,0,!0);break;case"blitRgbx":this.blitRgbxImage(e.x,e.y,e.width,e.height,e.data,0,!0);break;case"img":if(e.img.complete&&0!==e.img.width&&0!==e.img.height){if(e.img.width!==e.width||e.img.height!==e.height)return void o("Decoded image has incorrect dimensions. Got "+e.img.width+"x"+e.img.height+". Expected "+e.width+"x"+e.height+".");this.drawImage(e.img,e.x,e.y)}else e.img._noVNCDisplay=this,e.img.addEventListener("load",this._resumeRenderQ),t=!1}t&&this._renderQ.shift()}0===this._renderQ.length&&this._flushing&&(this._flushing=!1,this.onflush())}}function B(t,e,s,i,n){if(e.subarray&&t.subarray)t.set(e.subarray(s,s+i),n);else for(var r=0;r<i;r++)t[n+r]=e[s+r]}var z=Uint8Array,U=Uint16Array,I=Int32Array;function R(t,e,s,i){for(var n=65535&t,r=t>>>16&65535,a=0;0!==s;){s-=a=s>2e3?2e3:s;do{r=r+(n=n+e[i++]|0)|0}while(--a);n%=65521,r%=65521}return n|r<<16}function N(){for(var t,e=[],s=0;s<256;s++){t=s;for(var i=0;i<8;i++)t=1&t?3988292384^t>>>1:t>>>1;e[s]=t}return e}N();function P(t,e){var s,i,n,r,a,o,h,l,c,d,_,u,f,p,g,m,w,b,v,y,k,x,C,S,Q;s=t.state,i=t.next_in,S=t.input,n=i+(t.avail_in-5),r=t.next_out,Q=t.output,a=r-(e-t.avail_out),o=r+(t.avail_out-257),h=s.dmax,l=s.wsize,c=s.whave,d=s.wnext,_=s.window,u=s.hold,f=s.bits,p=s.lencode,g=s.distcode,m=(1<<s.lenbits)-1,w=(1<<s.distbits)-1;t:do{f<15&&(u+=S[i++]<<f,f+=8,u+=S[i++]<<f,f+=8),b=p[u&m];e:for(;;){if(u>>>=v=b>>>24,f-=v,0==(v=b>>>16&255))Q[r++]=65535&b;else{if(!(16&v)){if(64&v){if(32&v){s.mode=12;break t}t.msg="invalid literal/length code",s.mode=30;break t}b=p[(65535&b)+(u&(1<<v)-1)];continue e}for(y=65535&b,(v&=15)&&(f<v&&(u+=S[i++]<<f,f+=8),y+=u&(1<<v)-1,u>>>=v,f-=v),f<15&&(u+=S[i++]<<f,f+=8,u+=S[i++]<<f,f+=8),b=g[u&w];;){if(u>>>=v=b>>>24,f-=v,16&(v=b>>>16&255)){if(k=65535&b,f<(v&=15)&&(u+=S[i++]<<f,(f+=8)<v&&(u+=S[i++]<<f,f+=8)),(k+=u&(1<<v)-1)>h){t.msg="invalid distance too far back",s.mode=30;break t}if(u>>>=v,f-=v,k>(v=r-a)){if((v=k-v)>c&&s.sane){t.msg="invalid distance too far back",s.mode=30;break t}if(x=0,C=_,0===d){if(x+=l-v,v<y){y-=v;do{Q[r++]=_[x++]}while(--v);x=r-k,C=Q}}else if(d<v){if(x+=l+d-v,(v-=d)<y){y-=v;do{Q[r++]=_[x++]}while(--v);if(x=0,d<y){y-=v=d;do{Q[r++]=_[x++]}while(--v);x=r-k,C=Q}}}else if(x+=d-v,v<y){y-=v;do{Q[r++]=_[x++]}while(--v);x=r-k,C=Q}for(;y>2;)Q[r++]=C[x++],Q[r++]=C[x++],Q[r++]=C[x++],y-=3;y&&(Q[r++]=C[x++],y>1&&(Q[r++]=C[x++]))}else{x=r-k;do{Q[r++]=Q[x++],Q[r++]=Q[x++],Q[r++]=Q[x++],y-=3}while(y>2);y&&(Q[r++]=Q[x++],y>1&&(Q[r++]=Q[x++]))}break}if(64&v){t.msg="invalid distance code",s.mode=30;break t}b=g[(65535&b)+(u&(1<<v)-1)]}}break}}while(i<n&&r<o);i-=y=f>>3,u&=(1<<(f-=y<<3))-1,t.next_in=i,t.next_out=r,t.avail_in=i<n?n-i+5:5-(i-n),t.avail_out=r<o?o-r+257:257-(r-o),s.hold=u,s.bits=f}var V=15,H=852,K=592,X=0,O=1,Y=2,G=[3,4,5,6,7,8,9,10,11,13,15,17,19,23,27,31,35,43,51,59,67,83,99,115,131,163,195,227,258,0,0],W=[16,16,16,16,16,16,16,16,17,17,17,17,18,18,18,18,19,19,19,19,20,20,20,20,21,21,21,21,16,72,78],q=[1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,257,385,513,769,1025,1537,2049,3073,4097,6145,8193,12289,16385,24577,0,0],j=[16,16,16,16,17,17,18,18,19,19,20,20,21,21,22,22,23,23,24,24,25,25,26,26,27,27,28,28,29,29,64,64];function Z(t,e,s,i,n,r,a,o){var h,l,c,d,_,u,f,p,g,m=o.bits,w=0,b=0,v=0,y=0,k=0,x=0,C=0,S=0,Q=0,A=0,M=null,E=0,T=new U(V+1),F=new U(V+1),L=null,D=0;for(w=0;w<=V;w++)T[w]=0;for(b=0;b<i;b++)T[e[s+b]]++;for(k=m,y=V;y>=1&&0===T[y];y--);if(k>y&&(k=y),0===y)return n[r++]=20971520,n[r++]=20971520,o.bits=1,0;for(v=1;v<y&&0===T[v];v++);for(k<v&&(k=v),S=1,w=1;w<=V;w++)if(S<<=1,(S-=T[w])<0)return-1;if(S>0&&(t===X||1!==y))return-1;for(F[1]=0,w=1;w<V;w++)F[w+1]=F[w]+T[w];for(b=0;b<i;b++)0!==e[s+b]&&(a[F[e[s+b]]++]=b);if(t===X?(M=L=a,u=19):t===O?(M=G,E-=257,L=W,D-=257,u=256):(M=q,L=j,u=-1),A=0,b=0,w=v,_=r,x=k,C=0,c=-1,d=(Q=1<<k)-1,t===O&&Q>H||t===Y&&Q>K)return 1;for(;;){f=w-C,a[b]<u?(p=0,g=a[b]):a[b]>u?(p=L[D+a[b]],g=M[E+a[b]]):(p=96,g=0),h=1<<w-C,v=l=1<<x;do{n[_+(A>>C)+(l-=h)]=f<<24|p<<16|g}while(0!==l);for(h=1<<w-1;A&h;)h>>=1;if(0!==h?(A&=h-1,A+=h):A=0,b++,0==--T[w]){if(w===y)break;w=e[s+a[b]]}if(w>k&&(A&d)!==c){for(0===C&&(C=k),_+=v,S=1<<(x=w-C);x+C<y&&!((S-=T[x+C])<=0);)x++,S<<=1;if(Q+=1<<x,t===O&&Q>H||t===Y&&Q>K)return 1;n[c=A&d]=k<<24|x<<16|_-r}}return 0!==A&&(n[_+A]=w-C<<24|64<<16),o.bits=k,0}const J=0,$=-2;var tt=1,et=12,st=30,it=852,nt=592;function rt(t){return(t>>>24&255)+(t>>>8&65280)+((65280&t)<<8)+((255&t)<<24)}function at(){this.mode=0,this.last=!1,this.wrap=0,this.havedict=!1,this.flags=0,this.dmax=0,this.check=0,this.total=0,this.head=null,this.wbits=0,this.wsize=0,this.whave=0,this.wnext=0,this.window=null,this.hold=0,this.bits=0,this.length=0,this.offset=0,this.extra=0,this.lencode=null,this.distcode=null,this.lenbits=0,this.distbits=0,this.ncode=0,this.nlen=0,this.ndist=0,this.have=0,this.next=null,this.lens=new U(320),this.work=new U(288),this.lendyn=null,this.distdyn=null,this.sane=0,this.back=0,this.was=0}function ot(t){var e;return t&&t.state?((e=t.state).wsize=0,e.whave=0,e.wnext=0,function(t){var e;return t&&t.state?(e=t.state,t.total_in=t.total_out=e.total=0,t.msg="",e.wrap&&(t.adler=1&e.wrap),e.mode=tt,e.last=0,e.havedict=0,e.dmax=32768,e.head=null,e.hold=0,e.bits=0,e.lencode=e.lendyn=new I(it),e.distcode=e.distdyn=new I(nt),e.sane=1,e.back=-1,J):$}(t)):$}var ht,lt,ct=!0;function dt(t){if(ct){var e;for(ht=new I(512),lt=new I(32),e=0;e<144;)t.lens[e++]=8;for(;e<256;)t.lens[e++]=9;for(;e<280;)t.lens[e++]=7;for(;e<288;)t.lens[e++]=8;for(Z(1,t.lens,0,288,ht,0,t.work,{bits:9}),e=0;e<32;)t.lens[e++]=5;Z(2,t.lens,0,32,lt,0,t.work,{bits:5}),ct=!1}t.lencode=ht,t.lenbits=9,t.distcode=lt,t.distbits=5}function _t(){this.input=null,this.next_in=0,this.avail_in=0,this.total_in=0,this.output=null,this.next_out=0,this.avail_out=0,this.total_out=0,this.msg="",this.state=null,this.data_type=2,this.adler=0}class ut{constructor(){var t;this.strm=new _t,this.chunkSize=102400,this.strm.output=new Uint8Array(this.chunkSize),this.windowBits=5,t=this.strm,this.windowBits,function(t,e){var s,i;t&&(i=new at,t.state=i,i.window=null,s=function(t,e){var s,i;return t&&t.state?(i=t.state,e<0?(s=0,e=-e):(s=1+(e>>4),e<48&&(e&=15)),e&&(e<8||e>15)?$:(null!==i.window&&i.wbits!==e&&(i.window=null),i.wrap=s,i.wbits=e,ot(t))):$}(t,e),s!==J&&(t.state=null))}(t,15)}setInput(t){t?(this.strm.input=t,this.strm.avail_in=this.strm.input.length,this.strm.next_in=0):(this.strm.input=null,this.strm.avail_in=0,this.strm.next_in=0)}inflate(t){if(t>this.chunkSize&&(this.chunkSize=t,this.strm.output=new Uint8Array(this.chunkSize)),this.strm.next_out=0,this.strm.avail_out=t,function(t,e){var s,i,n,r,a,o,h,l,c,d,_,u,f,p,g,m,w,b,v,y,k,x,C,S,Q=0,A=new z(4),M=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15];if(!t||!t.state||!t.output||!t.input&&0!==t.avail_in)return $;(s=t.state).mode===et&&(s.mode=13),a=t.next_out,n=t.output,h=t.avail_out,r=t.next_in,i=t.input,o=t.avail_in,l=s.hold,c=s.bits,d=o,_=h,x=J;t:for(;;)switch(s.mode){case tt:if(0===s.wrap){s.mode=13;break}for(;c<16;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}if(2&s.wrap&&35615===l){s.check=0,A[0]=255&l,A[1]=l>>>8&255,s.check=N(s.check),l=0,c=0,s.mode=2;break}if(s.flags=0,s.head&&(s.head.done=!1),!(1&s.wrap)||(((255&l)<<8)+(l>>8))%31){t.msg="incorrect header check",s.mode=st;break}if(8!=(15&l)){t.msg="unknown compression method",s.mode=st;break}if(c-=4,k=8+(15&(l>>>=4)),0===s.wbits)s.wbits=k;else if(k>s.wbits){t.msg="invalid window size",s.mode=st;break}s.dmax=1<<k,t.adler=s.check=1,s.mode=512&l?10:et,l=0,c=0;break;case 2:for(;c<16;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}if(s.flags=l,8!=(255&s.flags)){t.msg="unknown compression method",s.mode=st;break}if(57344&s.flags){t.msg="unknown header flags set",s.mode=st;break}s.head&&(s.head.text=l>>8&1),512&s.flags&&(A[0]=255&l,A[1]=l>>>8&255,s.check=N(s.check)),l=0,c=0,s.mode=3;case 3:for(;c<32;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}s.head&&(s.head.time=l),512&s.flags&&(A[0]=255&l,A[1]=l>>>8&255,A[2]=l>>>16&255,A[3]=l>>>24&255,s.check=N(s.check)),l=0,c=0,s.mode=4;case 4:for(;c<16;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}s.head&&(s.head.xflags=255&l,s.head.os=l>>8),512&s.flags&&(A[0]=255&l,A[1]=l>>>8&255,s.check=N(s.check)),l=0,c=0,s.mode=5;case 5:if(1024&s.flags){for(;c<16;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}s.length=l,s.head&&(s.head.extra_len=l),512&s.flags&&(A[0]=255&l,A[1]=l>>>8&255,s.check=N(s.check)),l=0,c=0}else s.head&&(s.head.extra=null);s.mode=6;case 6:if(1024&s.flags&&((u=s.length)>o&&(u=o),u&&(s.head&&(k=s.head.extra_len-s.length,s.head.extra||(s.head.extra=new Array(s.head.extra_len)),B(s.head.extra,i,r,u,k)),512&s.flags&&(s.check=N(s.check)),o-=u,r+=u,s.length-=u),s.length))break t;s.length=0,s.mode=7;case 7:if(2048&s.flags){if(0===o)break t;u=0;do{k=i[r+u++],s.head&&k&&s.length<65536&&(s.head.name+=String.fromCharCode(k))}while(k&&u<o);if(512&s.flags&&(s.check=N(s.check)),o-=u,r+=u,k)break t}else s.head&&(s.head.name=null);s.length=0,s.mode=8;case 8:if(4096&s.flags){if(0===o)break t;u=0;do{k=i[r+u++],s.head&&k&&s.length<65536&&(s.head.comment+=String.fromCharCode(k))}while(k&&u<o);if(512&s.flags&&(s.check=N(s.check)),o-=u,r+=u,k)break t}else s.head&&(s.head.comment=null);s.mode=9;case 9:if(512&s.flags){for(;c<16;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}if(l!==(65535&s.check)){t.msg="header crc mismatch",s.mode=st;break}l=0,c=0}s.head&&(s.head.hcrc=s.flags>>9&1,s.head.done=!0),t.adler=s.check=0,s.mode=et;break;case 10:for(;c<32;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}t.adler=s.check=rt(l),l=0,c=0,s.mode=11;case 11:if(0===s.havedict)return t.next_out=a,t.avail_out=h,t.next_in=r,t.avail_in=o,s.hold=l,s.bits=c,2;t.adler=s.check=1,s.mode=et;case et:!6;case 13:if(s.last){l>>>=7&c,c-=7&c,s.mode=27;break}for(;c<3;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}switch(s.last=1&l,c-=1,3&(l>>>=1)){case 0:s.mode=14;break;case 1:dt(s),s.mode=20,!6;break;case 2:s.mode=17;break;case 3:t.msg="invalid block type",s.mode=st}l>>>=2,c-=2;break;case 14:for(l>>>=7&c,c-=7&c;c<32;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}if((65535&l)!=(l>>>16^65535)){t.msg="invalid stored block lengths",s.mode=st;break}s.length=65535&l,l=0,c=0,s.mode=15,!6;case 15:s.mode=16;case 16:if(u=s.length){if(u>o&&(u=o),u>h&&(u=h),0===u)break t;B(n,i,r,u,a),o-=u,r+=u,h-=u,a+=u,s.length-=u;break}s.mode=et;break;case 17:for(;c<14;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}if(s.nlen=257+(31&l),l>>>=5,c-=5,s.ndist=1+(31&l),l>>>=5,c-=5,s.ncode=4+(15&l),l>>>=4,c-=4,s.nlen>286||s.ndist>30){t.msg="too many length or distance symbols",s.mode=st;break}s.have=0,s.mode=18;case 18:for(;s.have<s.ncode;){for(;c<3;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}s.lens[M[s.have++]]=7&l,l>>>=3,c-=3}for(;s.have<19;)s.lens[M[s.have++]]=0;if(s.lencode=s.lendyn,s.lenbits=7,C={bits:s.lenbits},x=Z(0,s.lens,0,19,s.lencode,0,s.work,C),s.lenbits=C.bits,x){t.msg="invalid code lengths set",s.mode=st;break}s.have=0,s.mode=19;case 19:for(;s.have<s.nlen+s.ndist;){for(;m=(Q=s.lencode[l&(1<<s.lenbits)-1])>>>16&255,w=65535&Q,!((g=Q>>>24)<=c);){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}if(w<16)l>>>=g,c-=g,s.lens[s.have++]=w;else{if(16===w){for(S=g+2;c<S;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}if(l>>>=g,c-=g,0===s.have){t.msg="invalid bit length repeat",s.mode=st;break}k=s.lens[s.have-1],u=3+(3&l),l>>>=2,c-=2}else if(17===w){for(S=g+3;c<S;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}c-=g,k=0,u=3+(7&(l>>>=g)),l>>>=3,c-=3}else{for(S=g+7;c<S;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}c-=g,k=0,u=11+(127&(l>>>=g)),l>>>=7,c-=7}if(s.have+u>s.nlen+s.ndist){t.msg="invalid bit length repeat",s.mode=st;break}for(;u--;)s.lens[s.have++]=k}}if(s.mode===st)break;if(0===s.lens[256]){t.msg="invalid code -- missing end-of-block",s.mode=st;break}if(s.lenbits=9,C={bits:s.lenbits},x=Z(1,s.lens,0,s.nlen,s.lencode,0,s.work,C),s.lenbits=C.bits,x){t.msg="invalid literal/lengths set",s.mode=st;break}if(s.distbits=6,s.distcode=s.distdyn,C={bits:s.distbits},x=Z(2,s.lens,s.nlen,s.ndist,s.distcode,0,s.work,C),s.distbits=C.bits,x){t.msg="invalid distances set",s.mode=st;break}s.mode=20,!6;case 20:s.mode=21;case 21:if(o>=6&&h>=258){t.next_out=a,t.avail_out=h,t.next_in=r,t.avail_in=o,s.hold=l,s.bits=c,P(t,_),a=t.next_out,n=t.output,h=t.avail_out,r=t.next_in,i=t.input,o=t.avail_in,l=s.hold,c=s.bits,s.mode===et&&(s.back=-1);break}for(s.back=0;m=(Q=s.lencode[l&(1<<s.lenbits)-1])>>>16&255,w=65535&Q,!((g=Q>>>24)<=c);){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}if(m&&!(240&m)){for(b=g,v=m,y=w;m=(Q=s.lencode[y+((l&(1<<b+v)-1)>>b)])>>>16&255,w=65535&Q,!(b+(g=Q>>>24)<=c);){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}l>>>=b,c-=b,s.back+=b}if(l>>>=g,c-=g,s.back+=g,s.length=w,0===m){s.mode=26;break}if(32&m){s.back=-1,s.mode=et;break}if(64&m){t.msg="invalid literal/length code",s.mode=st;break}s.extra=15&m,s.mode=22;case 22:if(s.extra){for(S=s.extra;c<S;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}s.length+=l&(1<<s.extra)-1,l>>>=s.extra,c-=s.extra,s.back+=s.extra}s.was=s.length,s.mode=23;case 23:for(;m=(Q=s.distcode[l&(1<<s.distbits)-1])>>>16&255,w=65535&Q,!((g=Q>>>24)<=c);){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}if(!(240&m)){for(b=g,v=m,y=w;m=(Q=s.distcode[y+((l&(1<<b+v)-1)>>b)])>>>16&255,w=65535&Q,!(b+(g=Q>>>24)<=c);){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}l>>>=b,c-=b,s.back+=b}if(l>>>=g,c-=g,s.back+=g,64&m){t.msg="invalid distance code",s.mode=st;break}s.offset=w,s.extra=15&m,s.mode=24;case 24:if(s.extra){for(S=s.extra;c<S;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}s.offset+=l&(1<<s.extra)-1,l>>>=s.extra,c-=s.extra,s.back+=s.extra}if(s.offset>s.dmax){t.msg="invalid distance too far back",s.mode=st;break}s.mode=25;case 25:if(0===h)break t;if(u=_-h,s.offset>u){if((u=s.offset-u)>s.whave&&s.sane){t.msg="invalid distance too far back",s.mode=st;break}u>s.wnext?(u-=s.wnext,f=s.wsize-u):f=s.wnext-u,u>s.length&&(u=s.length),p=s.window}else p=n,f=a-s.offset,u=s.length;u>h&&(u=h),h-=u,s.length-=u;do{n[a++]=p[f++]}while(--u);0===s.length&&(s.mode=21);break;case 26:if(0===h)break t;n[a++]=s.length,h--,s.mode=21;break;case 27:if(s.wrap){for(;c<32;){if(0===o)break t;o--,l|=i[r++]<<c,c+=8}if(_-=h,t.total_out+=_,s.total+=_,_&&(t.adler=s.check=s.flags?N(s.check):R(s.check,n,_,a-_)),_=h,(s.flags?l:rt(l))!==s.check){t.msg="incorrect data check",s.mode=st;break}l=0,c=0}s.mode=28;case 28:if(s.wrap&&s.flags){for(;c<32;){if(0===o)break t;o--,l+=i[r++]<<c,c+=8}if(l!==(4294967295&s.total)){t.msg="incorrect length check",s.mode=st;break}l=0,c=0}s.mode=29;case 29:x=1;break t;case st:x=-3;break t;case 31:return-4;default:return $}return t.next_out=a,t.avail_out=h,t.next_in=r,t.avail_in=o,s.hold=l,s.bits=c,(s.wsize||_!==t.avail_out&&s.mode<st&&(s.mode,1))&&function(t,e,s,i){var n,r=t.state;return null===r.window&&(r.wsize=1<<r.wbits,r.wnext=0,r.whave=0,r.window=new z(r.wsize)),i>=r.wsize?(B(r.window,e,s-r.wsize,r.wsize,0),r.wnext=0,r.whave=r.wsize):((n=r.wsize-r.wnext)>i&&(n=i),B(r.window,e,s-i,n,r.wnext),(i-=n)?(B(r.window,e,s-i,i,0),r.wnext=i,r.whave=r.wsize):(r.wnext+=n,r.wnext===r.wsize&&(r.wnext=0),r.whave<r.wsize&&(r.whave+=n))),0}(t,t.output,t.next_out,_-t.avail_out)?(s.mode=31,-4):(d-=t.avail_in,_-=t.avail_out,t.total_in+=d,t.total_out+=_,s.total+=_,s.wrap&&_&&(t.adler=s.check=s.flags?N(s.check,t.next_out):R(s.check,n,_,t.next_out-_)),t.data_type=s.bits+(s.last?64:0)+(s.mode===et?128:0)+(20===s.mode||15===s.mode?256:0),0===d&&0===_&&x===J&&(x=-5),x)}(this.strm)<0)throw new Error("zlib inflate failed");if(this.strm.next_out!=t)throw new Error("Incomplete zlib block");return new Uint8Array(this.strm.output.buffer,0,this.strm.next_out)}reset(){ot(this.strm)}}var ft=4,pt=0,gt=1,mt=2;function wt(t){for(var e=t.length;--e>=0;)t[e]=0}var bt=0,vt=1,yt=2,kt=29,xt=256,Ct=xt+1+kt,St=30,Qt=19,At=2*Ct+1,Mt=15,Et=16,Tt=7,Ft=256,Lt=16,Dt=17,Bt=18,zt=[0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0],Ut=[0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13],It=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,7],Rt=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15],Nt=new Array(2*(Ct+2));wt(Nt);var Pt=new Array(2*St);wt(Pt);var Vt=new Array(512);wt(Vt);var Ht=new Array(256);wt(Ht);var Kt=new Array(kt);wt(Kt);var Xt,Ot,Yt,Gt=new Array(St);function Wt(t,e,s,i,n){this.static_tree=t,this.extra_bits=e,this.extra_base=s,this.elems=i,this.max_length=n,this.has_stree=t&&t.length}function qt(t,e){this.dyn_tree=t,this.max_code=0,this.stat_desc=e}function jt(t){return t<256?Vt[t]:Vt[256+(t>>>7)]}function Zt(t,e){t.pending_buf[t.pending++]=255&e,t.pending_buf[t.pending++]=e>>>8&255}function Jt(t,e,s){t.bi_valid>Et-s?(t.bi_buf|=e<<t.bi_valid&65535,Zt(t,t.bi_buf),t.bi_buf=e>>Et-t.bi_valid,t.bi_valid+=s-Et):(t.bi_buf|=e<<t.bi_valid&65535,t.bi_valid+=s)}function $t(t,e,s){Jt(t,s[2*e],s[2*e+1])}function te(t,e){var s=0;do{s|=1&t,t>>>=1,s<<=1}while(--e>0);return s>>>1}function ee(t,e,s){var i,n,r=new Array(Mt+1),a=0;for(i=1;i<=Mt;i++)r[i]=a=a+s[i-1]<<1;for(n=0;n<=e;n++){var o=t[2*n+1];0!==o&&(t[2*n]=te(r[o]++,o))}}function se(t){var e;for(e=0;e<Ct;e++)t.dyn_ltree[2*e]=0;for(e=0;e<St;e++)t.dyn_dtree[2*e]=0;for(e=0;e<Qt;e++)t.bl_tree[2*e]=0;t.dyn_ltree[2*Ft]=1,t.opt_len=t.static_len=0,t.last_lit=t.matches=0}function ie(t){t.bi_valid>8?Zt(t,t.bi_buf):t.bi_valid>0&&(t.pending_buf[t.pending++]=t.bi_buf),t.bi_buf=0,t.bi_valid=0}function ne(t,e,s,i){var n=2*e,r=2*s;return t[n]<t[r]||t[n]===t[r]&&i[e]<=i[s]}function re(t,e,s){for(var i=t.heap[s],n=s<<1;n<=t.heap_len&&(n<t.heap_len&&ne(e,t.heap[n+1],t.heap[n],t.depth)&&n++,!ne(e,i,t.heap[n],t.depth));)t.heap[s]=t.heap[n],s=n,n<<=1;t.heap[s]=i}function ae(t,e,s){var i,n,r,a,o=0;if(0!==t.last_lit)do{i=t.pending_buf[t.d_buf+2*o]<<8|t.pending_buf[t.d_buf+2*o+1],n=t.pending_buf[t.l_buf+o],o++,0===i?$t(t,n,e):($t(t,(r=Ht[n])+xt+1,e),0!==(a=zt[r])&&Jt(t,n-=Kt[r],a),$t(t,r=jt(--i),s),0!==(a=Ut[r])&&Jt(t,i-=Gt[r],a))}while(o<t.last_lit);$t(t,Ft,e)}function oe(t,e){var s,i,n,r=e.dyn_tree,a=e.stat_desc.static_tree,o=e.stat_desc.has_stree,h=e.stat_desc.elems,l=-1;for(t.heap_len=0,t.heap_max=At,s=0;s<h;s++)0!==r[2*s]?(t.heap[++t.heap_len]=l=s,t.depth[s]=0):r[2*s+1]=0;for(;t.heap_len<2;)r[2*(n=t.heap[++t.heap_len]=l<2?++l:0)]=1,t.depth[n]=0,t.opt_len--,o&&(t.static_len-=a[2*n+1]);for(e.max_code=l,s=t.heap_len>>1;s>=1;s--)re(t,r,s);n=h;do{s=t.heap[1],t.heap[1]=t.heap[t.heap_len--],re(t,r,1),i=t.heap[1],t.heap[--t.heap_max]=s,t.heap[--t.heap_max]=i,r[2*n]=r[2*s]+r[2*i],t.depth[n]=(t.depth[s]>=t.depth[i]?t.depth[s]:t.depth[i])+1,r[2*s+1]=r[2*i+1]=n,t.heap[1]=n++,re(t,r,1)}while(t.heap_len>=2);t.heap[--t.heap_max]=t.heap[1],function(t,e){var s,i,n,r,a,o,h=e.dyn_tree,l=e.max_code,c=e.stat_desc.static_tree,d=e.stat_desc.has_stree,_=e.stat_desc.extra_bits,u=e.stat_desc.extra_base,f=e.stat_desc.max_length,p=0;for(r=0;r<=Mt;r++)t.bl_count[r]=0;for(h[2*t.heap[t.heap_max]+1]=0,s=t.heap_max+1;s<At;s++)(r=h[2*h[2*(i=t.heap[s])+1]+1]+1)>f&&(r=f,p++),h[2*i+1]=r,i>l||(t.bl_count[r]++,a=0,i>=u&&(a=_[i-u]),o=h[2*i],t.opt_len+=o*(r+a),d&&(t.static_len+=o*(c[2*i+1]+a)));if(0!==p){do{for(r=f-1;0===t.bl_count[r];)r--;t.bl_count[r]--,t.bl_count[r+1]+=2,t.bl_count[f]--,p-=2}while(p>0);for(r=f;0!==r;r--)for(i=t.bl_count[r];0!==i;)(n=t.heap[--s])>l||(h[2*n+1]!==r&&(t.opt_len+=(r-h[2*n+1])*h[2*n],h[2*n+1]=r),i--)}}(t,e),ee(r,l,t.bl_count)}function he(t,e,s){var i,n,r=-1,a=e[1],o=0,h=7,l=4;for(0===a&&(h=138,l=3),e[2*(s+1)+1]=65535,i=0;i<=s;i++)n=a,a=e[2*(i+1)+1],++o<h&&n===a||(o<l?t.bl_tree[2*n]+=o:0!==n?(n!==r&&t.bl_tree[2*n]++,t.bl_tree[2*Lt]++):o<=10?t.bl_tree[2*Dt]++:t.bl_tree[2*Bt]++,o=0,r=n,0===a?(h=138,l=3):n===a?(h=6,l=3):(h=7,l=4))}function le(t,e,s){var i,n,r=-1,a=e[1],o=0,h=7,l=4;for(0===a&&(h=138,l=3),i=0;i<=s;i++)if(n=a,a=e[2*(i+1)+1],!(++o<h&&n===a)){if(o<l)do{$t(t,n,t.bl_tree)}while(0!=--o);else 0!==n?(n!==r&&($t(t,n,t.bl_tree),o--),$t(t,Lt,t.bl_tree),Jt(t,o-3,2)):o<=10?($t(t,Dt,t.bl_tree),Jt(t,o-3,3)):($t(t,Bt,t.bl_tree),Jt(t,o-11,7));o=0,r=n,0===a?(h=138,l=3):n===a?(h=6,l=3):(h=7,l=4)}}wt(Gt);var ce=!1;function de(t,e,s,i){Jt(t,(bt<<1)+(i?1:0),3),function(t,e,s,i){ie(t),Zt(t,s),Zt(t,~s),B(t.pending_buf,t.window,e,s,t.pending),t.pending+=s}(t,e,s)}function _e(t,e,s){return t.pending_buf[t.d_buf+2*t.last_lit]=e>>>8&255,t.pending_buf[t.d_buf+2*t.last_lit+1]=255&e,t.pending_buf[t.l_buf+t.last_lit]=255&s,t.last_lit++,0===e?t.dyn_ltree[2*s]++:(t.matches++,e--,t.dyn_ltree[2*(Ht[s]+xt+1)]++,t.dyn_dtree[2*jt(e)]++),t.last_lit===t.lit_bufsize-1}const ue={2:"need dictionary",1:"stream end",0:"","-1":"file error","-2":"stream error","-3":"data error","-4":"insufficient memory","-5":"buffer error","-6":"incompatible version"},fe=0,pe=0,ge=-2,me=2,we=8;var be,ve=286,ye=30,ke=19,xe=2*ve+1,Ce=15,Se=3,Qe=258,Ae=Qe+Se+1,Me=42,Ee=113,Te=666;function Fe(t,e){return t.msg=ue[e],e}function Le(t){return(t<<1)-(t>4?9:0)}function De(t){for(var e=t.length;--e>=0;)t[e]=0}function Be(t){var e=t.state,s=e.pending;s>t.avail_out&&(s=t.avail_out),0!==s&&(B(t.output,e.pending_buf,e.pending_out,s,t.next_out),t.next_out+=s,e.pending_out+=s,t.total_out+=s,t.avail_out-=s,e.pending-=s,0===e.pending&&(e.pending_out=0))}function ze(t,e){(function(t,e,s,i){var n,r,a=0;t.level>0?(t.strm.data_type===mt&&(t.strm.data_type=function(t){var e,s=4093624447;for(e=0;e<=31;e++,s>>>=1)if(1&s&&0!==t.dyn_ltree[2*e])return pt;if(0!==t.dyn_ltree[18]||0!==t.dyn_ltree[20]||0!==t.dyn_ltree[26])return gt;for(e=32;e<xt;e++)if(0!==t.dyn_ltree[2*e])return gt;return pt}(t)),oe(t,t.l_desc),oe(t,t.d_desc),a=function(t){var e;for(he(t,t.dyn_ltree,t.l_desc.max_code),he(t,t.dyn_dtree,t.d_desc.max_code),oe(t,t.bl_desc),e=Qt-1;e>=3&&0===t.bl_tree[2*Rt[e]+1];e--);return t.opt_len+=3*(e+1)+5+5+4,e}(t),n=t.opt_len+3+7>>>3,(r=t.static_len+3+7>>>3)<=n&&(n=r)):n=r=s+5,s+4<=n&&-1!==e?de(t,e,s,i):t.strategy===ft||r===n?(Jt(t,(vt<<1)+(i?1:0),3),ae(t,Nt,Pt)):(Jt(t,(yt<<1)+(i?1:0),3),function(t,e,s,i){var n;for(Jt(t,e-257,5),Jt(t,s-1,5),Jt(t,i-4,4),n=0;n<i;n++)Jt(t,t.bl_tree[2*Rt[n]+1],3);le(t,t.dyn_ltree,e-1),le(t,t.dyn_dtree,s-1)}(t,t.l_desc.max_code+1,t.d_desc.max_code+1,a+1),ae(t,t.dyn_ltree,t.dyn_dtree)),se(t),i&&ie(t)})(t,t.block_start>=0?t.block_start:-1,t.strstart-t.block_start,e),t.block_start=t.strstart,Be(t.strm)}function Ue(t,e){t.pending_buf[t.pending++]=e}function Ie(t,e){t.pending_buf[t.pending++]=e>>>8&255,t.pending_buf[t.pending++]=255&e}function Re(t,e){var s,i,n=t.max_chain_length,r=t.strstart,a=t.prev_length,o=t.nice_match,h=t.strstart>t.w_size-Ae?t.strstart-(t.w_size-Ae):0,l=t.window,c=t.w_mask,d=t.prev,_=t.strstart+Qe,u=l[r+a-1],f=l[r+a];t.prev_length>=t.good_match&&(n>>=2),o>t.lookahead&&(o=t.lookahead);do{if(l[(s=e)+a]===f&&l[s+a-1]===u&&l[s]===l[r]&&l[++s]===l[r+1]){r+=2,s++;do{}while(l[++r]===l[++s]&&l[++r]===l[++s]&&l[++r]===l[++s]&&l[++r]===l[++s]&&l[++r]===l[++s]&&l[++r]===l[++s]&&l[++r]===l[++s]&&l[++r]===l[++s]&&r<_);if(i=Qe-(_-r),r=_-Qe,i>a){if(t.match_start=e,a=i,i>=o)break;u=l[r+a-1],f=l[r+a]}}}while((e=d[e&c])>h&&0!=--n);return a<=t.lookahead?a:t.lookahead}function Ne(t){var e,s,i,n,r,a,o,h,l,c,d=t.w_size;do{if(n=t.window_size-t.lookahead-t.strstart,t.strstart>=d+(d-Ae)){B(t.window,t.window,d,d,0),t.match_start-=d,t.strstart-=d,t.block_start-=d,e=s=t.hash_size;do{i=t.head[--e],t.head[e]=i>=d?i-d:0}while(--s);e=s=d;do{i=t.prev[--e],t.prev[e]=i>=d?i-d:0}while(--s);n+=d}if(0===t.strm.avail_in)break;if(a=t.strm,o=t.window,h=t.strstart+t.lookahead,l=n,c=void 0,(c=a.avail_in)>l&&(c=l),s=0===c?0:(a.avail_in-=c,B(o,a.input,a.next_in,c,h),1===a.state.wrap?a.adler=R(a.adler,o,c,h):2===a.state.wrap&&(a.adler=N(a.adler)),a.next_in+=c,a.total_in+=c,c),t.lookahead+=s,t.lookahead+t.insert>=Se)for(r=t.strstart-t.insert,t.ins_h=t.window[r],t.ins_h=(t.ins_h<<t.hash_shift^t.window[r+1])&t.hash_mask;t.insert&&(t.ins_h=(t.ins_h<<t.hash_shift^t.window[r+Se-1])&t.hash_mask,t.prev[r&t.w_mask]=t.head[t.ins_h],t.head[t.ins_h]=r,r++,t.insert--,!(t.lookahead+t.insert<Se)););}while(t.lookahead<Ae&&0!==t.strm.avail_in)}function Pe(t,e){for(var s,i;;){if(t.lookahead<Ae){if(Ne(t),t.lookahead<Ae&&e===fe)return 1;if(0===t.lookahead)break}if(s=0,t.lookahead>=Se&&(t.ins_h=(t.ins_h<<t.hash_shift^t.window[t.strstart+Se-1])&t.hash_mask,s=t.prev[t.strstart&t.w_mask]=t.head[t.ins_h],t.head[t.ins_h]=t.strstart),0!==s&&t.strstart-s<=t.w_size-Ae&&(t.match_length=Re(t,s)),t.match_length>=Se)if(i=_e(t,t.strstart-t.match_start,t.match_length-Se),t.lookahead-=t.match_length,t.match_length<=t.max_lazy_match&&t.lookahead>=Se){t.match_length--;do{t.strstart++,t.ins_h=(t.ins_h<<t.hash_shift^t.window[t.strstart+Se-1])&t.hash_mask,s=t.prev[t.strstart&t.w_mask]=t.head[t.ins_h],t.head[t.ins_h]=t.strstart}while(0!=--t.match_length);t.strstart++}else t.strstart+=t.match_length,t.match_length=0,t.ins_h=t.window[t.strstart],t.ins_h=(t.ins_h<<t.hash_shift^t.window[t.strstart+1])&t.hash_mask;else i=_e(t,0,t.window[t.strstart]),t.lookahead--,t.strstart++;if(i&&(ze(t,!1),0===t.strm.avail_out))return 1}return t.insert=t.strstart<Se-1?t.strstart:Se-1,4===e?(ze(t,!0),0===t.strm.avail_out?3:4):t.last_lit&&(ze(t,!1),0===t.strm.avail_out)?1:2}function Ve(t,e){for(var s,i,n;;){if(t.lookahead<Ae){if(Ne(t),t.lookahead<Ae&&e===fe)return 1;if(0===t.lookahead)break}if(s=0,t.lookahead>=Se&&(t.ins_h=(t.ins_h<<t.hash_shift^t.window[t.strstart+Se-1])&t.hash_mask,s=t.prev[t.strstart&t.w_mask]=t.head[t.ins_h],t.head[t.ins_h]=t.strstart),t.prev_length=t.match_length,t.prev_match=t.match_start,t.match_length=Se-1,0!==s&&t.prev_length<t.max_lazy_match&&t.strstart-s<=t.w_size-Ae&&(t.match_length=Re(t,s),t.match_length<=5&&(1===t.strategy||t.match_length===Se&&t.strstart-t.match_start>4096)&&(t.match_length=Se-1)),t.prev_length>=Se&&t.match_length<=t.prev_length){n=t.strstart+t.lookahead-Se,i=_e(t,t.strstart-1-t.prev_match,t.prev_length-Se),t.lookahead-=t.prev_length-1,t.prev_length-=2;do{++t.strstart<=n&&(t.ins_h=(t.ins_h<<t.hash_shift^t.window[t.strstart+Se-1])&t.hash_mask,s=t.prev[t.strstart&t.w_mask]=t.head[t.ins_h],t.head[t.ins_h]=t.strstart)}while(0!=--t.prev_length);if(t.match_available=0,t.match_length=Se-1,t.strstart++,i&&(ze(t,!1),0===t.strm.avail_out))return 1}else if(t.match_available){if((i=_e(t,0,t.window[t.strstart-1]))&&ze(t,!1),t.strstart++,t.lookahead--,0===t.strm.avail_out)return 1}else t.match_available=1,t.strstart++,t.lookahead--}return t.match_available&&(i=_e(t,0,t.window[t.strstart-1]),t.match_available=0),t.insert=t.strstart<Se-1?t.strstart:Se-1,4===e?(ze(t,!0),0===t.strm.avail_out?3:4):t.last_lit&&(ze(t,!1),0===t.strm.avail_out)?1:2}function He(t,e,s,i,n){this.good_length=t,this.max_lazy=e,this.nice_length=s,this.max_chain=i,this.func=n}function Ke(){this.strm=null,this.status=0,this.pending_buf=null,this.pending_buf_size=0,this.pending_out=0,this.pending=0,this.wrap=0,this.gzhead=null,this.gzindex=0,this.method=we,this.last_flush=-1,this.w_size=0,this.w_bits=0,this.w_mask=0,this.window=null,this.window_size=0,this.prev=null,this.head=null,this.ins_h=0,this.hash_size=0,this.hash_bits=0,this.hash_mask=0,this.hash_shift=0,this.block_start=0,this.match_length=0,this.prev_match=0,this.match_available=0,this.strstart=0,this.match_start=0,this.lookahead=0,this.prev_length=0,this.max_chain_length=0,this.max_lazy_match=0,this.level=0,this.strategy=0,this.good_match=0,this.nice_match=0,this.dyn_ltree=new U(2*xe),this.dyn_dtree=new U(2*(2*ye+1)),this.bl_tree=new U(2*(2*ke+1)),De(this.dyn_ltree),De(this.dyn_dtree),De(this.bl_tree),this.l_desc=null,this.d_desc=null,this.bl_desc=null,this.bl_count=new U(Ce+1),this.heap=new U(2*ve+1),De(this.heap),this.heap_len=0,this.heap_max=0,this.depth=new U(2*ve+1),De(this.depth),this.l_buf=0,this.lit_bufsize=0,this.last_lit=0,this.d_buf=0,this.opt_len=0,this.static_len=0,this.matches=0,this.insert=0,this.bi_buf=0,this.bi_valid=0}function Xe(t){var e,s=function(t){var e;return t&&t.state?(t.total_in=t.total_out=0,t.data_type=me,(e=t.state).pending=0,e.pending_out=0,e.wrap<0&&(e.wrap=-e.wrap),e.status=e.wrap?Me:Ee,t.adler=2===e.wrap?0:1,e.last_flush=fe,function(t){ce||(function(){var t,e,s,i,n,r=new Array(Mt+1);for(s=0,i=0;i<kt-1;i++)for(Kt[i]=s,t=0;t<1<<zt[i];t++)Ht[s++]=i;for(Ht[s-1]=i,n=0,i=0;i<16;i++)for(Gt[i]=n,t=0;t<1<<Ut[i];t++)Vt[n++]=i;for(n>>=7;i<St;i++)for(Gt[i]=n<<7,t=0;t<1<<Ut[i]-7;t++)Vt[256+n++]=i;for(e=0;e<=Mt;e++)r[e]=0;for(t=0;t<=143;)Nt[2*t+1]=8,t++,r[8]++;for(;t<=255;)Nt[2*t+1]=9,t++,r[9]++;for(;t<=279;)Nt[2*t+1]=7,t++,r[7]++;for(;t<=287;)Nt[2*t+1]=8,t++,r[8]++;for(ee(Nt,Ct+1,r),t=0;t<St;t++)Pt[2*t+1]=5,Pt[2*t]=te(t,5);Xt=new Wt(Nt,zt,xt+1,Ct,Mt),Ot=new Wt(Pt,Ut,0,St,Mt),Yt=new Wt(new Array(0),It,0,Qt,Tt)}(),ce=!0),t.l_desc=new qt(t.dyn_ltree,Xt),t.d_desc=new qt(t.dyn_dtree,Ot),t.bl_desc=new qt(t.bl_tree,Yt),t.bi_buf=0,t.bi_valid=0,se(t)}(e),pe):Fe(t,ge)}(t);return s===pe&&((e=t.state).window_size=2*e.w_size,De(e.head),e.max_lazy_match=be[e.level].max_lazy,e.good_match=be[e.level].good_length,e.nice_match=be[e.level].nice_length,e.max_chain_length=be[e.level].max_chain,e.strstart=0,e.block_start=0,e.lookahead=0,e.insert=0,e.match_length=e.prev_length=Se-1,e.match_available=0,e.ins_h=0),s}function Oe(t,e){var s,i,n,r;if(!t||!t.state||e>5||e<0)return t?Fe(t,ge):ge;if(i=t.state,!t.output||!t.input&&0!==t.avail_in||i.status===Te&&4!==e)return Fe(t,0===t.avail_out?-5:ge);if(i.strm=t,s=i.last_flush,i.last_flush=e,i.status===Me)if(2===i.wrap)t.adler=0,Ue(i,31),Ue(i,139),Ue(i,8),i.gzhead?(Ue(i,(i.gzhead.text?1:0)+(i.gzhead.hcrc?2:0)+(i.gzhead.extra?4:0)+(i.gzhead.name?8:0)+(i.gzhead.comment?16:0)),Ue(i,255&i.gzhead.time),Ue(i,i.gzhead.time>>8&255),Ue(i,i.gzhead.time>>16&255),Ue(i,i.gzhead.time>>24&255),Ue(i,9===i.level?2:i.strategy>=2||i.level<2?4:0),Ue(i,255&i.gzhead.os),i.gzhead.extra&&i.gzhead.extra.length&&(Ue(i,255&i.gzhead.extra.length),Ue(i,i.gzhead.extra.length>>8&255)),i.gzhead.hcrc&&(t.adler=N(t.adler,i.pending_buf,i.pending)),i.gzindex=0,i.status=69):(Ue(i,0),Ue(i,0),Ue(i,0),Ue(i,0),Ue(i,0),Ue(i,9===i.level?2:i.strategy>=2||i.level<2?4:0),Ue(i,3),i.status=Ee);else{var a=we+(i.w_bits-8<<4)<<8;a|=(i.strategy>=2||i.level<2?0:i.level<6?1:6===i.level?2:3)<<6,0!==i.strstart&&(a|=32),a+=31-a%31,i.status=Ee,Ie(i,a),0!==i.strstart&&(Ie(i,t.adler>>>16),Ie(i,65535&t.adler)),t.adler=1}if(69===i.status)if(i.gzhead.extra){for(n=i.pending;i.gzindex<(65535&i.gzhead.extra.length)&&(i.pending!==i.pending_buf_size||(i.gzhead.hcrc&&i.pending>n&&(t.adler=N(t.adler,i.pending_buf,i.pending)),Be(t),n=i.pending,i.pending!==i.pending_buf_size));)Ue(i,255&i.gzhead.extra[i.gzindex]),i.gzindex++;i.gzhead.hcrc&&i.pending>n&&(t.adler=N(t.adler,i.pending_buf,i.pending)),i.gzindex===i.gzhead.extra.length&&(i.gzindex=0,i.status=73)}else i.status=73;if(73===i.status)if(i.gzhead.name){n=i.pending;do{if(i.pending===i.pending_buf_size&&(i.gzhead.hcrc&&i.pending>n&&(t.adler=N(t.adler,i.pending_buf,i.pending)),Be(t),n=i.pending,i.pending===i.pending_buf_size)){r=1;break}r=i.gzindex<i.gzhead.name.length?255&i.gzhead.name.charCodeAt(i.gzindex++):0,Ue(i,r)}while(0!==r);i.gzhead.hcrc&&i.pending>n&&(t.adler=N(t.adler,i.pending_buf,i.pending)),0===r&&(i.gzindex=0,i.status=91)}else i.status=91;if(91===i.status)if(i.gzhead.comment){n=i.pending;do{if(i.pending===i.pending_buf_size&&(i.gzhead.hcrc&&i.pending>n&&(t.adler=N(t.adler,i.pending_buf,i.pending)),Be(t),n=i.pending,i.pending===i.pending_buf_size)){r=1;break}r=i.gzindex<i.gzhead.comment.length?255&i.gzhead.comment.charCodeAt(i.gzindex++):0,Ue(i,r)}while(0!==r);i.gzhead.hcrc&&i.pending>n&&(t.adler=N(t.adler,i.pending_buf,i.pending)),0===r&&(i.status=103)}else i.status=103;if(103===i.status&&(i.gzhead.hcrc?(i.pending+2>i.pending_buf_size&&Be(t),i.pending+2<=i.pending_buf_size&&(Ue(i,255&t.adler),Ue(i,t.adler>>8&255),t.adler=0,i.status=Ee)):i.status=Ee),0!==i.pending){if(Be(t),0===t.avail_out)return i.last_flush=-1,pe}else if(0===t.avail_in&&Le(e)<=Le(s)&&4!==e)return Fe(t,-5);if(i.status===Te&&0!==t.avail_in)return Fe(t,-5);if(0!==t.avail_in||0!==i.lookahead||e!==fe&&i.status!==Te){var o=2===i.strategy?function(t,e){for(var s;;){if(0===t.lookahead&&(Ne(t),0===t.lookahead)){if(e===fe)return 1;break}if(t.match_length=0,s=_e(t,0,t.window[t.strstart]),t.lookahead--,t.strstart++,s&&(ze(t,!1),0===t.strm.avail_out))return 1}return t.insert=0,4===e?(ze(t,!0),0===t.strm.avail_out?3:4):t.last_lit&&(ze(t,!1),0===t.strm.avail_out)?1:2}(i,e):3===i.strategy?function(t,e){for(var s,i,n,r,a=t.window;;){if(t.lookahead<=Qe){if(Ne(t),t.lookahead<=Qe&&e===fe)return 1;if(0===t.lookahead)break}if(t.match_length=0,t.lookahead>=Se&&t.strstart>0&&(i=a[n=t.strstart-1])===a[++n]&&i===a[++n]&&i===a[++n]){r=t.strstart+Qe;do{}while(i===a[++n]&&i===a[++n]&&i===a[++n]&&i===a[++n]&&i===a[++n]&&i===a[++n]&&i===a[++n]&&i===a[++n]&&n<r);t.match_length=Qe-(r-n),t.match_length>t.lookahead&&(t.match_length=t.lookahead)}if(t.match_length>=Se?(s=_e(t,1,t.match_length-Se),t.lookahead-=t.match_length,t.strstart+=t.match_length,t.match_length=0):(s=_e(t,0,t.window[t.strstart]),t.lookahead--,t.strstart++),s&&(ze(t,!1),0===t.strm.avail_out))return 1}return t.insert=0,4===e?(ze(t,!0),0===t.strm.avail_out?3:4):t.last_lit&&(ze(t,!1),0===t.strm.avail_out)?1:2}(i,e):be[i.level].func(i,e);if(3!==o&&4!==o||(i.status=Te),1===o||3===o)return 0===t.avail_out&&(i.last_flush=-1),pe;if(2===o&&(1===e?function(t){Jt(t,vt<<1,3),$t(t,Ft,Nt),function(t){16===t.bi_valid?(Zt(t,t.bi_buf),t.bi_buf=0,t.bi_valid=0):t.bi_valid>=8&&(t.pending_buf[t.pending++]=255&t.bi_buf,t.bi_buf>>=8,t.bi_valid-=8)}(t)}(i):5!==e&&(de(i,0,0,!1),3===e&&(De(i.head),0===i.lookahead&&(i.strstart=0,i.block_start=0,i.insert=0))),Be(t),0===t.avail_out))return i.last_flush=-1,pe}return 4!==e?pe:i.wrap<=0?1:(2===i.wrap?(Ue(i,255&t.adler),Ue(i,t.adler>>8&255),Ue(i,t.adler>>16&255),Ue(i,t.adler>>24&255),Ue(i,255&t.total_in),Ue(i,t.total_in>>8&255),Ue(i,t.total_in>>16&255),Ue(i,t.total_in>>24&255)):(Ie(i,t.adler>>>16),Ie(i,65535&t.adler)),Be(t),i.wrap>0&&(i.wrap=-i.wrap),0!==i.pending?pe:1)}be=[new He(0,0,0,0,(function(t,e){var s=65535;for(s>t.pending_buf_size-5&&(s=t.pending_buf_size-5);;){if(t.lookahead<=1){if(Ne(t),0===t.lookahead&&e===fe)return 1;if(0===t.lookahead)break}t.strstart+=t.lookahead,t.lookahead=0;var i=t.block_start+s;if((0===t.strstart||t.strstart>=i)&&(t.lookahead=t.strstart-i,t.strstart=i,ze(t,!1),0===t.strm.avail_out))return 1;if(t.strstart-t.block_start>=t.w_size-Ae&&(ze(t,!1),0===t.strm.avail_out))return 1}return t.insert=0,4===e?(ze(t,!0),0===t.strm.avail_out?3:4):(t.strstart>t.block_start&&(ze(t,!1),t.strm.avail_out),1)})),new He(4,4,8,4,Pe),new He(4,5,16,8,Pe),new He(4,6,32,32,Pe),new He(4,4,16,16,Ve),new He(8,16,32,32,Ve),new He(8,16,128,128,Ve),new He(8,32,128,256,Ve),new He(32,128,258,1024,Ve),new He(32,258,258,4096,Ve)];class Ye{constructor(){var t,e;this.strm=new _t,this.chunkSize=102400,this.outputBuffer=new Uint8Array(this.chunkSize),this.windowBits=5,t=this.strm,e=this.windowBits,function(t,e,s,i,n,r){if(!t)return ge;var a=1;if(-1===e&&(e=6),i<0?(a=0,i=-i):i>15&&(a=2,i-=16),s!==we||i<8||i>15||e<0||e>9)return Fe(t,ge);8===i&&(i=9);var o=new Ke;t.state=o,o.strm=t,o.wrap=a,o.gzhead=null,o.w_bits=i,o.w_size=1<<o.w_bits,o.w_mask=o.w_size-1,o.hash_bits=15,o.hash_size=1<<o.hash_bits,o.hash_mask=o.hash_size-1,o.hash_shift=~~((o.hash_bits+Se-1)/Se),o.window=new z(2*o.w_size),o.head=new U(o.hash_size),o.prev=new U(o.w_size),o.lit_bufsize=16384,o.pending_buf_size=4*o.lit_bufsize,o.pending_buf=new z(o.pending_buf_size),o.d_buf=1*o.lit_bufsize,o.l_buf=3*o.lit_bufsize,o.level=e,o.strategy=0,o.method=s,Xe(t)}(t,e,we,15)}deflate(t){this.strm.input=t,this.strm.avail_in=this.strm.input.length,this.strm.next_in=0,this.strm.output=this.outputBuffer,this.strm.avail_out=this.chunkSize,this.strm.next_out=0;let e=Oe(this.strm,3),s=new Uint8Array(this.strm.output.buffer,0,this.strm.next_out);if(e<0)throw new Error("zlib deflate failed");if(this.strm.avail_in>0){let t=[s],i=s.length;do{if(this.strm.output=new Uint8Array(this.chunkSize),this.strm.next_out=0,this.strm.avail_out=this.chunkSize,e=Oe(this.strm,3),e<0)throw new Error("zlib deflate failed");let s=new Uint8Array(this.strm.output.buffer,0,this.strm.next_out);i+=s.length,t.push(s)}while(this.strm.avail_in>0);let n=new Uint8Array(i),r=0;for(let e=0;e<t.length;e++)n.set(t[e],r),r+=t[e].length;s=n}return this.strm.input=null,this.strm.avail_in=0,this.strm.next_in=0,s}}const Ge=65535,We=65507,qe=65509,je=65513,Ze=65515,Je=65027,$e={256:960,257:992,258:451,259:483,260:417,261:433,262:454,263:486,264:710,265:742,266:709,267:741,268:456,269:488,270:463,271:495,272:464,273:496,274:938,275:954,278:972,279:1004,280:458,281:490,282:460,283:492,284:728,285:760,286:683,287:699,288:725,289:757,290:939,291:955,292:678,293:694,294:673,295:689,296:933,297:949,298:975,299:1007,302:967,303:999,304:681,305:697,308:684,309:700,310:979,311:1011,312:930,313:453,314:485,315:934,316:950,317:421,318:437,321:419,322:435,323:465,324:497,325:977,326:1009,327:466,328:498,330:957,331:959,332:978,333:1010,336:469,337:501,338:5052,339:5053,340:448,341:480,342:931,343:947,344:472,345:504,346:422,347:438,348:734,349:766,350:426,351:442,352:425,353:441,354:478,355:510,356:427,357:443,358:940,359:956,360:989,361:1021,362:990,363:1022,364:733,365:765,366:473,367:505,368:475,369:507,370:985,371:1017,376:5054,377:428,378:444,379:431,380:447,381:430,382:446,402:2294,466:16777681,711:439,728:418,729:511,731:434,733:445,901:1966,902:1953,904:1954,905:1955,906:1956,908:1959,910:1960,911:1963,912:1974,913:1985,914:1986,915:1987,916:1988,917:1989,918:1990,919:1991,920:1992,921:1993,922:1994,923:1995,924:1996,925:1997,926:1998,927:1999,928:2e3,929:2001,931:2002,932:2004,933:2005,934:2006,935:2007,936:2008,937:2009,938:1957,939:1961,940:1969,941:1970,942:1971,943:1972,944:1978,945:2017,946:2018,947:2019,948:2020,949:2021,950:2022,951:2023,952:2024,953:2025,954:2026,955:2027,956:2028,957:2029,958:2030,959:2031,960:2032,961:2033,962:2035,963:2034,964:2036,965:2037,966:2038,967:2039,968:2040,969:2041,970:1973,971:1977,972:1975,973:1976,974:1979,1025:1715,1026:1713,1027:1714,1028:1716,1029:1717,1030:1718,1031:1719,1032:1720,1033:1721,1034:1722,1035:1723,1036:1724,1038:1726,1039:1727,1040:1761,1041:1762,1042:1783,1043:1767,1044:1764,1045:1765,1046:1782,1047:1786,1048:1769,1049:1770,1050:1771,1051:1772,1052:1773,1053:1774,1054:1775,1055:1776,1056:1778,1057:1779,1058:1780,1059:1781,1060:1766,1061:1768,1062:1763,1063:1790,1064:1787,1065:1789,1066:1791,1067:1785,1068:1784,1069:1788,1070:1760,1071:1777,1072:1729,1073:1730,1074:1751,1075:1735,1076:1732,1077:1733,1078:1750,1079:1754,1080:1737,1081:1738,1082:1739,1083:1740,1084:1741,1085:1742,1086:1743,1087:1744,1088:1746,1089:1747,1090:1748,1091:1749,1092:1734,1093:1736,1094:1731,1095:1758,1096:1755,1097:1757,1098:1759,1099:1753,1100:1752,1101:1756,1102:1728,1103:1745,1105:1699,1106:1697,1107:1698,1108:1700,1109:1701,1110:1702,1111:1703,1112:1704,1113:1705,1114:1706,1115:1707,1116:1708,1118:1710,1119:1711,1168:1725,1169:1709,1488:3296,1489:3297,1490:3298,1491:3299,1492:3300,1493:3301,1494:3302,1495:3303,1496:3304,1497:3305,1498:3306,1499:3307,1500:3308,1501:3309,1502:3310,1503:3311,1504:3312,1505:3313,1506:3314,1507:3315,1508:3316,1509:3317,1510:3318,1511:3319,1512:3320,1513:3321,1514:3322,1548:1452,1563:1467,1567:1471,1569:1473,1570:1474,1571:1475,1572:1476,1573:1477,1574:1478,1575:1479,1576:1480,1577:1481,1578:1482,1579:1483,1580:1484,1581:1485,1582:1486,1583:1487,1584:1488,1585:1489,1586:1490,1587:1491,1588:1492,1589:1493,1590:1494,1591:1495,1592:1496,1593:1497,1594:1498,1600:1504,1601:1505,1602:1506,1603:1507,1604:1508,1605:1509,1606:1510,1607:1511,1608:1512,1609:1513,1610:1514,1611:1515,1612:1516,1613:1517,1614:1518,1615:1519,1616:1520,1617:1521,1618:1522,3585:3489,3586:3490,3587:3491,3588:3492,3589:3493,3590:3494,3591:3495,3592:3496,3593:3497,3594:3498,3595:3499,3596:3500,3597:3501,3598:3502,3599:3503,3600:3504,3601:3505,3602:3506,3603:3507,3604:3508,3605:3509,3606:3510,3607:3511,3608:3512,3609:3513,3610:3514,3611:3515,3612:3516,3613:3517,3614:3518,3615:3519,3616:3520,3617:3521,3618:3522,3619:3523,3620:3524,3621:3525,3622:3526,3623:3527,3624:3528,3625:3529,3626:3530,3627:3531,3628:3532,3629:3533,3630:3534,3631:3535,3632:3536,3633:3537,3634:3538,3635:3539,3636:3540,3637:3541,3638:3542,3639:3543,3640:3544,3641:3545,3642:3546,3647:3551,3648:3552,3649:3553,3650:3554,3651:3555,3652:3556,3653:3557,3654:3558,3655:3559,3656:3560,3657:3561,3658:3562,3659:3563,3660:3564,3661:3565,3664:3568,3665:3569,3666:3570,3667:3571,3668:3572,3669:3573,3670:3574,3671:3575,3672:3576,3673:3577,8194:2722,8195:2721,8196:2723,8197:2724,8199:2725,8200:2726,8201:2727,8202:2728,8210:2747,8211:2730,8212:2729,8213:1967,8215:3295,8216:2768,8217:2769,8218:2813,8220:2770,8221:2771,8222:2814,8224:2801,8225:2802,8226:2790,8229:2735,8230:2734,8240:2773,8242:2774,8243:2775,8248:2812,8254:1150,8361:3839,8364:8364,8453:2744,8470:1712,8471:2811,8478:2772,8482:2761,8531:2736,8532:2737,8533:2738,8534:2739,8535:2740,8536:2741,8537:2742,8538:2743,8539:2755,8540:2756,8541:2757,8542:2758,8592:2299,8593:2300,8594:2301,8595:2302,8658:2254,8660:2253,8706:2287,8711:2245,8728:3018,8730:2262,8733:2241,8734:2242,8743:2270,8744:2271,8745:2268,8746:2269,8747:2239,8756:2240,8764:2248,8771:2249,8773:16785992,8800:2237,8801:2255,8804:2236,8805:2238,8834:2266,8835:2267,8866:3068,8867:3036,8868:3010,8869:3022,8968:3027,8970:3012,8981:2810,8992:2212,8993:2213,9109:3020,9115:2219,9117:2220,9118:2221,9120:2222,9121:2215,9123:2216,9124:2217,9126:2218,9128:2223,9132:2224,9143:2209,9146:2543,9147:2544,9148:2546,9149:2547,9225:2530,9226:2533,9227:2537,9228:2531,9229:2532,9251:2732,9252:2536,9472:2211,9474:2214,9484:2210,9488:2539,9492:2541,9496:2538,9500:2548,9508:2549,9516:2551,9524:2550,9532:2542,9618:2529,9642:2791,9643:2785,9644:2779,9645:2786,9646:2783,9647:2767,9650:2792,9651:2787,9654:2781,9655:2765,9660:2793,9661:2788,9664:2780,9665:2764,9670:2528,9675:2766,9679:2782,9702:2784,9734:2789,9742:2809,9747:2762,9756:2794,9758:2795,9792:2808,9794:2807,9827:2796,9829:2798,9830:2797,9837:2806,9839:2805,10003:2803,10007:2804,10013:2777,10016:2800,10216:2748,10217:2750,12289:1188,12290:1185,12300:1186,12301:1187,12443:1246,12444:1247,12449:1191,12450:1201,12451:1192,12452:1202,12453:1193,12454:1203,12455:1194,12456:1204,12457:1195,12458:1205,12459:1206,12461:1207,12463:1208,12465:1209,12467:1210,12469:1211,12471:1212,12473:1213,12475:1214,12477:1215,12479:1216,12481:1217,12483:1199,12484:1218,12486:1219,12488:1220,12490:1221,12491:1222,12492:1223,12493:1224,12494:1225,12495:1226,12498:1227,12501:1228,12504:1229,12507:1230,12510:1231,12511:1232,12512:1233,12513:1234,12514:1235,12515:1196,12516:1236,12517:1197,12518:1237,12519:1198,12520:1238,12521:1239,12522:1240,12523:1241,12524:1242,12525:1243,12527:1244,12530:1190,12531:1245,12539:1189,12540:1200},ts={lookup(t){if(t>=32&&t<=255)return t;const e=$e[t];return void 0!==e?e:16777216|t}},es={8:"Backspace",9:"Tab",10:"NumpadClear",12:"Numpad5",13:"Enter",16:"ShiftLeft",17:"ControlLeft",18:"AltLeft",19:"Pause",20:"CapsLock",21:"Lang1",25:"Lang2",27:"Escape",28:"Convert",29:"NonConvert",32:"Space",33:"PageUp",34:"PageDown",35:"End",36:"Home",37:"ArrowLeft",38:"ArrowUp",39:"ArrowRight",40:"ArrowDown",41:"Select",44:"PrintScreen",45:"Insert",46:"Delete",47:"Help",48:"Digit0",49:"Digit1",50:"Digit2",51:"Digit3",52:"Digit4",53:"Digit5",54:"Digit6",55:"Digit7",56:"Digit8",57:"Digit9",91:"MetaLeft",92:"MetaRight",93:"ContextMenu",95:"Sleep",96:"Numpad0",97:"Numpad1",98:"Numpad2",99:"Numpad3",100:"Numpad4",101:"Numpad5",102:"Numpad6",103:"Numpad7",104:"Numpad8",105:"Numpad9",106:"NumpadMultiply",107:"NumpadAdd",108:"NumpadDecimal",109:"NumpadSubtract",110:"NumpadDecimal",111:"NumpadDivide",112:"F1",113:"F2",114:"F3",115:"F4",116:"F5",117:"F6",118:"F7",119:"F8",120:"F9",121:"F10",122:"F11",123:"F12",124:"F13",125:"F14",126:"F15",127:"F16",128:"F17",129:"F18",130:"F19",131:"F20",132:"F21",133:"F22",134:"F23",135:"F24",144:"NumLock",145:"ScrollLock",166:"BrowserBack",167:"BrowserForward",168:"BrowserRefresh",169:"BrowserStop",170:"BrowserSearch",171:"BrowserFavorites",172:"BrowserHome",173:"AudioVolumeMute",174:"AudioVolumeDown",175:"AudioVolumeUp",176:"MediaTrackNext",177:"MediaTrackPrevious",178:"MediaStop",179:"MediaPlayPause",180:"LaunchMail",181:"MediaSelect",182:"LaunchApp1",183:"LaunchApp2",225:"AltRight"},ss={Backspace:"Backspace",AltLeft:"Alt",AltRight:"Alt",CapsLock:"CapsLock",ContextMenu:"ContextMenu",ControlLeft:"Control",ControlRight:"Control",Enter:"Enter",MetaLeft:"Meta",MetaRight:"Meta",ShiftLeft:"Shift",ShiftRight:"Shift",Tab:"Tab",Delete:"Delete",End:"End",Help:"Help",Home:"Home",Insert:"Insert",PageDown:"PageDown",PageUp:"PageUp",ArrowDown:"ArrowDown",ArrowLeft:"ArrowLeft",ArrowRight:"ArrowRight",ArrowUp:"ArrowUp",NumLock:"NumLock",NumpadBackspace:"Backspace",NumpadClear:"Clear",Escape:"Escape",F1:"F1",F2:"F2",F3:"F3",F4:"F4",F5:"F5",F6:"F6",F7:"F7",F8:"F8",F9:"F9",F10:"F10",F11:"F11",F12:"F12",F13:"F13",F14:"F14",F15:"F15",F16:"F16",F17:"F17",F18:"F18",F19:"F19",F20:"F20",F21:"F21",F22:"F22",F23:"F23",F24:"F24",F25:"F25",F26:"F26",F27:"F27",F28:"F28",F29:"F29",F30:"F30",F31:"F31",F32:"F32",F33:"F33",F34:"F34",F35:"F35",PrintScreen:"PrintScreen",ScrollLock:"ScrollLock",Pause:"Pause",BrowserBack:"BrowserBack",BrowserFavorites:"BrowserFavorites",BrowserForward:"BrowserForward",BrowserHome:"BrowserHome",BrowserRefresh:"BrowserRefresh",BrowserSearch:"BrowserSearch",BrowserStop:"BrowserStop",Eject:"Eject",LaunchApp1:"LaunchMyComputer",LaunchApp2:"LaunchCalendar",LaunchMail:"LaunchMail",MediaPlayPause:"MediaPlay",MediaStop:"MediaStop",MediaTrackNext:"MediaTrackNext",MediaTrackPrevious:"MediaTrackPrevious",Power:"Power",Sleep:"Sleep",AudioVolumeDown:"AudioVolumeDown",AudioVolumeMute:"AudioVolumeMute",AudioVolumeUp:"AudioVolumeUp",WakeUp:"WakeUp"},is={};function ns(t,e){if(void 0===e)throw new Error('Undefined keysym for key "'+t+'"');if(t in is)throw new Error('Duplicate entry for key "'+t+'"');is[t]=[e,e,e,e]}function rs(t,e,s){if(void 0===e)throw new Error('Undefined keysym for key "'+t+'"');if(void 0===s)throw new Error('Undefined keysym for key "'+t+'"');if(t in is)throw new Error('Duplicate entry for key "'+t+'"');is[t]=[e,e,s,e]}function as(t,e,s){if(void 0===e)throw new Error('Undefined keysym for key "'+t+'"');if(void 0===s)throw new Error('Undefined keysym for key "'+t+'"');if(t in is)throw new Error('Duplicate entry for key "'+t+'"');is[t]=[e,e,e,s]}rs("Alt",je,65514),ns("AltGraph",Je),ns("CapsLock",qe),rs("Control",We,65508),rs("Meta",Ze,65516),ns("NumLock",65407),ns("ScrollLock",65300),rs("Shift",65505,65506),as("Enter",65293,65421),ns("Tab",65289),as(" ",32,65408),as("ArrowDown",65364,65433),as("ArrowUp",65362,65431),as("ArrowLeft",65361,65430),as("ArrowRight",65363,65432),as("End",65367,65436),as("Home",65360,65429),as("PageDown",65366,65435),as("PageUp",65365,65434),ns("Backspace",65288),as("Clear",65291,65437),ns("Copy",269025111),ns("Cut",269025112),as("Delete",Ge,65439),as("Insert",65379,65438),ns("Paste",269025133),ns("Redo",65382),ns("Undo",65381),ns("Cancel",65385),ns("ContextMenu",65383),ns("Escape",65307),ns("Execute",65378),ns("Find",65384),ns("Help",65386),ns("Pause",65299),ns("Select",65376),ns("ZoomIn",269025163),ns("ZoomOut",269025164),ns("BrightnessDown",269025027),ns("BrightnessUp",269025026),ns("Eject",269025068),ns("LogOff",269025121),ns("Power",269025066),ns("PowerOff",269025057),ns("PrintScreen",65377),ns("Hibernate",269025192),ns("Standby",269025040),ns("WakeUp",269025067),ns("AllCandidates",65341),ns("Alphanumeric",65327),ns("CodeInput",65335),ns("Compose",65312),ns("Convert",65315),ns("GroupFirst",65036),ns("GroupLast",65038),ns("GroupNext",65032),ns("GroupPrevious",65034),ns("NonConvert",65314),ns("PreviousCandidate",65342),ns("SingleCandidate",65340),ns("HangulMode",65329),ns("HanjaMode",65332),ns("JunjuaMode",65336),ns("Eisu",65328),ns("Hankaku",65321),ns("Hiragana",65317),ns("HiraganaKatakana",65319),ns("KanaMode",65326),ns("KanjiMode",65313),ns("Katakana",65318),ns("Romaji",65316),ns("Zenkaku",65320),ns("ZenkakuHanaku",65322),ns("F1",65470),ns("F2",65471),ns("F3",65472),ns("F4",65473),ns("F5",65474),ns("F6",65475),ns("F7",65476),ns("F8",65477),ns("F9",65478),ns("F10",65479),ns("F11",65480),ns("F12",65481),ns("F13",65482),ns("F14",65483),ns("F15",65484),ns("F16",65485),ns("F17",65486),ns("F18",65487),ns("F19",65488),ns("F20",65489),ns("F21",65490),ns("F22",65491),ns("F23",65492),ns("F24",65493),ns("F25",65494),ns("F26",65495),ns("F27",65496),ns("F28",65497),ns("F29",65498),ns("F30",65499),ns("F31",65500),ns("F32",65501),ns("F33",65502),ns("F34",65503),ns("F35",65504),ns("Close",269025110),ns("MailForward",269025168),ns("MailReply",269025138),ns("MailSend",269025147),ns("MediaFastForward",269025175),ns("MediaPause",269025073),ns("MediaPlay",269025044),ns("MediaRecord",269025052),ns("MediaRewind",269025086),ns("MediaStop",269025045),ns("MediaTrackNext",269025047),ns("MediaTrackPrevious",269025046),ns("New",269025128),ns("Open",269025131),ns("Print",65377),ns("Save",269025143),ns("SpellCheck",269025148),ns("AudioVolumeDown",269025041),ns("AudioVolumeUp",269025043),ns("AudioVolumeMute",269025042),ns("MicrophoneVolumeMute",269025202),ns("LaunchApplication1",269025075),ns("LaunchApplication2",269025053),ns("LaunchCalendar",269025056),ns("LaunchMail",269025049),ns("LaunchMediaPlayer",269025074),ns("LaunchMusicPlayer",269025170),ns("LaunchPhone",269025134),ns("LaunchScreenSaver",269025069),ns("LaunchSpreadsheet",269025116),ns("LaunchWebBrowser",269025070),ns("LaunchWebCam",269025167),ns("LaunchWordProcessor",269025161),ns("BrowserBack",269025062),ns("BrowserFavorites",269025072),ns("BrowserForward",269025063),ns("BrowserHome",269025048),ns("BrowserRefresh",269025065),ns("BrowserSearch",269025051),ns("BrowserStop",269025064),ns("Dimmer",269025083),ns("MediaAudioTrack",269025179),ns("RandomToggle",269025177),ns("SplitScreenToggle",269025149),ns("Subtitle",269025178),ns("VideoModeNext",269024802),as("=",61,65469),as("+",43,65451),as("-",45,65453),as("*",42,65450),as("/",47,65455),as(".",46,65454),as(",",44,65452),as("0",48,65456),as("1",49,65457),as("2",50,65458),as("3",51,65459),as("4",52,65460),as("5",53,65461),as("6",54,65462),as("7",55,65463),as("8",56,65464),as("9",57,65465);const os=is;function hs(t){if(t.code){switch(t.code){case"OSLeft":return"MetaLeft";case"OSRight":return"MetaRight"}return t.code}if("keypress"!==t.type&&t.keyCode in es){let e=es[t.keyCode];if(m()&&"ContextMenu"===e&&(e="MetaRight"),2===t.location)switch(e){case"ShiftLeft":return"ShiftRight";case"ControlLeft":return"ControlRight";case"AltLeft":return"AltRight"}if(3===t.location)switch(e){case"Delete":return"NumpadDecimal";case"Insert":return"Numpad0";case"End":return"Numpad1";case"ArrowDown":return"Numpad2";case"PageDown":return"Numpad3";case"ArrowLeft":return"Numpad4";case"ArrowRight":return"Numpad6";case"Home":return"Numpad7";case"ArrowUp":return"Numpad8";case"PageUp":return"Numpad9";case"Enter":return"NumpadEnter"}return e}return"Unidentified"}function ls(t){const e=function(t){if(void 0!==t.key){switch(t.key){case"Spacebar":return" ";case"Esc":return"Escape";case"Scroll":return"ScrollLock";case"Win":return"Meta";case"Apps":return"ContextMenu";case"Up":return"ArrowUp";case"Left":return"ArrowLeft";case"Right":return"ArrowRight";case"Down":return"ArrowDown";case"Del":return"Delete";case"Divide":return"/";case"Multiply":return"*";case"Subtract":return"-";case"Add":return"+";case"Decimal":return t.char}switch(t.key){case"OS":return"Meta";case"LaunchMyComputer":return"LaunchApplication1";case"LaunchCalculator":return"LaunchApplication2"}switch(t.key){case"UIKeyInputUpArrow":return"ArrowUp";case"UIKeyInputDownArrow":return"ArrowDown";case"UIKeyInputLeftArrow":return"ArrowLeft";case"UIKeyInputRightArrow":return"ArrowRight";case"UIKeyInputEscape":return"Escape"}if("\0"===t.key&&"NumpadDecimal"===t.code)return"Delete";if(!v()&&!y())return t.key;if(1!==t.key.length&&"Unidentified"!==t.key)return t.key}const e=hs(t);return e in ss?ss[e]:t.charCode?String.fromCharCode(t.charCode):"Unidentified"}(t);if("Unidentified"===e)return null;if(e in os){let s=t.location;if("Meta"===e&&0===s&&(s=2),"Clear"===e&&3===s&&"NumLock"===hs(t)&&(s=0),(void 0===s||s>3)&&(s=0),"Meta"===e){let e=hs(t);if("AltLeft"===e)return 65511;if("AltRight"===e)return 65512}return"Clear"===e&&"NumLock"===hs(t)?65407:os[e][s]}if(1!==e.length)return null;const s=e.charCodeAt();return s?ts.lookup(s):null}class cs{constructor(t){this._target=t||null,this._keyDownList={},this._pendingKey=null,this._altGrArmed=!1,this._eventHandlers={keyup:this._handleKeyUp.bind(this),keydown:this._handleKeyDown.bind(this),keypress:this._handleKeyPress.bind(this),blur:this._allKeysUp.bind(this),checkalt:this._checkAlt.bind(this)},this.onkeyevent=()=>{}}_sendKeyEvent(t,e,s){if(s)this._keyDownList[e]=t;else{if(!(e in this._keyDownList))return;delete this._keyDownList[e]}n("onkeyevent "+(s?"down":"up")+", keysym: "+t,", code: "+e),this.onkeyevent(t,e,s)}_getKeyCode(t){const e=hs(t);if("Unidentified"!==e)return e;if(t.keyCode&&"keypress"!==t.type&&229!==t.keyCode)return"Platform"+t.keyCode;if(t.keyIdentifier){if("U+"!==t.keyIdentifier.substr(0,2))return t.keyIdentifier;const e=parseInt(t.keyIdentifier.substr(2),16);return"Platform"+String.fromCharCode(e).toUpperCase().charCodeAt()}return"Unidentified"}_handleKeyDown(t){const e=this._getKeyCode(t);let s=ls(t);if(this._altGrArmed&&(this._altGrArmed=!1,clearTimeout(this._altGrTimeout),"AltRight"===e&&t.timeStamp-this._altGrCtrlTime<50?s=Je:this._sendKeyEvent(We,"ControlLeft",!0)),"Unidentified"===e)return s&&(this._sendKeyEvent(s,e,!0),this._sendKeyEvent(s,e,!1)),void C(t);if(m()||b())switch(s){case Ze:s=je;break;case 65516:s=Ze;break;case je:s=65406;break;case 65514:s=Je}return e in this._keyDownList&&(s=this._keyDownList[e]),(m()||b())&&"CapsLock"===e?(this._sendKeyEvent(qe,"CapsLock",!0),this._sendKeyEvent(qe,"CapsLock",!1),void C(t)):s||t.key&&!v()&&!y()?(this._pendingKey=null,C(t),"ControlLeft"===e&&w()&&!("ControlLeft"in this._keyDownList)?(this._altGrArmed=!0,this._altGrTimeout=setTimeout(this._handleAltGrTimeout.bind(this),100),void(this._altGrCtrlTime=t.timeStamp)):void this._sendKeyEvent(s,e,!0)):(this._pendingKey=e,void setTimeout(this._handleKeyPressTimeout.bind(this),10,t))}_handleKeyPress(t){if(C(t),null===this._pendingKey)return;let e=this._getKeyCode(t);const s=ls(t);"Unidentified"!==e&&e!=this._pendingKey||(e=this._pendingKey,this._pendingKey=null,s?this._sendKeyEvent(s,e,!0):r("keypress with no keysym:",t))}_handleKeyPressTimeout(t){if(null===this._pendingKey)return;let e;const s=this._pendingKey;if(this._pendingKey=null,t.keyCode>=48&&t.keyCode<=57)e=t.keyCode;else if(t.keyCode>=65&&t.keyCode<=90){let s=String.fromCharCode(t.keyCode);s=t.shiftKey?s.toUpperCase():s.toLowerCase(),e=s.charCodeAt()}else e=0;this._sendKeyEvent(e,s,!0)}_handleKeyUp(t){C(t);const e=this._getKeyCode(t);if(this._altGrArmed&&(this._altGrArmed=!1,clearTimeout(this._altGrTimeout),this._sendKeyEvent(We,"ControlLeft",!0)),(m()||b())&&"CapsLock"===e)return this._sendKeyEvent(qe,"CapsLock",!0),void this._sendKeyEvent(qe,"CapsLock",!1);this._sendKeyEvent(this._keyDownList[e],e,!1),!w()||"ShiftLeft"!==e&&"ShiftRight"!==e||("ShiftRight"in this._keyDownList&&this._sendKeyEvent(this._keyDownList.ShiftRight,"ShiftRight",!1),"ShiftLeft"in this._keyDownList&&this._sendKeyEvent(this._keyDownList.ShiftLeft,"ShiftLeft",!1))}_handleAltGrTimeout(){this._altGrArmed=!1,clearTimeout(this._altGrTimeout),this._sendKeyEvent(We,"ControlLeft",!0)}_allKeysUp(){n(">> Keyboard.allKeysUp");for(let t in this._keyDownList)this._sendKeyEvent(this._keyDownList[t],t,!1);n("<< Keyboard.allKeysUp")}_checkAlt(t){if(t.skipCheckAlt)return;if(t.altKey)return;const e=this._target,s=this._keyDownList;["AltLeft","AltRight"].forEach((t=>{if(!(t in s))return;const i=new KeyboardEvent("keyup",{key:s[t],code:t});i.skipCheckAlt=!0,e.dispatchEvent(i)}))}grab(){if(this._target.addEventListener("keydown",this._eventHandlers.keydown),this._target.addEventListener("keyup",this._eventHandlers.keyup),this._target.addEventListener("keypress",this._eventHandlers.keypress),window.addEventListener("blur",this._eventHandlers.blur),w()&&k()){const t=this._eventHandlers.checkalt;["mousedown","mouseup","mousemove","wheel","touchstart","touchend","touchmove","keydown","keyup"].forEach((e=>document.addEventListener(e,t,{capture:!0,passive:!0})))}}ungrab(){if(w()&&k()){const t=this._eventHandlers.checkalt;["mousedown","mouseup","mousemove","wheel","touchstart","touchend","touchmove","keydown","keyup"].forEach((e=>document.removeEventListener(e,t)))}this._target.removeEventListener("keydown",this._eventHandlers.keydown),this._target.removeEventListener("keyup",this._eventHandlers.keyup),this._target.removeEventListener("keypress",this._eventHandlers.keypress),window.removeEventListener("blur",this._eventHandlers.blur),this._allKeysUp()}}class ds{constructor(){this._target=null,this._state=127,this._tracked=[],this._ignored=[],this._waitingRelease=!1,this._releaseStart=0,this._longpressTimeoutId=null,this._twoTouchTimeoutId=null,this._boundEventHandler=this._eventHandler.bind(this)}attach(t){this.detach(),this._target=t,this._target.addEventListener("touchstart",this._boundEventHandler),this._target.addEventListener("touchmove",this._boundEventHandler),this._target.addEventListener("touchend",this._boundEventHandler),this._target.addEventListener("touchcancel",this._boundEventHandler)}detach(){this._target&&(this._stopLongpressTimeout(),this._stopTwoTouchTimeout(),this._target.removeEventListener("touchstart",this._boundEventHandler),this._target.removeEventListener("touchmove",this._boundEventHandler),this._target.removeEventListener("touchend",this._boundEventHandler),this._target.removeEventListener("touchcancel",this._boundEventHandler),this._target=null)}_eventHandler(t){let e;switch(t.stopPropagation(),t.preventDefault(),t.type){case"touchstart":e=this._touchStart;break;case"touchmove":e=this._touchMove;break;case"touchend":case"touchcancel":e=this._touchEnd}for(let s=0;s<t.changedTouches.length;s++){let i=t.changedTouches[s];e.call(this,i.identifier,i.clientX,i.clientY)}}_touchStart(t,e,s){if(this._hasDetectedGesture()||0===this._state)this._ignored.push(t);else{if(this._tracked.length>0&&Date.now()-this._tracked[0].started>250)return this._state=0,void this._ignored.push(t);if(this._waitingRelease)return this._state=0,void this._ignored.push(t);switch(this._tracked.push({id:t,started:Date.now(),active:!0,firstX:e,firstY:s,lastX:e,lastY:s,angle:0}),this._tracked.length){case 1:this._startLongpressTimeout();break;case 2:this._state&=-26,this._stopLongpressTimeout();break;case 3:this._state&=-99;break;default:this._state=0}}}_touchMove(t,e,s){let i=this._tracked.find((e=>e.id===t));if(void 0===i)return;i.lastX=e,i.lastY=s;let n=e-i.firstX,r=s-i.firstY;if(i.firstX===i.lastX&&i.firstY===i.lastY||(i.angle=180*Math.atan2(r,n)/Math.PI),!this._hasDetectedGesture()){if(Math.hypot(n,r)<50)return;if(this._state&=-24,this._stopLongpressTimeout(),1!==this._tracked.length&&(this._state&=-9),2!==this._tracked.length&&(this._state&=-97),2===this._tracked.length){let e=this._tracked.find((e=>e.id!==t));if(Math.hypot(e.firstX-e.lastX,e.firstY-e.lastY)>50){let t=Math.abs(i.angle-e.angle);t=Math.abs((t+180)%360-180),this._state&=t>90?-33:-65,this._isTwoTouchTimeoutRunning()&&this._stopTwoTouchTimeout()}else this._isTwoTouchTimeoutRunning()||this._startTwoTouchTimeout()}if(!this._hasDetectedGesture())return;this._pushEvent("gesturestart")}this._pushEvent("gesturemove")}_touchEnd(t,e,s){if(-1!==this._ignored.indexOf(t))return this._ignored.splice(this._ignored.indexOf(t),1),void(0===this._ignored.length&&0===this._tracked.length&&(this._state=127,this._waitingRelease=!1));if(!this._hasDetectedGesture()&&this._isTwoTouchTimeoutRunning()&&(this._stopTwoTouchTimeout(),this._state=0),!this._hasDetectedGesture()&&(this._state&=-105,this._state&=-17,this._stopLongpressTimeout(),!this._waitingRelease))switch(this._releaseStart=Date.now(),this._waitingRelease=!0,this._tracked.length){case 1:this._state&=-7;break;case 2:this._state&=-6}if(this._waitingRelease)if(Date.now()-this._releaseStart>250&&(this._state=0),this._tracked.some((t=>Date.now()-t.started>1e3))&&(this._state=0),this._tracked.find((e=>e.id===t)).active=!1,this._hasDetectedGesture())this._pushEvent("gesturestart");else if(0!==this._state)return;this._hasDetectedGesture()&&this._pushEvent("gestureend");for(let t=0;t<this._tracked.length;t++)this._tracked[t].active&&this._ignored.push(this._tracked[t].id);this._tracked=[],this._state=0,-1!==this._ignored.indexOf(t)&&this._ignored.splice(this._ignored.indexOf(t),1),0===this._ignored.length&&(this._state=127,this._waitingRelease=!1)}_hasDetectedGesture(){return!(0===this._state||this._state&this._state-1||7&this._state&&this._tracked.some((t=>t.active)))}_startLongpressTimeout(){this._stopLongpressTimeout(),this._longpressTimeoutId=setTimeout((()=>this._longpressTimeout()),1e3)}_stopLongpressTimeout(){clearTimeout(this._longpressTimeoutId),this._longpressTimeoutId=null}_longpressTimeout(){if(this._hasDetectedGesture())throw new Error("A longpress gesture failed, conflict with a different gesture");this._state=16,this._pushEvent("gesturestart")}_startTwoTouchTimeout(){this._stopTwoTouchTimeout(),this._twoTouchTimeoutId=setTimeout((()=>this._twoTouchTimeout()),50)}_stopTwoTouchTimeout(){clearTimeout(this._twoTouchTimeoutId),this._twoTouchTimeoutId=null}_isTwoTouchTimeoutRunning(){return null!==this._twoTouchTimeoutId}_twoTouchTimeout(){if(0===this._tracked.length)throw new Error("A pinch or two drag gesture failed, no tracked touches");let t=this._getAverageMovement(),e=Math.abs(t.x),s=Math.abs(t.y),i=this._getAverageDistance(),n=Math.abs(Math.hypot(i.first.x,i.first.y)-Math.hypot(i.last.x,i.last.y));this._state=s<n&&e<n?64:32,this._pushEvent("gesturestart"),this._pushEvent("gesturemove")}_pushEvent(t){let e={type:this._stateToGesture(this._state)},s=this._getPosition(),i=s.last;switch("gesturestart"===t&&(i=s.first),this._state){case 32:case 64:i=s.first}if(e.clientX=i.x,e.clientY=i.y,64===this._state){let s=this._getAverageDistance();"gesturestart"===t?(e.magnitudeX=s.first.x,e.magnitudeY=s.first.y):(e.magnitudeX=s.last.x,e.magnitudeY=s.last.y)}else if(32===this._state)if("gesturestart"===t)e.magnitudeX=0,e.magnitudeY=0;else{let t=this._getAverageMovement();e.magnitudeX=t.x,e.magnitudeY=t.y}let n=new CustomEvent(t,{detail:e});this._target.dispatchEvent(n)}_stateToGesture(t){switch(t){case 1:return"onetap";case 2:return"twotap";case 4:return"threetap";case 8:return"drag";case 16:return"longpress";case 32:return"twodrag";case 64:return"pinch"}throw new Error("Unknown gesture state: "+t)}_getPosition(){if(0===this._tracked.length)throw new Error("Failed to get gesture position, no tracked touches");let t=this._tracked.length,e=0,s=0,i=0,n=0;for(let t=0;t<this._tracked.length;t++)e+=this._tracked[t].firstX,s+=this._tracked[t].firstY,i+=this._tracked[t].lastX,n+=this._tracked[t].lastY;return{first:{x:e/t,y:s/t},last:{x:i/t,y:n/t}}}_getAverageMovement(){if(0===this._tracked.length)throw new Error("Failed to get gesture movement, no tracked touches");let t,e;t=e=0;let s=this._tracked.length;for(let s=0;s<this._tracked.length;s++)t+=this._tracked[s].lastX-this._tracked[s].firstX,e+=this._tracked[s].lastY-this._tracked[s].firstY;return{x:t/s,y:e/s}}_getAverageDistance(){if(0===this._tracked.length)throw new Error("Failed to get gesture distance, no tracked touches");let t=this._tracked[0],e=this._tracked[this._tracked.length-1];return{first:{x:Math.abs(e.firstX-t.firstX),y:Math.abs(e.firstY-t.firstY)},last:{x:Math.abs(e.lastX-t.lastX),y:Math.abs(e.lastY-t.lastY)}}}}const _s=!u||c;class us{constructor(){this._target=null,this._canvas=document.createElement("canvas"),_s&&(this._canvas.style.position="fixed",this._canvas.style.zIndex="65535",this._canvas.style.pointerEvents="none",this._canvas.style.visibility="hidden"),this._position={x:0,y:0},this._hotSpot={x:0,y:0},this._eventHandlers={mouseover:this._handleMouseOver.bind(this),mouseleave:this._handleMouseLeave.bind(this),mousemove:this._handleMouseMove.bind(this),mouseup:this._handleMouseUp.bind(this)}}attach(t){if(this._target&&this.detach(),this._target=t,_s){document.body.appendChild(this._canvas);const t={capture:!0,passive:!0};this._target.addEventListener("mouseover",this._eventHandlers.mouseover,t),this._target.addEventListener("mouseleave",this._eventHandlers.mouseleave,t),this._target.addEventListener("mousemove",this._eventHandlers.mousemove,t),this._target.addEventListener("mouseup",this._eventHandlers.mouseup,t)}this.clear()}detach(){if(this._target){if(_s){const t={capture:!0,passive:!0};this._target.removeEventListener("mouseover",this._eventHandlers.mouseover,t),this._target.removeEventListener("mouseleave",this._eventHandlers.mouseleave,t),this._target.removeEventListener("mousemove",this._eventHandlers.mousemove,t),this._target.removeEventListener("mouseup",this._eventHandlers.mouseup,t),document.body.removeChild(this._canvas)}this._target=null}}change(t,e,s,i,n){if(0===i||0===n)return void this.clear();this._position.x=this._position.x+this._hotSpot.x-e,this._position.y=this._position.y+this._hotSpot.y-s,this._hotSpot.x=e,this._hotSpot.y=s;let r,a=this._canvas.getContext("2d");this._canvas.width=i,this._canvas.height=n;try{r=new ImageData(new Uint8ClampedArray(t),i,n)}catch(e){r=a.createImageData(i,n),r.data.set(new Uint8ClampedArray(t))}if(a.clearRect(0,0,i,n),a.putImageData(r,0,0),_s)this._updatePosition();else{let t=this._canvas.toDataURL();this._target.style.cursor="url("+t+")"+e+" "+s+", default"}}clear(){this._target.style.cursor="none",this._canvas.width=0,this._canvas.height=0,this._position.x=this._position.x+this._hotSpot.x,this._position.y=this._position.y+this._hotSpot.y,this._hotSpot.x=0,this._hotSpot.y=0}move(t,e){if(!_s)return;window.visualViewport?(this._position.x=t+window.visualViewport.offsetLeft,this._position.y=e+window.visualViewport.offsetTop):(this._position.x=t,this._position.y=e),this._updatePosition();let s=document.elementFromPoint(t,e);this._updateVisibility(s)}_handleMouseOver(t){this._handleMouseMove(t)}_handleMouseLeave(t){this._updateVisibility(t.relatedTarget)}_handleMouseMove(t){this._updateVisibility(t.target),this._position.x=t.clientX-this._hotSpot.x,this._position.y=t.clientY-this._hotSpot.y,this._updatePosition()}_handleMouseUp(t){let e=document.elementFromPoint(t.clientX,t.clientY);this._updateVisibility(e),this._captureIsActive()&&window.setTimeout((()=>{this._target&&(e=document.elementFromPoint(t.clientX,t.clientY),this._updateVisibility(e))}),0)}_showCursor(){"hidden"===this._canvas.style.visibility&&(this._canvas.style.visibility="")}_hideCursor(){"hidden"!==this._canvas.style.visibility&&(this._canvas.style.visibility="hidden")}_shouldShowCursor(t){return!!t&&(t===this._target||!!this._target.contains(t)&&"none"===window.getComputedStyle(t).cursor)}_updateVisibility(t){this._captureIsActive()&&(t=document.captureElement),this._shouldShowCursor(t)?this._showCursor():this._hideCursor()}_updatePosition(){this._canvas.style.left=this._position.x+"px",this._canvas.style.top=this._position.y+"px"}_captureIsActive(){return document.captureElement&&document.documentElement.contains(document.captureElement)}}const fs=41943040;class ps{constructor(){this._websocket=null,this._rQi=0,this._rQlen=0,this._rQbufferSize=4194304,this._rQ=null,this._sQbufferSize=10240,this._sQlen=0,this._sQ=null,this._eventHandlers={message:()=>{},open:()=>{},close:()=>{},error:()=>{}}}get sQ(){return this._sQ}get rQ(){return this._rQ}get rQi(){return this._rQi}set rQi(t){this._rQi=t}get rQlen(){return this._rQlen-this._rQi}rQpeek8(){return this._rQ[this._rQi]}rQskipBytes(t){this._rQi+=t}rQshift8(){return this._rQshift(1)}rQshift16(){return this._rQshift(2)}rQshift32(){return this._rQshift(4)}_rQshift(t){let e=0;for(let s=t-1;s>=0;s--)e+=this._rQ[this._rQi++]<<8*s;return e}rQshiftStr(t){void 0===t&&(t=this.rQlen);let e="";for(let s=0;s<t;s+=4096){let i=this.rQshiftBytes(Math.min(4096,t-s));e+=String.fromCharCode.apply(null,i)}return e}rQshiftBytes(t){return void 0===t&&(t=this.rQlen),this._rQi+=t,new Uint8Array(this._rQ.buffer,this._rQi-t,t)}rQshiftTo(t,e){void 0===e&&(e=this.rQlen),t.set(new Uint8Array(this._rQ.buffer,this._rQi,e)),this._rQi+=e}rQslice(t,e=this.rQlen){return new Uint8Array(this._rQ.buffer,this._rQi+t,e-t)}rQwait(t,e,s){if(this.rQlen<e){if(s){if(this._rQi<s)throw new Error("rQwait cannot backup "+s+" bytes");this._rQi-=s}return!0}return!1}flush(){this._sQlen>0&&this._websocket.readyState===WebSocket.OPEN&&(this._websocket.send(this._encodeMessage()),this._sQlen=0)}send(t){this._sQ.set(t,this._sQlen),this._sQlen+=t.length,this.flush()}sendString(t){this.send(t.split("").map((t=>t.charCodeAt(0))))}off(t){this._eventHandlers[t]=()=>{}}on(t,e){this._eventHandlers[t]=e}_allocateBuffers(){this._rQ=new Uint8Array(this._rQbufferSize),this._sQ=new Uint8Array(this._sQbufferSize)}init(){this._allocateBuffers(),this._rQi=0,this._websocket=null}open(t,e){this.init(),this._websocket=new WebSocket(t,e),this._websocket.binaryType="arraybuffer",this._websocket.onmessage=this._recvMessage.bind(this),this._websocket.onopen=()=>{n(">> WebSock.onopen"),this._websocket.protocol&&r("Server choose sub-protocol: "+this._websocket.protocol),this._eventHandlers.open(),n("<< WebSock.onopen")},this._websocket.onclose=t=>{n(">> WebSock.onclose"),this._eventHandlers.close(t),n("<< WebSock.onclose")},this._websocket.onerror=t=>{n(">> WebSock.onerror: "+t),this._eventHandlers.error(t),n("<< WebSock.onerror: "+t)}}close(){this._websocket&&(this._websocket.readyState!==WebSocket.OPEN&&this._websocket.readyState!==WebSocket.CONNECTING||(r("Closing WebSocket connection"),this._websocket.close()),this._websocket.onmessage=()=>{})}_encodeMessage(){return new Uint8Array(this._sQ.buffer,0,this._sQlen)}_expandCompactRQ(t){const e=8*(this._rQlen-this._rQi+t),s=this._rQbufferSize<e;if(s&&(this._rQbufferSize=Math.max(2*this._rQbufferSize,e)),this._rQbufferSize>fs&&(this._rQbufferSize=fs,this._rQbufferSize-this.rQlen<t))throw new Error("Receive Queue buffer exceeded "+fs+" bytes, and the new message could not fit");if(s){const t=this._rQ.buffer;this._rQ=new Uint8Array(this._rQbufferSize),this._rQ.set(new Uint8Array(t,this._rQi,this._rQlen-this._rQi))}else this._rQ.set(new Uint8Array(this._rQ.buffer,this._rQi,this._rQlen-this._rQi));this._rQlen=this._rQlen-this._rQi,this._rQi=0}_DecodeMessage(t){const e=new Uint8Array(t);e.length>this._rQbufferSize-this._rQlen&&this._expandCompactRQ(e.length),this._rQ.set(e,this._rQlen),this._rQlen+=e.length}_recvMessage(t){this._DecodeMessage(t.data),this.rQlen>0?(this._eventHandlers.message(),this._rQlen==this._rQi&&(this._rQlen=0,this._rQi=0)):n("Ignoring empty message")}}const gs=[13,16,10,23,0,4,2,27,14,5,20,9,22,18,11,3,25,7,15,6,26,19,12,1,40,51,30,36,46,54,29,39,50,44,32,47,43,48,38,55,33,52,45,41,49,35,28,31],ms=[1,2,4,6,8,10,12,14,15,17,19,21,23,25,27,28];let ws,bs,vs,ys,ks,xs;ws=65536,bs=1<<24,vs=ws|bs,ys=4,ks=1024,xs=ys|ks;const Cs=[vs|ks,0,0|ws,vs|xs,vs|ys,ws|xs,0|ys,0|ws,0|ks,vs|ks,vs|xs,0|ks,bs|xs,vs|ys,0|bs,0|ys,0|xs,bs|ks,bs|ks,ws|ks,ws|ks,0|vs,0|vs,bs|xs,ws|ys,bs|ys,bs|ys,ws|ys,0,0|xs,ws|xs,0|bs,0|ws,vs|xs,0|ys,0|vs,vs|ks,0|bs,0|bs,0|ks,vs|ys,0|ws,ws|ks,bs|ys,0|ks,0|ys,bs|xs,ws|xs,vs|xs,ws|ys,0|vs,bs|xs,bs|ys,0|xs,ws|xs,vs|ks,0|xs,bs|ks,bs|ks,0,ws|ys,ws|ks,0,vs|ys];ws=1<<20,bs=1<<31,vs=ws|bs,ys=32,ks=32768,xs=ys|ks;const Ss=[vs|xs,bs|ks,0|ks,ws|xs,0|ws,0|ys,vs|ys,bs|xs,bs|ys,vs|xs,vs|ks,0|bs,bs|ks,0|ws,0|ys,vs|ys,ws|ks,ws|ys,bs|xs,0,0|bs,0|ks,ws|xs,0|vs,ws|ys,bs|ys,0,ws|ks,0|xs,vs|ks,0|vs,0|xs,0,ws|xs,vs|ys,0|ws,bs|xs,0|vs,vs|ks,0|ks,0|vs,bs|ks,0|ys,vs|xs,ws|xs,0|ys,0|ks,0|bs,0|xs,vs|ks,0|ws,bs|ys,ws|ys,bs|xs,bs|ys,ws|ys,ws|ks,0,bs|ks,0|xs,0|bs,vs|ys,vs|xs,ws|ks];ws=1<<17,bs=1<<27,vs=ws|bs,ys=8,ks=512,xs=ys|ks;const Qs=[0|xs,vs|ks,0,vs|ys,bs|ks,0,ws|xs,bs|ks,ws|ys,bs|ys,bs|ys,0|ws,vs|xs,ws|ys,0|vs,0|xs,0|bs,0|ys,vs|ks,0|ks,ws|ks,0|vs,vs|ys,ws|xs,bs|xs,ws|ks,0|ws,bs|xs,0|ys,vs|xs,0|ks,0|bs,vs|ks,0|bs,ws|ys,0|xs,0|ws,vs|ks,bs|ks,0,0|ks,ws|ys,vs|xs,bs|ks,bs|ys,0|ks,0,vs|ys,bs|xs,0|ws,0|bs,vs|xs,0|ys,ws|xs,ws|ks,bs|ys,0|vs,bs|xs,0|xs,0|vs,ws|xs,0|ys,vs|ys,ws|ks];ws=8192,bs=1<<23,vs=ws|bs,ys=1,ks=128,xs=ys|ks;const As=[vs|ys,ws|xs,ws|xs,0|ks,vs|ks,bs|xs,bs|ys,ws|ys,0,0|vs,0|vs,vs|xs,0|xs,0,bs|ks,bs|ys,0|ys,0|ws,0|bs,vs|ys,0|ks,0|bs,ws|ys,ws|ks,bs|xs,0|ys,ws|ks,bs|ks,0|ws,vs|ks,vs|xs,0|xs,bs|ks,bs|ys,0|vs,vs|xs,0|xs,0,0,0|vs,ws|ks,bs|ks,bs|xs,0|ys,vs|ys,ws|xs,ws|xs,0|ks,vs|xs,0|xs,0|ys,0|ws,bs|ys,ws|ys,vs|ks,bs|xs,ws|ys,ws|ks,0|bs,vs|ys,0|ks,0|bs,0|ws,vs|ks];ws=1<<25,bs=1<<30,vs=ws|bs,ys=256,ks=1<<19,xs=ys|ks;const Ms=[0|ys,ws|xs,ws|ks,vs|ys,0|ks,0|ys,0|bs,ws|ks,bs|xs,0|ks,ws|ys,bs|xs,vs|ys,vs|ks,0|xs,0|bs,0|ws,bs|ks,bs|ks,0,bs|ys,vs|xs,vs|xs,ws|ys,vs|ks,bs|ys,0,0|vs,ws|xs,0|ws,0|vs,0|xs,0|ks,vs|ys,0|ys,0|ws,0|bs,ws|ks,vs|ys,bs|xs,ws|ys,0|bs,vs|ks,ws|xs,bs|xs,0|ys,0|ws,vs|ks,vs|xs,0|xs,0|vs,vs|xs,ws|ks,0,bs|ks,0|vs,0|xs,ws|ys,bs|ys,0|ks,0,bs|ks,ws|xs,bs|ys];ws=1<<22,bs=1<<29,vs=ws|bs,ys=16,ks=16384,xs=ys|ks;const Es=[bs|ys,0|vs,0|ks,vs|xs,0|vs,0|ys,vs|xs,0|ws,bs|ks,ws|xs,0|ws,bs|ys,ws|ys,bs|ks,0|bs,0|xs,0,ws|ys,bs|xs,0|ks,ws|ks,bs|xs,0|ys,vs|ys,vs|ys,0,ws|xs,vs|ks,0|xs,ws|ks,vs|ks,0|bs,bs|ks,0|ys,vs|ys,ws|ks,vs|xs,0|ws,0|xs,bs|ys,0|ws,bs|ks,0|bs,0|xs,bs|ys,vs|xs,ws|ks,0|vs,ws|xs,vs|ks,0,vs|ys,0|ys,0|ks,0|vs,ws|xs,0|ks,ws|ys,bs|xs,0,vs|ks,0|bs,ws|ys,bs|xs];ws=1<<21,bs=1<<26,vs=ws|bs,ys=2,ks=2048,xs=ys|ks;const Ts=[0|ws,vs|ys,bs|xs,0,0|ks,bs|xs,ws|xs,vs|ks,vs|xs,0|ws,0,bs|ys,0|ys,0|bs,vs|ys,0|xs,bs|ks,ws|xs,ws|ys,bs|ks,bs|ys,0|vs,vs|ks,ws|ys,0|vs,0|ks,0|xs,vs|xs,ws|ks,0|ys,0|bs,ws|ks,0|bs,ws|ks,0|ws,bs|xs,bs|xs,vs|ys,vs|ys,0|ys,ws|ys,0|bs,bs|ks,0|ws,vs|ks,0|xs,ws|xs,vs|ks,0|xs,bs|ys,vs|xs,0|vs,ws|ks,0,0|ys,vs|xs,0,ws|xs,0|vs,0|ks,bs|ys,bs|ks,0|ks,ws|ys];ws=1<<18,bs=1<<28,vs=ws|bs,ys=64,ks=4096,xs=ys|ks;const Fs=[bs|xs,0|ks,0|ws,vs|xs,0|bs,bs|xs,0|ys,0|bs,ws|ys,0|vs,vs|xs,ws|ks,vs|ks,ws|xs,0|ks,0|ys,0|vs,bs|ys,bs|ks,0|xs,ws|ks,ws|ys,vs|ys,vs|ks,0|xs,0,0,vs|ys,bs|ys,bs|ks,ws|xs,0|ws,ws|xs,0|ws,vs|ks,0|ks,0|ys,vs|ys,0|ks,ws|xs,bs|ks,0|ys,bs|ys,0|vs,vs|ys,0|bs,0|ws,bs|xs,0,vs|xs,ws|ys,bs|ys,0|vs,bs|ks,bs|xs,0,vs|xs,ws|ks,ws|ks,0|xs,0|xs,ws|ys,0|bs,vs|ks];class Ls{constructor(t){this.keys=[];const e=[],s=[],i=[];for(let s=0,i=56;s<56;++s,i-=8){i+=i<-5?65:i<-3?31:i<-1?63:27===i?35:0;const n=7&i;e[s]=t[i>>>3]&1<<n?1:0}for(let t=0;t<16;++t){const n=t<<1,r=n+1;i[n]=i[r]=0;for(let i=28;i<59;i+=28)for(let n=i-28;n<i;++n){const r=n+ms[t];s[n]=r<i?e[r]:e[r-28]}for(let t=0;t<24;++t)0!==s[gs[t]]&&(i[n]|=1<<23-t),0!==s[gs[t+24]]&&(i[r]|=1<<23-t)}for(let t=0,e=0,s=0;t<16;++t){const t=i[e++],n=i[e++];this.keys[s]=(16515072&t)<<6,this.keys[s]|=(4032&t)<<10,this.keys[s]|=(16515072&n)>>>10,this.keys[s]|=(4032&n)>>>6,++s,this.keys[s]=(258048&t)<<12,this.keys[s]|=(63&t)<<16,this.keys[s]|=(258048&n)>>>4,this.keys[s]|=63&n,++s}}enc8(t){const e=t.slice();let s,i,n,r=0;s=e[r++]<<24|e[r++]<<16|e[r++]<<8|e[r++],i=e[r++]<<24|e[r++]<<16|e[r++]<<8|e[r++],n=252645135&(s>>>4^i),i^=n,s^=n<<4,n=65535&(s>>>16^i),i^=n,s^=n<<16,n=858993459&(i>>>2^s),s^=n,i^=n<<2,n=16711935&(i>>>8^s),s^=n,i^=n<<8,i=i<<1|i>>>31&1,n=2863311530&(s^i),s^=n,i^=n,s=s<<1|s>>>31&1;for(let t=0,e=0;t<8;++t){n=i<<28|i>>>4,n^=this.keys[e++];let t=Ts[63&n];t|=Ms[n>>>8&63],t|=Qs[n>>>16&63],t|=Cs[n>>>24&63],n=i^this.keys[e++],t|=Fs[63&n],t|=Es[n>>>8&63],t|=As[n>>>16&63],t|=Ss[n>>>24&63],s^=t,n=s<<28|s>>>4,n^=this.keys[e++],t=Ts[63&n],t|=Ms[n>>>8&63],t|=Qs[n>>>16&63],t|=Cs[n>>>24&63],n=s^this.keys[e++],t|=Fs[63&n],t|=Es[n>>>8&63],t|=As[n>>>16&63],t|=Ss[n>>>24&63],i^=t}for(i=i<<31|i>>>1,n=2863311530&(s^i),s^=n,i^=n,s=s<<31|s>>>1,n=16711935&(s>>>8^i),i^=n,s^=n<<8,n=858993459&(s>>>2^i),i^=n,s^=n<<2,n=65535&(i>>>16^s),s^=n,i^=n<<16,n=252645135&(i>>>4^s),s^=n,i^=n<<4,n=[i,s],r=0;r<8;r++)e[r]=(n[r>>>2]>>>8*(3-r%4))%256,e[r]<0&&(e[r]+=256);return e}encrypt(t){return this.enc8(t.slice(0,8)).concat(this.enc8(t.slice(8,16)))}}const Ds={Again:57349,AltLeft:56,AltRight:57400,ArrowDown:57424,ArrowLeft:57419,ArrowRight:57421,ArrowUp:57416,AudioVolumeDown:57390,AudioVolumeMute:57376,AudioVolumeUp:57392,Backquote:41,Backslash:43,Backspace:14,BracketLeft:26,BracketRight:27,BrowserBack:57450,BrowserFavorites:57446,BrowserForward:57449,BrowserHome:57394,BrowserRefresh:57447,BrowserSearch:57445,BrowserStop:57448,CapsLock:58,Comma:51,ContextMenu:57437,ControlLeft:29,ControlRight:57373,Convert:121,Copy:57464,Cut:57404,Delete:57427,Digit0:11,Digit1:2,Digit2:3,Digit3:4,Digit4:5,Digit5:6,Digit6:7,Digit7:8,Digit8:9,Digit9:10,Eject:57469,End:57423,Enter:28,Equal:13,Escape:1,F1:59,F10:68,F11:87,F12:88,F13:93,F14:94,F15:95,F16:85,F17:57347,F18:57463,F19:57348,F2:60,F20:90,F21:116,F22:57465,F23:109,F24:111,F3:61,F4:62,F5:63,F6:64,F7:65,F8:66,F9:67,Find:57409,Help:57461,Hiragana:119,Home:57415,Insert:57426,IntlBackslash:86,IntlRo:115,IntlYen:125,KanaMode:112,Katakana:120,KeyA:30,KeyB:48,KeyC:46,KeyD:32,KeyE:18,KeyF:33,KeyG:34,KeyH:35,KeyI:23,KeyJ:36,KeyK:37,KeyL:38,KeyM:50,KeyN:49,KeyO:24,KeyP:25,KeyQ:16,KeyR:19,KeyS:31,KeyT:20,KeyU:22,KeyV:47,KeyW:17,KeyX:45,KeyY:21,KeyZ:44,Lang3:120,Lang4:119,Lang5:118,LaunchApp1:57451,LaunchApp2:57377,LaunchMail:57452,MediaPlayPause:57378,MediaSelect:57453,MediaStop:57380,MediaTrackNext:57369,MediaTrackPrevious:57360,MetaLeft:57435,MetaRight:57436,Minus:12,NonConvert:123,NumLock:69,Numpad0:82,Numpad1:79,Numpad2:80,Numpad3:81,Numpad4:75,Numpad5:76,Numpad6:77,Numpad7:71,Numpad8:72,Numpad9:73,NumpadAdd:78,NumpadComma:126,NumpadDecimal:83,NumpadDivide:57397,NumpadEnter:57372,NumpadEqual:89,NumpadMultiply:55,NumpadParenLeft:57462,NumpadParenRight:57467,NumpadSubtract:74,Open:100,PageDown:57425,PageUp:57417,Paste:101,Pause:57414,Period:52,Power:57438,PrintScreen:84,Props:57350,Quote:40,ScrollLock:70,Semicolon:39,ShiftLeft:42,ShiftRight:54,Slash:53,Sleep:57439,Space:57,Suspend:57381,Tab:15,Undo:57351,WakeUp:57443},Bs=1464686180;s(481);class zs{constructor(){this._lines=0}decodeRect(t,e,s,i,n,r,a){0===this._lines&&(this._lines=i);const o=s*(8==a?1:4);if(n.rQwait("RAW",o))return!1;const h=e+(i-this._lines),l=Math.min(this._lines,Math.floor(n.rQlen/o));let c=n.rQ,d=n.rQi;if(8==a){const t=s*l,e=new Uint8Array(4*t);for(let s=0;s<t;s++)e[4*s+0]=255*(3&c[d+s])/3,e[4*s+1]=255*(c[d+s]>>2&3)/3,e[4*s+2]=255*(c[d+s]>>4&3)/3,e[4*s+4]=0;c=e,d=0}return r.blitImage(t,h,s,l,c,d),n.rQskipBytes(l*o),this._lines-=l,!(this._lines>0)}}class Us{decodeRect(t,e,s,i,n,r,a){if(n.rQwait("COPYRECT",4))return!1;let o=n.rQshift16(),h=n.rQshift16();return r.copyImage(o,h,t,e,s,i),!0}}class Is{constructor(){this._subrects=0}decodeRect(t,e,s,i,n,r,a){if(0===this._subrects){if(n.rQwait("RRE",8))return!1;this._subrects=n.rQshift32();let a=n.rQshiftBytes(4);r.fillRect(t,e,s,i,a)}for(;this._subrects>0;){if(n.rQwait("RRE",12))return!1;let s=n.rQshiftBytes(4),i=n.rQshift16(),a=n.rQshift16(),o=n.rQshift16(),h=n.rQshift16();r.fillRect(t+i,e+a,o,h,s),this._subrects--}return!0}}class Rs{constructor(){this._tiles=0,this._lastsubencoding=0}decodeRect(t,e,s,i,r,a,o){for(0===this._tiles&&(this._tilesX=Math.ceil(s/16),this._tilesY=Math.ceil(i/16),this._totalTiles=this._tilesX*this._tilesY,this._tiles=this._totalTiles);this._tiles>0;){let o=1;if(r.rQwait("HEXTILE",o))return!1;let h=r.rQ,l=r.rQi,c=h[l];if(c>30)throw new Error("Illegal hextile subencoding (subencoding: "+c+")");const d=this._totalTiles-this._tiles,_=t+d%this._tilesX*16,u=e+16*Math.floor(d/this._tilesX),f=Math.min(16,t+s-_),p=Math.min(16,e+i-u);if(1&c)o+=f*p*4;else if(2&c&&(o+=4),4&c&&(o+=4),8&c){if(o++,r.rQwait("HEXTILE",o))return!1;let t=h[l+o-1];o+=16&c?6*t:2*t}if(r.rQwait("HEXTILE",o))return!1;if(l++,0===c)1&this._lastsubencoding?n("     Ignoring blank after RAW"):a.fillRect(_,u,f,p,this._background);else if(1&c)a.blitImage(_,u,f,p,h,l),l+=o-1;else{if(2&c&&(this._background=[h[l],h[l+1],h[l+2],h[l+3]],l+=4),4&c&&(this._foreground=[h[l],h[l+1],h[l+2],h[l+3]],l+=4),a.startTile(_,u,f,p,this._background),8&c){let t=h[l];l++;for(let e=0;e<t;e++){let t;16&c?(t=[h[l],h[l+1],h[l+2],h[l+3]],l+=4):t=this._foreground;const e=h[l];l++;const s=e>>4,i=15&e,n=h[l];l++;const r=1+(n>>4),o=1+(15&n);a.subTile(s,i,r,o,t)}}a.finishTile()}r.rQi=l,this._lastsubencoding=c,this._tiles--}return!0}}class Ns{constructor(){this._ctl=null,this._filter=null,this._numColors=0,this._palette=new Uint8Array(1024),this._len=0,this._zlibs=[];for(let t=0;t<4;t++)this._zlibs[t]=new ut}decodeRect(t,e,s,i,n,a,o){if(null===this._ctl){if(n.rQwait("TIGHT compression-control",1))return!1;this._ctl=n.rQshift8();for(let t=0;t<4;t++)this._ctl>>t&1&&(this._zlibs[t].reset(),r("Reset zlib stream "+t));this._ctl=this._ctl>>4}let h;if(8===this._ctl)h=this._fillRect(t,e,s,i,n,a,o);else if(9===this._ctl)h=this._jpegRect(t,e,s,i,n,a,o);else if(10===this._ctl)h=this._pngRect(t,e,s,i,n,a,o);else{if(128&this._ctl)throw new Error("Illegal tight compression received (ctl: "+this._ctl+")");h=this._basicRect(this._ctl,t,e,s,i,n,a,o)}return h&&(this._ctl=null),h}_fillRect(t,e,s,i,n,r,a){if(n.rQwait("TIGHT",3))return!1;const o=n.rQi,h=n.rQ;return r.fillRect(t,e,s,i,[h[o+2],h[o+1],h[o]],!1),n.rQskipBytes(3),!0}_jpegRect(t,e,s,i,n,r,a){let o=this._readData(n);return null!==o&&(r.imageRect(t,e,s,i,"image/jpeg",o),!0)}_pngRect(t,e,s,i,n,r,a){throw new Error("PNG received in standard Tight rect")}_basicRect(t,e,s,i,n,r,a,o){if(null===this._filter)if(4&t){if(r.rQwait("TIGHT",1))return!1;this._filter=r.rQshift8()}else this._filter=0;let h,l=3&t;switch(this._filter){case 0:h=this._copyFilter(l,e,s,i,n,r,a,o);break;case 1:h=this._paletteFilter(l,e,s,i,n,r,a,o);break;case 2:h=this._gradientFilter(l,e,s,i,n,r,a,o);break;default:throw new Error("Illegal tight filter received (ctl: "+this._filter+")")}return h&&(this._filter=null),h}_copyFilter(t,e,s,i,n,r,a,o){const h=i*n*3;let l;if(h<12){if(r.rQwait("TIGHT",h))return!1;l=r.rQshiftBytes(h)}else{if(l=this._readData(r),null===l)return!1;this._zlibs[t].setInput(l),l=this._zlibs[t].inflate(h),this._zlibs[t].setInput(null)}return a.blitRgbImage(e,s,i,n,l,0,!1),!0}_paletteFilter(t,e,s,i,n,r,a,o){if(0===this._numColors){if(r.rQwait("TIGHT palette",1))return!1;const t=r.rQpeek8()+1,e=3*t;if(r.rQwait("TIGHT palette",1+e))return!1;this._numColors=t,r.rQskipBytes(1),r.rQshiftTo(this._palette,e)}const h=this._numColors<=2?1:8,l=Math.floor((i*h+7)/8)*n;let c;if(l<12){if(r.rQwait("TIGHT",l))return!1;c=r.rQshiftBytes(l)}else{if(c=this._readData(r),null===c)return!1;this._zlibs[t].setInput(c),c=this._zlibs[t].inflate(l),this._zlibs[t].setInput(null)}return 2==this._numColors?this._monoRect(e,s,i,n,c,this._palette,a):this._paletteRect(e,s,i,n,c,this._palette,a),this._numColors=0,!0}_monoRect(t,e,s,i,n,r,a){const o=this._getScratchBuffer(s*i*4),h=Math.floor((s+7)/8),l=Math.floor(s/8);for(let t=0;t<i;t++){let e,i,a;for(a=0;a<l;a++)for(let l=7;l>=0;l--)e=4*(t*s+8*a+7-l),i=3*(n[t*h+a]>>l&1),o[e]=r[i],o[e+1]=r[i+1],o[e+2]=r[i+2],o[e+3]=255;for(let l=7;l>=8-s%8;l--)e=4*(t*s+8*a+7-l),i=3*(n[t*h+a]>>l&1),o[e]=r[i],o[e+1]=r[i+1],o[e+2]=r[i+2],o[e+3]=255}a.blitRgbxImage(t,e,s,i,o,0,!1)}_paletteRect(t,e,s,i,n,r,a){const o=this._getScratchBuffer(s*i*4),h=s*i*4;for(let t=0,e=0;t<h;t+=4,e++){const s=3*n[e];o[t]=r[s],o[t+1]=r[s+1],o[t+2]=r[s+2],o[t+3]=255}a.blitRgbxImage(t,e,s,i,o,0,!1)}_gradientFilter(t,e,s,i,n,r,a,o){throw new Error("Gradient filter not implemented")}_readData(t){if(0===this._len){if(t.rQwait("TIGHT",3))return null;let e;e=t.rQshift8(),this._len=127&e,128&e&&(e=t.rQshift8(),this._len|=(127&e)<<7,128&e&&(e=t.rQshift8(),this._len|=e<<14))}if(t.rQwait("TIGHT",this._len))return null;let e=t.rQshiftBytes(this._len);return this._len=0,e}_getScratchBuffer(t){return(!this._scratchBuffer||this._scratchBuffer.length<t)&&(this._scratchBuffer=new Uint8Array(t)),this._scratchBuffer}}class Ps extends Ns{_pngRect(t,e,s,i,n,r,a){let o=this._readData(n);return null!==o&&(r.imageRect(t,e,s,i,"image/png",o),!0)}_basicRect(t,e,s,i,n,r,a,o){throw new Error("BasicCompression received in TightPNG rect")}}const Vs=50,Hs=1<<24,Ks=1<<25,Xs=1<<26,Os=1<<27,Ys=1<<28;class Gs extends F{constructor(t,e,s){if(!t)throw new Error("Must specify target");if(!e)throw new Error("Must specify URL");super(),this._target=t,this._url=e,s=s||{},this._rfbCredentials=s.credentials||{},this._shared=!("shared"in s)||!!s.shared,this._repeaterID=s.repeaterID||"",this._wsProtocols=s.wsProtocols||[],this._rfbConnectionState="",this._rfbInitState="",this._rfbAuthScheme=-1,this._rfbCleanDisconnect=!0,this._rfbVersion=0,this._rfbMaxVersion=3.8,this._rfbTightVNC=!1,this._rfbVeNCryptState=0,this._rfbXvpVer=0,this._fbWidth=0,this._fbHeight=0,this._fbName="",this._capabilities={power:!1},this._supportsFence=!1,this._supportsContinuousUpdates=!1,this._enabledContinuousUpdates=!1,this._supportsSetDesktopSize=!1,this._screenID=0,this._screenFlags=0,this._qemuExtKeyEventSupported=!1,this._clipboardText=null,this._clipboardServerCapabilitiesActions={},this._clipboardServerCapabilitiesFormats={},this._sock=null,this._display=null,this._flushing=!1,this._keyboard=null,this._gestures=null,this._disconnTimer=null,this._resizeTimeout=null,this._mouseMoveTimer=null,this._decoders={},this._FBU={rects:0,x:0,y:0,width:0,height:0,encoding:null},this._mousePos={},this._mouseButtonMask=0,this._mouseLastMoveTime=0,this._viewportDragging=!1,this._viewportDragPos={},this._viewportHasMoved=!1,this._accumulatedWheelDeltaX=0,this._accumulatedWheelDeltaY=0,this._gestureLastTapTime=null,this._gestureFirstDoubleTapEv=null,this._gestureLastMagnitudeX=0,this._gestureLastMagnitudeY=0,this._eventHandlers={focusCanvas:this._focusCanvas.bind(this),windowResize:this._windowResize.bind(this),handleMouse:this._handleMouse.bind(this),handleWheel:this._handleWheel.bind(this),handleGesture:this._handleGesture.bind(this)},n(">> RFB.constructor"),this._screen=document.createElement("div"),this._screen.style.display="flex",this._screen.style.width="100%",this._screen.style.height="100%",this._screen.style.overflow="auto",this._screen.style.background="rgb(40, 40, 40)",this._canvas=document.createElement("canvas"),this._canvas.style.margin="auto",this._canvas.style.outline="none",this._canvas.style.flexShrink="0",this._canvas.width=0,this._canvas.height=0,this._canvas.tabIndex=-1,this._screen.appendChild(this._canvas),this._cursor=new us,this._cursorImage=Gs.cursors.none,this._decoders[0]=new zs,this._decoders[1]=new Us,this._decoders[2]=new Is,this._decoders[5]=new Rs,this._decoders[7]=new Ns,this._decoders[-260]=new Ps;try{this._display=new D(this._canvas)}catch(t){throw o("Display exception: "+t),t}this._display.onflush=this._onFlush.bind(this),this._keyboard=new cs(this._canvas),this._keyboard.onkeyevent=this._handleKeyEvent.bind(this),this._gestures=new ds,this._sock=new ps,this._sock.on("message",(()=>{this._handleMessage()})),this._sock.on("open",(()=>{"connecting"===this._rfbConnectionState&&""===this._rfbInitState?(this._rfbInitState="ProtocolVersion",n("Starting VNC handshake")):this._fail("Unexpected server connection while "+this._rfbConnectionState)})),this._sock.on("close",(t=>{n("WebSocket on-close event");let e="";switch(t.code&&(e="(code: "+t.code,t.reason&&(e+=", reason: "+t.reason),e+=")"),this._rfbConnectionState){case"connecting":this._fail("Connection closed "+e);break;case"connected":this._updateConnectionState("disconnecting"),this._updateConnectionState("disconnected");break;case"disconnecting":this._updateConnectionState("disconnected");break;case"disconnected":this._fail("Unexpected server disconnect when already disconnected "+e);break;default:this._fail("Unexpected server disconnect before connecting "+e)}this._sock.off("close")})),this._sock.on("error",(t=>a("WebSocket on-error event"))),setTimeout(this._updateConnectionState.bind(this,"connecting")),n("<< RFB.constructor"),this.dragViewport=!1,this.focusOnClick=!0,this._viewOnly=!1,this._clipViewport=!1,this._scaleViewport=!1,this._resizeSession=!1,this._showDotCursor=!1,void 0!==s.showDotCursor&&(a("Specifying showDotCursor as a RFB constructor argument is deprecated"),this._showDotCursor=s.showDotCursor),this._qualityLevel=6,this._compressionLevel=2}get viewOnly(){return this._viewOnly}set viewOnly(t){this._viewOnly=t,"connecting"!==this._rfbConnectionState&&"connected"!==this._rfbConnectionState||(t?this._keyboard.ungrab():this._keyboard.grab())}get capabilities(){return this._capabilities}get touchButton(){return 0}set touchButton(t){a("Using old API!")}get clipViewport(){return this._clipViewport}set clipViewport(t){this._clipViewport=t,this._updateClip()}get scaleViewport(){return this._scaleViewport}set scaleViewport(t){this._scaleViewport=t,t&&this._clipViewport&&this._updateClip(),this._updateScale(),!t&&this._clipViewport&&this._updateClip()}get resizeSession(){return this._resizeSession}set resizeSession(t){this._resizeSession=t,t&&this._requestRemoteResize()}get showDotCursor(){return this._showDotCursor}set showDotCursor(t){this._showDotCursor=t,this._refreshCursor()}get background(){return this._screen.style.background}set background(t){this._screen.style.background=t}get qualityLevel(){return this._qualityLevel}set qualityLevel(t){!Number.isInteger(t)||t<0||t>9?o("qualityLevel must be an integer between 0 and 9"):this._qualityLevel!==t&&(this._qualityLevel=t,"connected"===this._rfbConnectionState&&this._sendEncodings())}get compressionLevel(){return this._compressionLevel}set compressionLevel(t){!Number.isInteger(t)||t<0||t>9?o("compressionLevel must be an integer between 0 and 9"):this._compressionLevel!==t&&(this._compressionLevel=t,"connected"===this._rfbConnectionState&&this._sendEncodings())}disconnect(){this._updateConnectionState("disconnecting"),this._sock.off("error"),this._sock.off("message"),this._sock.off("open")}sendCredentials(t){this._rfbCredentials=t,setTimeout(this._initMsg.bind(this),0)}sendCtrlAltDel(){"connected"!==this._rfbConnectionState||this._viewOnly||(r("Sending Ctrl-Alt-Del"),this.sendKey(We,"ControlLeft",!0),this.sendKey(je,"AltLeft",!0),this.sendKey(Ge,"Delete",!0),this.sendKey(Ge,"Delete",!1),this.sendKey(je,"AltLeft",!1),this.sendKey(We,"ControlLeft",!1))}machineShutdown(){this._xvpOp(1,2)}machineReboot(){this._xvpOp(1,3)}machineReset(){this._xvpOp(1,4)}sendKey(t,e,s){if("connected"!==this._rfbConnectionState||this._viewOnly)return;if(void 0===s)return this.sendKey(t,e,!0),void this.sendKey(t,e,!1);const i=Ds[e];if(this._qemuExtKeyEventSupported&&i)r("Sending key ("+(s?"down":"up")+"): keysym "+(t=t||0)+", scancode "+i),Gs.messages.QEMUExtendedKeyEvent(this._sock,t,s,i);else{if(!t)return;r("Sending keysym ("+(s?"down":"up")+"): "+t),Gs.messages.keyEvent(this._sock,t,s?1:0)}}focus(){this._canvas.focus()}blur(){this._canvas.blur()}clipboardPasteFrom(t){if("connected"===this._rfbConnectionState&&!this._viewOnly)if(this._clipboardServerCapabilitiesFormats[1]&&this._clipboardServerCapabilitiesActions[134217728])this._clipboardText=t,Gs.messages.extendedClipboardNotify(this._sock,[1]);else{let e=new Uint8Array(t.length);for(let s=0;s<t.length;s++)e[s]=t.charCodeAt(s);Gs.messages.clientCutText(this._sock,e)}}_connect(){n(">> RFB.connect"),r("connecting to "+this._url);try{this._sock.open(this._url,this._wsProtocols)}catch(t){"SyntaxError"===t.name?this._fail("Invalid host or port ("+t+")"):this._fail("Error when opening socket ("+t+")")}this._target.appendChild(this._screen),this._gestures.attach(this._canvas),this._cursor.attach(this._canvas),this._refreshCursor(),window.addEventListener("resize",this._eventHandlers.windowResize),this._canvas.addEventListener("mousedown",this._eventHandlers.focusCanvas),this._canvas.addEventListener("touchstart",this._eventHandlers.focusCanvas),this._canvas.addEventListener("mousedown",this._eventHandlers.handleMouse),this._canvas.addEventListener("mouseup",this._eventHandlers.handleMouse),this._canvas.addEventListener("mousemove",this._eventHandlers.handleMouse),this._canvas.addEventListener("click",this._eventHandlers.handleMouse),this._canvas.addEventListener("contextmenu",this._eventHandlers.handleMouse),this._canvas.addEventListener("wheel",this._eventHandlers.handleWheel),this._canvas.addEventListener("gesturestart",this._eventHandlers.handleGesture),this._canvas.addEventListener("gesturemove",this._eventHandlers.handleGesture),this._canvas.addEventListener("gestureend",this._eventHandlers.handleGesture),n("<< RFB.connect")}_disconnect(){n(">> RFB.disconnect"),this._cursor.detach(),this._canvas.removeEventListener("gesturestart",this._eventHandlers.handleGesture),this._canvas.removeEventListener("gesturemove",this._eventHandlers.handleGesture),this._canvas.removeEventListener("gestureend",this._eventHandlers.handleGesture),this._canvas.removeEventListener("wheel",this._eventHandlers.handleWheel),this._canvas.removeEventListener("mousedown",this._eventHandlers.handleMouse),this._canvas.removeEventListener("mouseup",this._eventHandlers.handleMouse),this._canvas.removeEventListener("mousemove",this._eventHandlers.handleMouse),this._canvas.removeEventListener("click",this._eventHandlers.handleMouse),this._canvas.removeEventListener("contextmenu",this._eventHandlers.handleMouse),this._canvas.removeEventListener("mousedown",this._eventHandlers.focusCanvas),this._canvas.removeEventListener("touchstart",this._eventHandlers.focusCanvas),window.removeEventListener("resize",this._eventHandlers.windowResize),this._keyboard.ungrab(),this._gestures.detach(),this._sock.close();try{this._target.removeChild(this._screen)}catch(t){if("NotFoundError"!==t.name)throw t}clearTimeout(this._resizeTimeout),clearTimeout(this._mouseMoveTimer),n("<< RFB.disconnect")}_focusCanvas(t){this.focusOnClick&&this.focus()}_setDesktopName(t){this._fbName=t,this.dispatchEvent(new CustomEvent("desktopname",{detail:{name:this._fbName}}))}_windowResize(t){window.requestAnimationFrame((()=>{this._updateClip(),this._updateScale()})),this._resizeSession&&(clearTimeout(this._resizeTimeout),this._resizeTimeout=setTimeout(this._requestRemoteResize.bind(this),500))}_updateClip(){const t=this._display.clipViewport;let e=this._clipViewport;if(this._scaleViewport&&(e=!1),t!==e&&(this._display.clipViewport=e),e){const t=this._screenSize();this._display.viewportChangeSize(t.w,t.h),this._fixScrollbars()}}_updateScale(){if(this._scaleViewport){const t=this._screenSize();this._display.autoscale(t.w,t.h)}else this._display.scale=1;this._fixScrollbars()}_requestRemoteResize(){if(clearTimeout(this._resizeTimeout),this._resizeTimeout=null,!this._resizeSession||this._viewOnly||!this._supportsSetDesktopSize)return;const t=this._screenSize();Gs.messages.setDesktopSize(this._sock,Math.floor(t.w),Math.floor(t.h),this._screenID,this._screenFlags),n("Requested new desktop size: "+t.w+"x"+t.h)}_screenSize(){let t=this._screen.getBoundingClientRect();return{w:t.width,h:t.height}}_fixScrollbars(){const t=this._screen.style.overflow;this._screen.style.overflow="hidden",this._screen.getBoundingClientRect(),this._screen.style.overflow=t}_updateConnectionState(t){const e=this._rfbConnectionState;if(t!==e)if("disconnected"!==e){switch(t){case"connected":if("connecting"!==e)return void o("Bad transition to connected state, previous connection state: "+e);break;case"disconnected":if("disconnecting"!==e)return void o("Bad transition to disconnected state, previous connection state: "+e);break;case"connecting":if(""!==e)return void o("Bad transition to connecting state, previous connection state: "+e);break;case"disconnecting":if("connected"!==e&&"connecting"!==e)return void o("Bad transition to disconnecting state, previous connection state: "+e);break;default:return void o("Unknown connection state: "+t)}switch(this._rfbConnectionState=t,n("New state '"+t+"', was '"+e+"'."),this._disconnTimer&&"disconnecting"!==t&&(n("Clearing disconnect timer"),clearTimeout(this._disconnTimer),this._disconnTimer=null,this._sock.off("close")),t){case"connecting":this._connect();break;case"connected":this.dispatchEvent(new CustomEvent("connect",{detail:{}}));break;case"disconnecting":this._disconnect(),this._disconnTimer=setTimeout((()=>{o("Disconnection timed out."),this._updateConnectionState("disconnected")}),3e3);break;case"disconnected":this.dispatchEvent(new CustomEvent("disconnect",{detail:{clean:this._rfbCleanDisconnect}}))}}else o("Tried changing state of a disconnected RFB object");else n("Already in state '"+t+"', ignoring")}_fail(t){switch(this._rfbConnectionState){case"disconnecting":o("Failed when disconnecting: "+t);break;case"connected":o("Failed while connected: "+t);break;case"connecting":o("Failed when connecting: "+t);break;default:o("RFB failure: "+t)}return this._rfbCleanDisconnect=!1,this._updateConnectionState("disconnecting"),this._updateConnectionState("disconnected"),!1}_setCapability(t,e){this._capabilities[t]=e,this.dispatchEvent(new CustomEvent("capabilities",{detail:{capabilities:this._capabilities}}))}_handleMessage(){if(0!==this._sock.rQlen)switch(this._rfbConnectionState){case"disconnected":o("Got data while disconnected");break;case"connected":for(;!this._flushing&&this._normalMsg()&&0!==this._sock.rQlen;);break;default:this._initMsg()}else a("handleMessage called on an empty receive queue")}_handleKeyEvent(t,e,s){this.sendKey(t,e,s)}_handleMouse(t){if("click"===t.type&&t.target!==this._canvas)return;if(t.stopPropagation(),t.preventDefault(),"click"===t.type||"contextmenu"===t.type)return;let e=x(t.clientX,t.clientY,this._canvas);switch(t.type){case"mousedown":!function(t){if(t.setCapture)t.setCapture(),document.captureElement=t,t.addEventListener("mouseup",T);else{T();let e=document.getElementById("noVNC_mouse_capture_elem");null===e&&(e=document.createElement("div"),e.id="noVNC_mouse_capture_elem",e.style.position="fixed",e.style.top="0px",e.style.left="0px",e.style.width="100%",e.style.height="100%",e.style.zIndex=1e4,e.style.display="none",document.body.appendChild(e),e.addEventListener("contextmenu",A),e.addEventListener("mousemove",A),e.addEventListener("mouseup",A)),document.captureElement=t,E.observe(t,{attributes:!0}),M(),e.style.display="",window.addEventListener("mousemove",A),window.addEventListener("mouseup",A)}}(this._canvas),this._handleMouseButton(e.x,e.y,!0,1<<t.button);break;case"mouseup":this._handleMouseButton(e.x,e.y,!1,1<<t.button);break;case"mousemove":this._handleMouseMove(e.x,e.y)}}_handleMouseButton(t,e,s,i){if(this.dragViewport){if(s&&!this._viewportDragging)return this._viewportDragging=!0,this._viewportDragPos={x:t,y:e},void(this._viewportHasMoved=!1);if(this._viewportDragging=!1,this._viewportHasMoved)return;this._sendMouse(t,e,i)}null!==this._mouseMoveTimer&&(clearTimeout(this._mouseMoveTimer),this._mouseMoveTimer=null,this._sendMouse(t,e,this._mouseButtonMask)),s?this._mouseButtonMask|=i:this._mouseButtonMask&=~i,this._sendMouse(t,e,this._mouseButtonMask)}_handleMouseMove(t,e){if(this._viewportDragging){const s=this._viewportDragPos.x-t,i=this._viewportDragPos.y-e;(this._viewportHasMoved||Math.abs(s)>d||Math.abs(i)>d)&&(this._viewportHasMoved=!0,this._viewportDragPos={x:t,y:e},this._display.viewportChangePos(s,i))}else if(this._mousePos={x:t,y:e},null==this._mouseMoveTimer){const s=Date.now()-this._mouseLastMoveTime;s>17?(this._sendMouse(t,e,this._mouseButtonMask),this._mouseLastMoveTime=Date.now()):this._mouseMoveTimer=setTimeout((()=>{this._handleDelayedMouseMove()}),17-s)}}_handleDelayedMouseMove(){this._mouseMoveTimer=null,this._sendMouse(this._mousePos.x,this._mousePos.y,this._mouseButtonMask),this._mouseLastMoveTime=Date.now()}_sendMouse(t,e,s){"connected"===this._rfbConnectionState&&(this._viewOnly||Gs.messages.pointerEvent(this._sock,this._display.absX(t),this._display.absY(e),s))}_handleWheel(t){if("connected"!==this._rfbConnectionState)return;if(this._viewOnly)return;t.stopPropagation(),t.preventDefault();let e=x(t.clientX,t.clientY,this._canvas),s=t.deltaX,i=t.deltaY;0!==t.deltaMode&&(s*=19,i*=19),this._accumulatedWheelDeltaX+=s,this._accumulatedWheelDeltaY+=i,Math.abs(this._accumulatedWheelDeltaX)>=50&&(this._accumulatedWheelDeltaX<0?(this._handleMouseButton(e.x,e.y,!0,32),this._handleMouseButton(e.x,e.y,!1,32)):this._accumulatedWheelDeltaX>0&&(this._handleMouseButton(e.x,e.y,!0,64),this._handleMouseButton(e.x,e.y,!1,64)),this._accumulatedWheelDeltaX=0),Math.abs(this._accumulatedWheelDeltaY)>=50&&(this._accumulatedWheelDeltaY<0?(this._handleMouseButton(e.x,e.y,!0,8),this._handleMouseButton(e.x,e.y,!1,8)):this._accumulatedWheelDeltaY>0&&(this._handleMouseButton(e.x,e.y,!0,16),this._handleMouseButton(e.x,e.y,!1,16)),this._accumulatedWheelDeltaY=0)}_fakeMouseMove(t,e,s){this._handleMouseMove(e,s),this._cursor.move(t.detail.clientX,t.detail.clientY)}_handleTapEvent(t,e){let s=x(t.detail.clientX,t.detail.clientY,this._canvas);if(null!==this._gestureLastTapTime&&Date.now()-this._gestureLastTapTime<1e3&&this._gestureFirstDoubleTapEv.detail.type===t.detail.type){let e=this._gestureFirstDoubleTapEv.detail.clientX-t.detail.clientX,i=this._gestureFirstDoubleTapEv.detail.clientY-t.detail.clientY;Math.hypot(e,i)<50?s=x(this._gestureFirstDoubleTapEv.detail.clientX,this._gestureFirstDoubleTapEv.detail.clientY,this._canvas):this._gestureFirstDoubleTapEv=t}else this._gestureFirstDoubleTapEv=t;this._gestureLastTapTime=Date.now(),this._fakeMouseMove(this._gestureFirstDoubleTapEv,s.x,s.y),this._handleMouseButton(s.x,s.y,!0,e),this._handleMouseButton(s.x,s.y,!1,e)}_handleGesture(t){let e,s=x(t.detail.clientX,t.detail.clientY,this._canvas);switch(t.type){case"gesturestart":switch(t.detail.type){case"onetap":this._handleTapEvent(t,1);break;case"twotap":this._handleTapEvent(t,4);break;case"threetap":this._handleTapEvent(t,2);break;case"drag":this._fakeMouseMove(t,s.x,s.y),this._handleMouseButton(s.x,s.y,!0,1);break;case"longpress":this._fakeMouseMove(t,s.x,s.y),this._handleMouseButton(s.x,s.y,!0,4);break;case"twodrag":this._gestureLastMagnitudeX=t.detail.magnitudeX,this._gestureLastMagnitudeY=t.detail.magnitudeY,this._fakeMouseMove(t,s.x,s.y);break;case"pinch":this._gestureLastMagnitudeX=Math.hypot(t.detail.magnitudeX,t.detail.magnitudeY),this._fakeMouseMove(t,s.x,s.y)}break;case"gesturemove":switch(t.detail.type){case"onetap":case"twotap":case"threetap":break;case"drag":case"longpress":this._fakeMouseMove(t,s.x,s.y);break;case"twodrag":for(this._fakeMouseMove(t,s.x,s.y);t.detail.magnitudeY-this._gestureLastMagnitudeY>Vs;)this._handleMouseButton(s.x,s.y,!0,8),this._handleMouseButton(s.x,s.y,!1,8),this._gestureLastMagnitudeY+=Vs;for(;t.detail.magnitudeY-this._gestureLastMagnitudeY<-50;)this._handleMouseButton(s.x,s.y,!0,16),this._handleMouseButton(s.x,s.y,!1,16),this._gestureLastMagnitudeY-=Vs;for(;t.detail.magnitudeX-this._gestureLastMagnitudeX>Vs;)this._handleMouseButton(s.x,s.y,!0,32),this._handleMouseButton(s.x,s.y,!1,32),this._gestureLastMagnitudeX+=Vs;for(;t.detail.magnitudeX-this._gestureLastMagnitudeX<-50;)this._handleMouseButton(s.x,s.y,!0,64),this._handleMouseButton(s.x,s.y,!1,64),this._gestureLastMagnitudeX-=Vs;break;case"pinch":if(this._fakeMouseMove(t,s.x,s.y),e=Math.hypot(t.detail.magnitudeX,t.detail.magnitudeY),Math.abs(e-this._gestureLastMagnitudeX)>75){for(this._handleKeyEvent(We,"ControlLeft",!0);e-this._gestureLastMagnitudeX>75;)this._handleMouseButton(s.x,s.y,!0,8),this._handleMouseButton(s.x,s.y,!1,8),this._gestureLastMagnitudeX+=75;for(;e-this._gestureLastMagnitudeX<-75;)this._handleMouseButton(s.x,s.y,!0,16),this._handleMouseButton(s.x,s.y,!1,16),this._gestureLastMagnitudeX-=75}this._handleKeyEvent(We,"ControlLeft",!1)}break;case"gestureend":switch(t.detail.type){case"onetap":case"twotap":case"threetap":case"pinch":case"twodrag":break;case"drag":this._fakeMouseMove(t,s.x,s.y),this._handleMouseButton(s.x,s.y,!1,1);break;case"longpress":this._fakeMouseMove(t,s.x,s.y),this._handleMouseButton(s.x,s.y,!1,4)}}}_negotiateProtocolVersion(){if(this._sock.rQwait("version",12))return!1;const t=this._sock.rQshiftStr(12).substr(4,7);r("Server ProtocolVersion: "+t);let e=0;switch(t){case"000.000":e=1;break;case"003.003":case"003.006":case"003.889":this._rfbVersion=3.3;break;case"003.007":this._rfbVersion=3.7;break;case"003.008":case"004.000":case"004.001":case"005.000":this._rfbVersion=3.8;break;default:return this._fail("Invalid server version "+t)}if(e){let t="ID:"+this._repeaterID;for(;t.length<250;)t+="\0";return this._sock.sendString(t),!0}this._rfbVersion>this._rfbMaxVersion&&(this._rfbVersion=this._rfbMaxVersion);const s="00"+parseInt(this._rfbVersion,10)+".00"+10*this._rfbVersion%10;this._sock.sendString("RFB "+s+"\n"),n("Sent ProtocolVersion: "+s),this._rfbInitState="Security"}_negotiateSecurity(){function t(t,e){for(let s=0;s<e.length;s++)if(e[s]===t)return!0;return!1}if(this._rfbVersion>=3.7){const e=this._sock.rQshift8();if(this._sock.rQwait("security type",e,1))return!1;if(0===e)return this._rfbInitState="SecurityReason",this._securityContext="no security types",this._securityStatus=1,this._initMsg();const s=this._sock.rQshiftBytes(e);if(n("Server security types: "+s),t(1,s))this._rfbAuthScheme=1;else if(t(22,s))this._rfbAuthScheme=22;else if(t(16,s))this._rfbAuthScheme=16;else if(t(2,s))this._rfbAuthScheme=2;else{if(!t(19,s))return this._fail("Unsupported security types (types: "+s+")");this._rfbAuthScheme=19}this._sock.send([this._rfbAuthScheme])}else{if(this._sock.rQwait("security scheme",4))return!1;if(this._rfbAuthScheme=this._sock.rQshift32(),0==this._rfbAuthScheme)return this._rfbInitState="SecurityReason",this._securityContext="authentication scheme",this._securityStatus=1,this._initMsg()}return this._rfbInitState="Authentication",n("Authenticating using scheme: "+this._rfbAuthScheme),this._initMsg()}_handleSecurityReason(){if(this._sock.rQwait("reason length",4))return!1;const t=this._sock.rQshift32();let e="";if(t>0){if(this._sock.rQwait("reason",t,4))return!1;e=this._sock.rQshiftStr(t)}return""!==e?(this.dispatchEvent(new CustomEvent("securityfailure",{detail:{status:this._securityStatus,reason:e}})),this._fail("Security negotiation failed on "+this._securityContext+" (reason: "+e+")")):(this.dispatchEvent(new CustomEvent("securityfailure",{detail:{status:this._securityStatus}})),this._fail("Security negotiation failed on "+this._securityContext))}_negotiateXvpAuth(){if(void 0===this._rfbCredentials.username||void 0===this._rfbCredentials.password||void 0===this._rfbCredentials.target)return this.dispatchEvent(new CustomEvent("credentialsrequired",{detail:{types:["username","password","target"]}})),!1;const t=String.fromCharCode(this._rfbCredentials.username.length)+String.fromCharCode(this._rfbCredentials.target.length)+this._rfbCredentials.username+this._rfbCredentials.target;return this._sock.sendString(t),this._rfbAuthScheme=2,this._negotiateAuthentication()}_negotiateVeNCryptAuth(){if(0==this._rfbVeNCryptState){if(this._sock.rQwait("vencrypt version",2))return!1;const t=this._sock.rQshift8(),e=this._sock.rQshift8();if(0!=t||2!=e)return this._fail("Unsupported VeNCrypt version "+t+"."+e);this._sock.send([0,2]),this._rfbVeNCryptState=1}if(1==this._rfbVeNCryptState){if(this._sock.rQwait("vencrypt ack",1))return!1;const t=this._sock.rQshift8();if(0!=t)return this._fail("VeNCrypt failure "+t);this._rfbVeNCryptState=2}if(2==this._rfbVeNCryptState){if(this._sock.rQwait("vencrypt subtypes length",1))return!1;const t=this._sock.rQshift8();if(t<1)return this._fail("VeNCrypt subtypes empty");this._rfbVeNCryptSubtypesLength=t,this._rfbVeNCryptState=3}if(3==this._rfbVeNCryptState){if(this._sock.rQwait("vencrypt subtypes",4*this._rfbVeNCryptSubtypesLength))return!1;const t=[];for(let e=0;e<this._rfbVeNCryptSubtypesLength;e++)t.push(this._sock.rQshift32());if(-1==t.indexOf(256))return this._fail("VeNCrypt Plain subtype not offered by server");this._sock.send([0,0,1,0]),this._rfbVeNCryptState=4}if(4==this._rfbVeNCryptState){if(!this._rfbCredentials.username||!this._rfbCredentials.password)return this.dispatchEvent(new CustomEvent("credentialsrequired",{detail:{types:["username","password"]}})),!1;const t=l(this._rfbCredentials.username),e=l(this._rfbCredentials.password);return this._sock.send([0,0,0,t.length]),this._sock.send([0,0,0,e.length]),this._sock.sendString(t),this._sock.sendString(e),this._rfbInitState="SecurityResult",!0}}_negotiateStdVNCAuth(){if(this._sock.rQwait("auth challenge",16))return!1;if(void 0===this._rfbCredentials.password)return this.dispatchEvent(new CustomEvent("credentialsrequired",{detail:{types:["password"]}})),!1;const t=Array.prototype.slice.call(this._sock.rQshiftBytes(16)),e=Gs.genDES(this._rfbCredentials.password,t);return this._sock.send(e),this._rfbInitState="SecurityResult",!0}_negotiateTightUnixAuth(){return void 0===this._rfbCredentials.username||void 0===this._rfbCredentials.password?(this.dispatchEvent(new CustomEvent("credentialsrequired",{detail:{types:["username","password"]}})),!1):(this._sock.send([0,0,0,this._rfbCredentials.username.length]),this._sock.send([0,0,0,this._rfbCredentials.password.length]),this._sock.sendString(this._rfbCredentials.username),this._sock.sendString(this._rfbCredentials.password),this._rfbInitState="SecurityResult",!0)}_negotiateTightTunnels(t){const e={vendor:"TGHT",signature:"NOTUNNEL"},s={};for(let e=0;e<t;e++){const t=this._sock.rQshift32(),e=this._sock.rQshiftStr(4),i=this._sock.rQshiftStr(8);s[t]={vendor:e,signature:i}}return n("Server Tight tunnel types: "+s),s[1]&&"SICR"===s[1].vendor&&"SCHANNEL"===s[1].signature&&(n("Detected Siemens server. Assuming NOTUNNEL support."),s[0]={vendor:"TGHT",signature:"NOTUNNEL"}),s[0]?s[0].vendor!=e.vendor||s[0].signature!=e.signature?this._fail("Client's tunnel type had the incorrect vendor or signature"):(n("Selected tunnel type: "+e),this._sock.send([0,0,0,0]),!1):this._fail("Server wanted tunnels, but doesn't support the notunnel type")}_negotiateTightAuth(){if(!this._rfbTightVNC){if(this._sock.rQwait("num tunnels",4))return!1;const t=this._sock.rQshift32();if(t>0&&this._sock.rQwait("tunnel capabilities",16*t,4))return!1;if(this._rfbTightVNC=!0,t>0)return this._negotiateTightTunnels(t),!1}if(this._sock.rQwait("sub auth count",4))return!1;const t=this._sock.rQshift32();if(0===t)return this._rfbInitState="SecurityResult",!0;if(this._sock.rQwait("sub auth capabilities",16*t,4))return!1;const e={STDVNOAUTH__:1,STDVVNCAUTH_:2,TGHTULGNAUTH:129},s=[];for(let e=0;e<t;e++){this._sock.rQshift32();const t=this._sock.rQshiftStr(12);s.push(t)}n("Server Tight authentication types: "+s);for(let t in e)if(-1!=s.indexOf(t))switch(this._sock.send([0,0,0,e[t]]),n("Selected authentication type: "+t),t){case"STDVNOAUTH__":return this._rfbInitState="SecurityResult",!0;case"STDVVNCAUTH_":return this._rfbAuthScheme=2,this._initMsg();case"TGHTULGNAUTH":return this._rfbAuthScheme=129,this._initMsg();default:return this._fail("Unsupported tiny auth scheme (scheme: "+t+")")}return this._fail("No supported sub-auth types!")}_negotiateAuthentication(){switch(this._rfbAuthScheme){case 1:return this._rfbVersion>=3.8?(this._rfbInitState="SecurityResult",!0):(this._rfbInitState="ClientInitialisation",this._initMsg());case 22:return this._negotiateXvpAuth();case 2:return this._negotiateStdVNCAuth();case 16:return this._negotiateTightAuth();case 19:return this._negotiateVeNCryptAuth();case 129:return this._negotiateTightUnixAuth();default:return this._fail("Unsupported auth scheme (scheme: "+this._rfbAuthScheme+")")}}_handleSecurityResult(){if(this._sock.rQwait("VNC auth response ",4))return!1;const t=this._sock.rQshift32();return 0===t?(this._rfbInitState="ClientInitialisation",n("Authentication OK"),this._initMsg()):this._rfbVersion>=3.8?(this._rfbInitState="SecurityReason",this._securityContext="security result",this._securityStatus=t,this._initMsg()):(this.dispatchEvent(new CustomEvent("securityfailure",{detail:{status:t}})),this._fail("Security handshake failed"))}_negotiateServerInit(){if(this._sock.rQwait("server initialization",24))return!1;const t=this._sock.rQshift16(),e=this._sock.rQshift16(),s=this._sock.rQshift8(),i=this._sock.rQshift8(),n=this._sock.rQshift8(),o=this._sock.rQshift8(),l=this._sock.rQshift16(),c=this._sock.rQshift16(),d=this._sock.rQshift16(),_=this._sock.rQshift8(),u=this._sock.rQshift8(),f=this._sock.rQshift8();this._sock.rQskipBytes(3);const p=this._sock.rQshift32();if(this._sock.rQwait("server init name",p,24))return!1;let g=this._sock.rQshiftStr(p);if(g=h(g,!0),this._rfbTightVNC){if(this._sock.rQwait("TightVNC extended server init header",8,24+p))return!1;const t=this._sock.rQshift16(),e=this._sock.rQshift16(),s=this._sock.rQshift16();this._sock.rQskipBytes(2);const i=16*(t+e+s);if(this._sock.rQwait("TightVNC extended server init header",i,32+p))return!1;this._sock.rQskipBytes(16*t),this._sock.rQskipBytes(16*e),this._sock.rQskipBytes(16*s)}return r("Screen: "+t+"x"+e+", bpp: "+s+", depth: "+i+", bigEndian: "+n+", trueColor: "+o+", redMax: "+l+", greenMax: "+c+", blueMax: "+d+", redShift: "+_+", greenShift: "+u+", blueShift: "+f),this._setDesktopName(g),this._resize(t,e),this._viewOnly||this._keyboard.grab(),this._fbDepth=24,"Intel(r) AMT KVM"===this._fbName&&(a("Intel AMT KVM only supports 8/16 bit depths. Using low color mode."),this._fbDepth=8),Gs.messages.pixelFormat(this._sock,this._fbDepth,!0),this._sendEncodings(),Gs.messages.fbUpdateRequest(this._sock,!1,0,0,this._fbWidth,this._fbHeight),this._updateConnectionState("connected"),!0}_sendEncodings(){const t=[];t.push(1),24==this._fbDepth&&(t.push(7),t.push(-260),t.push(5),t.push(2)),t.push(0),t.push(-32+this._qualityLevel),t.push(-256+this._compressionLevel),t.push(-223),t.push(-224),t.push(-258),t.push(-308),t.push(-309),t.push(-312),t.push(-313),t.push(-307),t.push(3231835598),24==this._fbDepth&&(t.push(Bs),t.push(-239)),Gs.messages.clientEncodings(this._sock,t)}_initMsg(){switch(this._rfbInitState){case"ProtocolVersion":return this._negotiateProtocolVersion();case"Security":return this._negotiateSecurity();case"Authentication":return this._negotiateAuthentication();case"SecurityResult":return this._handleSecurityResult();case"SecurityReason":return this._handleSecurityReason();case"ClientInitialisation":return this._sock.send([this._shared?1:0]),this._rfbInitState="ServerInitialisation",!0;case"ServerInitialisation":return this._negotiateServerInit();default:return this._fail("Unknown init state (state: "+this._rfbInitState+")")}}_handleSetColourMapMsg(){return n("SetColorMapEntries"),this._fail("Unexpected SetColorMapEntries message")}_handleServerCutText(){if(n("ServerCutText"),this._sock.rQwait("ServerCutText header",7,1))return!1;this._sock.rQskipBytes(3);let e=this._sock.rQshift32();if(e=t(e),this._sock.rQwait("ServerCutText content",Math.abs(e),8))return!1;if(e>=0){const t=this._sock.rQshiftStr(e);if(this._viewOnly)return!0;this.dispatchEvent(new CustomEvent("clipboard",{detail:{text:t}}))}else{e=Math.abs(e);const t=this._sock.rQshift32();let s=65535&t,i=4278190080&t;if(i&Hs){this._clipboardServerCapabilitiesFormats={},this._clipboardServerCapabilitiesActions={};for(let t=0;t<=15;t++){let e=1<<t;s&e&&(this._clipboardServerCapabilitiesFormats[e]=!0,this._sock.rQshift32())}for(let t=24;t<=31;t++){let e=1<<t;this._clipboardServerCapabilitiesActions[e]=!!(i&e)}let t=[Hs,Ks,Xs,Os,Ys];Gs.messages.extendedClipboardCaps(this._sock,t,{extendedClipboardFormatText:0})}else if(i===Ks){if(this._viewOnly)return!0;null!=this._clipboardText&&this._clipboardServerCapabilitiesActions[268435456]&&1&s&&Gs.messages.extendedClipboardProvide(this._sock,[1],[this._clipboardText])}else if(i===Xs){if(this._viewOnly)return!0;this._clipboardServerCapabilitiesActions[134217728]&&(null!=this._clipboardText?Gs.messages.extendedClipboardNotify(this._sock,[1]):Gs.messages.extendedClipboardNotify(this._sock,[]))}else if(i===Os){if(this._viewOnly)return!0;this._clipboardServerCapabilitiesActions[33554432]&&1&s&&Gs.messages.extendedClipboardRequest(this._sock,[1])}else{if(i!==Ys)return this._fail("Unexpected action in extended clipboard message: "+i);{if(this._viewOnly)return!0;if(!(1&s))return!0;this._clipboardText=null;let t=this._sock.rQshiftBytes(e-4),i=new ut,n=null;i.setInput(t);for(let t=0;t<=15;t++){let e=1<<t;if(s&e){let t=0,s=i.inflate(4);t|=s[0]<<24,t|=s[1]<<16,t|=s[2]<<8,t|=s[3];let r=i.inflate(t);1===e&&(n=r)}}if(i.setInput(null),null!==n){let t="";for(let e=0;e<n.length;e++)t+=String.fromCharCode(n[e]);n=t,n=h(n),n.length>0&&"\0"===n.charAt(n.length-1)&&(n=n.slice(0,-1)),n=n.replace("\r\n","\n"),this.dispatchEvent(new CustomEvent("clipboard",{detail:{text:n}}))}}}}return!0}_handleServerFenceMsg(){if(this._sock.rQwait("ServerFence header",8,1))return!1;this._sock.rQskipBytes(3);let t=this._sock.rQshift32(),e=this._sock.rQshift8();if(this._sock.rQwait("ServerFence payload",e,9))return!1;e>64&&(a("Bad payload length ("+e+") in fence response"),e=64);const s=this._sock.rQshiftStr(e);return this._supportsFence=!0,t&1<<31?(t&=3,Gs.messages.clientFence(this._sock,t,s),!0):this._fail("Unexpected fence response")}_handleXvpMsg(){if(this._sock.rQwait("XVP version and message",3,1))return!1;this._sock.rQskipBytes(1);const t=this._sock.rQshift8(),e=this._sock.rQshift8();switch(e){case 0:o("XVP Operation Failed");break;case 1:this._rfbXvpVer=t,r("XVP extensions enabled (version "+this._rfbXvpVer+")"),this._setCapability("power",!0);break;default:this._fail("Illegal server XVP message (msg: "+e+")")}return!0}_normalMsg(){let t,e,s;switch(t=this._FBU.rects>0?0:this._sock.rQshift8(),t){case 0:return s=this._framebufferUpdate(),s&&!this._enabledContinuousUpdates&&Gs.messages.fbUpdateRequest(this._sock,!0,0,0,this._fbWidth,this._fbHeight),s;case 1:return this._handleSetColourMapMsg();case 2:return n("Bell"),this.dispatchEvent(new CustomEvent("bell",{detail:{}})),!0;case 3:return this._handleServerCutText();case 150:return e=!this._supportsContinuousUpdates,this._supportsContinuousUpdates=!0,this._enabledContinuousUpdates=!1,e&&(this._enabledContinuousUpdates=!0,this._updateContinuousUpdates(),r("Enabling continuous updates.")),!0;case 248:return this._handleServerFenceMsg();case 250:return this._handleXvpMsg();default:return this._fail("Unexpected server message (type "+t+")"),n("sock.rQslice(0, 30): "+this._sock.rQslice(0,30)),!0}}_onFlush(){this._flushing=!1,this._sock.rQlen>0&&this._handleMessage()}_framebufferUpdate(){if(0===this._FBU.rects){if(this._sock.rQwait("FBU header",3,1))return!1;if(this._sock.rQskipBytes(1),this._FBU.rects=this._sock.rQshift16(),this._display.pending())return this._flushing=!0,this._display.flush(),!1}for(;this._FBU.rects>0;){if(null===this._FBU.encoding){if(this._sock.rQwait("rect header",12))return!1;const t=this._sock.rQshiftBytes(12);this._FBU.x=(t[0]<<8)+t[1],this._FBU.y=(t[2]<<8)+t[3],this._FBU.width=(t[4]<<8)+t[5],this._FBU.height=(t[6]<<8)+t[7],this._FBU.encoding=parseInt((t[8]<<24)+(t[9]<<16)+(t[10]<<8)+t[11],10)}if(!this._handleRect())return!1;this._FBU.rects--,this._FBU.encoding=null}return this._display.flip(),!0}_handleRect(){switch(this._FBU.encoding){case-224:return this._FBU.rects=1,!0;case Bs:return this._handleVMwareCursor();case-239:return this._handleCursor();case-258:try{void 0!==document.createEvent("keyboardEvent").code&&(this._qemuExtKeyEventSupported=!0)}catch(t){}return!0;case-307:return this._handleDesktopName();case-223:return this._resize(this._FBU.width,this._FBU.height),!0;case-308:return this._handleExtendedDesktopSize();default:return this._handleDataRect()}}_handleVMwareCursor(){const t=this._FBU.x,e=this._FBU.y,s=this._FBU.width,i=this._FBU.height;if(this._sock.rQwait("VMware cursor encoding",1))return!1;const n=this._sock.rQshift8();let r;if(this._sock.rQshift8(),0==n){const t=-256;if(r=new Array(s*i*4),this._sock.rQwait("VMware cursor classic encoding",s*i*4*2,2))return!1;let e=new Array(s*i);for(let t=0;t<s*i;t++)e[t]=this._sock.rQshift32();let n=new Array(s*i);for(let t=0;t<s*i;t++)n[t]=this._sock.rQshift32();for(let a=0;a<s*i;a++)if(0==e[a]){let t=n[a],e=t>>8&255,s=t>>16&255,i=t>>24&255;r[4*a]=e,r[4*a+1]=s,r[4*a+2]=i,r[4*a+3]=255}else(e[a]&t)==t?0==n[a]?(r[4*a]=0,r[4*a+1]=0,r[4*a+2]=0,r[4*a+3]=0):(n[a],r[4*a]=0,r[4*a+1]=0,r[4*a+2]=0,r[4*a+3]=255):(r[4*a]=0,r[4*a+1]=0,r[4*a+2]=0,r[4*a+3]=255)}else{if(1!=n)return a("The given cursor type is not supported: "+n+" given."),!1;if(this._sock.rQwait("VMware cursor alpha encoding",s*i*4,2))return!1;r=new Array(s*i*4);for(let t=0;t<s*i;t++){let e=this._sock.rQshift32();r[4*t]=e>>24&255,r[4*t+1]=e>>16&255,r[4*t+2]=e>>8&255,r[4*t+3]=255&e}}return this._updateCursor(r,t,e,s,i),!0}_handleCursor(){const t=this._FBU.x,e=this._FBU.y,s=this._FBU.width,i=this._FBU.height,n=s*i*4,r=Math.ceil(s/8)*i;let a=n+r;if(this._sock.rQwait("cursor encoding",a))return!1;const o=this._sock.rQshiftBytes(n),h=this._sock.rQshiftBytes(r);let l=new Uint8Array(s*i*4),c=0;for(let t=0;t<i;t++)for(let e=0;e<s;e++){let i=h[t*Math.ceil(s/8)+Math.floor(e/8)]<<e%8&128?255:0;l[c]=o[c+2],l[c+1]=o[c+1],l[c+2]=o[c],l[c+3]=i,c+=4}return this._updateCursor(l,t,e,s,i),!0}_handleDesktopName(){if(this._sock.rQwait("DesktopName",4))return!1;let t=this._sock.rQshift32();if(this._sock.rQwait("DesktopName",t,4))return!1;let e=this._sock.rQshiftStr(t);return e=h(e,!0),this._setDesktopName(e),!0}_handleExtendedDesktopSize(){if(this._sock.rQwait("ExtendedDesktopSize",4))return!1;const t=this._sock.rQpeek8();let e=4+16*t;if(this._sock.rQwait("ExtendedDesktopSize",e))return!1;const s=!this._supportsSetDesktopSize;this._supportsSetDesktopSize=!0,s&&this._requestRemoteResize(),this._sock.rQskipBytes(1),this._sock.rQskipBytes(3);for(let e=0;e<t;e+=1)0===e?(this._screenID=this._sock.rQshiftBytes(4),this._sock.rQskipBytes(2),this._sock.rQskipBytes(2),this._sock.rQskipBytes(2),this._sock.rQskipBytes(2),this._screenFlags=this._sock.rQshiftBytes(4)):this._sock.rQskipBytes(16);if(1===this._FBU.x&&0!==this._FBU.y){let t="";switch(this._FBU.y){case 1:t="Resize is administratively prohibited";break;case 2:t="Out of resources";break;case 3:t="Invalid screen layout";break;default:t="Unknown reason"}a("Server did not accept the resize request: "+t)}else this._resize(this._FBU.width,this._FBU.height);return!0}_handleDataRect(){let t=this._decoders[this._FBU.encoding];if(!t)return this._fail("Unsupported encoding (encoding: "+this._FBU.encoding+")"),!1;try{return t.decodeRect(this._FBU.x,this._FBU.y,this._FBU.width,this._FBU.height,this._sock,this._display,this._fbDepth)}catch(t){return this._fail("Error decoding rect: "+t),!1}}_updateContinuousUpdates(){this._enabledContinuousUpdates&&Gs.messages.enableContinuousUpdates(this._sock,!0,0,0,this._fbWidth,this._fbHeight)}_resize(t,e){this._fbWidth=t,this._fbHeight=e,this._display.resize(this._fbWidth,this._fbHeight),this._updateClip(),this._updateScale(),this._updateContinuousUpdates()}_xvpOp(t,e){this._rfbXvpVer<t||(r("Sending XVP operation "+e+" (version "+t+")"),Gs.messages.xvpOp(this._sock,t,e))}_updateCursor(t,e,s,i,n){this._cursorImage={rgbaPixels:t,hotx:e,hoty:s,w:i,h:n},this._refreshCursor()}_shouldShowDotCursor(){if(!this._showDotCursor)return!1;for(let t=3;t<this._cursorImage.rgbaPixels.length;t+=4)if(this._cursorImage.rgbaPixels[t])return!1;return!0}_refreshCursor(){if("connecting"!==this._rfbConnectionState&&"connected"!==this._rfbConnectionState)return;const t=this._shouldShowDotCursor()?Gs.cursors.dot:this._cursorImage;this._cursor.change(t.rgbaPixels,t.hotx,t.hoty,t.w,t.h)}static genDES(t,e){const s=t.split("").map((t=>t.charCodeAt(0)));return new Ls(s).encrypt(e)}}Gs.messages={keyEvent(t,e,s){const i=t._sQ,n=t._sQlen;i[n]=4,i[n+1]=s,i[n+2]=0,i[n+3]=0,i[n+4]=e>>24,i[n+5]=e>>16,i[n+6]=e>>8,i[n+7]=e,t._sQlen+=8,t.flush()},QEMUExtendedKeyEvent(t,e,s,i){const n=t._sQ,r=t._sQlen;n[r]=255,n[r+1]=0,n[r+2]=s>>8,n[r+3]=s,n[r+4]=e>>24,n[r+5]=e>>16,n[r+6]=e>>8,n[r+7]=e;const a=function(t){const e=255&i;return 224==i>>8&&e<127?128|e:t}(i);n[r+8]=a>>24,n[r+9]=a>>16,n[r+10]=a>>8,n[r+11]=a,t._sQlen+=12,t.flush()},pointerEvent(t,e,s,i){const n=t._sQ,r=t._sQlen;n[r]=5,n[r+1]=i,n[r+2]=e>>8,n[r+3]=e,n[r+4]=s>>8,n[r+5]=s,t._sQlen+=6,t.flush()},_buildExtendedClipboardFlags(t,e){let s=new Uint8Array(4),i=0,n=0;for(let e=0;e<t.length;e++)n|=t[e];for(let t=0;t<e.length;t++)i|=e[t];return s[0]=n>>24,s[1]=0,s[2]=0,s[3]=i,s},extendedClipboardProvide(t,e,s){let i=new Ye,n=[];for(let t=0;t<e.length;t++){if(1!=e[t])throw new Error("Unsupported extended clipboard format for Provide message.");s[t]=s[t].replace(/\r\n|\r|\n/gm,"\r\n");let i=l(s[t]+"\0");n.push(i.length>>24&255,i.length>>16&255,i.length>>8&255,255&i.length);for(let t=0;t<i.length;t++)n.push(i.charCodeAt(t))}let r=i.deflate(new Uint8Array(n)),a=new Uint8Array(4+r.length);a.set(Gs.messages._buildExtendedClipboardFlags([Ys],e)),a.set(r,4),Gs.messages.clientCutText(t,a,!0)},extendedClipboardNotify(t,e){let s=Gs.messages._buildExtendedClipboardFlags([Os],e);Gs.messages.clientCutText(t,s,!0)},extendedClipboardRequest(t,e){let s=Gs.messages._buildExtendedClipboardFlags([Ks],e);Gs.messages.clientCutText(t,s,!0)},extendedClipboardCaps(t,e,s){let i=Object.keys(s),n=new Uint8Array(4+4*i.length);i.map((t=>parseInt(t))),i.sort(((t,e)=>t-e)),n.set(Gs.messages._buildExtendedClipboardFlags(e,[]));let r=4;for(let t=0;t<i.length;t++)n[r]=s[i[t]]>>24,n[r+1]=s[i[t]]>>16,n[r+2]=s[i[t]]>>8,n[r+3]=0|s[i[t]],r+=4,n[3]|=1<<i[t];Gs.messages.clientCutText(t,n,!0)},clientCutText(t,e,s=!1){const i=t._sQ,n=t._sQlen;let r;i[n]=6,i[n+1]=0,i[n+2]=0,i[n+3]=0,r=s?-e.length>>>0:e.length,i[n+4]=r>>24,i[n+5]=r>>16,i[n+6]=r>>8,i[n+7]=r,t._sQlen+=8;let a=0,o=e.length;for(;o>0;){let s=Math.min(o,t._sQbufferSize-t._sQlen);for(let n=0;n<s;n++)i[t._sQlen+n]=e[a+n];t._sQlen+=s,t.flush(),o-=s,a+=s}},setDesktopSize(t,e,s,i,n){const r=t._sQ,a=t._sQlen;r[a]=251,r[a+1]=0,r[a+2]=e>>8,r[a+3]=e,r[a+4]=s>>8,r[a+5]=s,r[a+6]=1,r[a+7]=0,r[a+8]=i>>24,r[a+9]=i>>16,r[a+10]=i>>8,r[a+11]=i,r[a+12]=0,r[a+13]=0,r[a+14]=0,r[a+15]=0,r[a+16]=e>>8,r[a+17]=e,r[a+18]=s>>8,r[a+19]=s,r[a+20]=n>>24,r[a+21]=n>>16,r[a+22]=n>>8,r[a+23]=n,t._sQlen+=24,t.flush()},clientFence(t,e,s){const i=t._sQ,n=t._sQlen;i[n]=248,i[n+1]=0,i[n+2]=0,i[n+3]=0,i[n+4]=e>>24,i[n+5]=e>>16,i[n+6]=e>>8,i[n+7]=e;const r=s.length;i[n+8]=r;for(let t=0;t<r;t++)i[n+9+t]=s.charCodeAt(t);t._sQlen+=9+r,t.flush()},enableContinuousUpdates(t,e,s,i,n,r){const a=t._sQ,o=t._sQlen;a[o]=150,a[o+1]=e,a[o+2]=s>>8,a[o+3]=s,a[o+4]=i>>8,a[o+5]=i,a[o+6]=n>>8,a[o+7]=n,a[o+8]=r>>8,a[o+9]=r,t._sQlen+=10,t.flush()},pixelFormat(t,e,s){const i=t._sQ,n=t._sQlen;let r;r=e>16?32:e>8?16:8;const a=Math.floor(e/3);i[n]=0,i[n+1]=0,i[n+2]=0,i[n+3]=0,i[n+4]=r,i[n+5]=e,i[n+6]=0,i[n+7]=s?1:0,i[n+8]=0,i[n+9]=(1<<a)-1,i[n+10]=0,i[n+11]=(1<<a)-1,i[n+12]=0,i[n+13]=(1<<a)-1,i[n+14]=2*a,i[n+15]=1*a,i[n+16]=0*a,i[n+17]=0,i[n+18]=0,i[n+19]=0,t._sQlen+=20,t.flush()},clientEncodings(t,e){const s=t._sQ,i=t._sQlen;s[i]=2,s[i+1]=0,s[i+2]=e.length>>8,s[i+3]=e.length;let n=i+4;for(let t=0;t<e.length;t++){const i=e[t];s[n]=i>>24,s[n+1]=i>>16,s[n+2]=i>>8,s[n+3]=i,n+=4}t._sQlen+=n-i,t.flush()},fbUpdateRequest(t,e,s,i,n,r){const a=t._sQ,o=t._sQlen;void 0===s&&(s=0),void 0===i&&(i=0),a[o]=3,a[o+1]=e?1:0,a[o+2]=s>>8&255,a[o+3]=255&s,a[o+4]=i>>8&255,a[o+5]=255&i,a[o+6]=n>>8&255,a[o+7]=255&n,a[o+8]=r>>8&255,a[o+9]=255&r,t._sQlen+=10,t.flush()},xvpOp(t,e,s){const i=t._sQ,n=t._sQlen;i[n]=250,i[n+1]=0,i[n+2]=e,i[n+3]=s,t._sQlen+=4,t.flush()}},Gs.cursors={none:{rgbaPixels:new Uint8Array,w:0,h:0,hotx:0,hoty:0},dot:{rgbaPixels:new Uint8Array([255,255,255,255,0,0,0,255,255,255,255,255,0,0,0,255,0,0,0,0,0,0,0,255,255,255,255,255,0,0,0,255,255,255,255,255]),w:3,h:3,hotx:1,hoty:1}}})(),i})()));
+function toSigned32bit(toConvert) {
+    return 0 | toConvert;
+}
+
+let _logLevel = 'warn',
+    Debug = () => {},
+    Info = () => {},
+    Warn = () => {},
+    Error$1 = () => {};
+
+function decodeUTF8(utf8string, allowLatin1 = !1) {
+    try {
+        return decodeURIComponent(escape(utf8string));
+    } catch (e2) {
+        if (e2 instanceof URIError && allowLatin1) return utf8string;
+        throw e2;
+    }
+}
+
+function encodeUTF8(DOMString) {
+    return unescape(encodeURIComponent(DOMString));
+}
+
+!(function (level) {
+    if ((void 0 === level ? (level = _logLevel) : (_logLevel = level), (Debug = Info = Warn = Error$1 = () => {}), void 0 !== window.console))
+        switch (level) {
+            case 'debug':
+                Debug = console.debug.bind(window.console);
+
+            case 'info':
+                Info = console.info.bind(window.console);
+
+            case 'warn':
+                Warn = console.warn.bind(window.console);
+
+            case 'error':
+                Error$1 = console.error.bind(window.console);
+
+            case 'none':
+                break;
+
+            default:
+                throw new window.Error("invalid logging type '" + level + "'");
+        }
+})();
+
+let isTouchDevice = 'ontouchstart' in document.documentElement || void 0 !== document.ontouchstart || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+
+window.addEventListener(
+    'touchstart',
+    function onFirstTouch() {
+        (isTouchDevice = !0), window.removeEventListener('touchstart', onFirstTouch, !1);
+    },
+    !1,
+);
+
+let dragThreshold = 10 * (window.devicePixelRatio || 1),
+    _supportsCursorURIs = !1;
+
+try {
+    const target = document.createElement('canvas');
+    (target.style.cursor =
+        'url("data:image/x-icon;base64,AAACAAEACAgAAAIAAgA4AQAAFgAAACgAAAAIAAAAEAAAAAEAIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAD/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AAAAAAAAAAAAAAAAAAAAAA==") 2 2, default'),
+        0 === target.style.cursor.indexOf('url') ? (Info('Data URI scheme cursor supported'), (_supportsCursorURIs = !0)) : Warn('Data URI scheme cursor not supported');
+} catch (exc) {
+    Error$1('Data URI scheme cursor test exception: ' + exc);
+}
+
+const supportsCursorURIs = _supportsCursorURIs;
+
+let _supportsImageMetadata = !1;
+
+try {
+    new ImageData(new Uint8ClampedArray(4), 1, 1), (_supportsImageMetadata = !0);
+} catch (ex) {}
+
+const supportsImageMetadata = _supportsImageMetadata;
+
+let _hasScrollbarGutter = !0;
+
+try {
+    const container = document.createElement('div');
+    (container.style.visibility = 'hidden'), (container.style.overflow = 'scroll'), document.body.appendChild(container);
+    const child = document.createElement('div');
+    container.appendChild(child);
+    const scrollbarWidth = container.offsetWidth - child.offsetWidth;
+    container.parentNode.removeChild(container), (_hasScrollbarGutter = 0 != scrollbarWidth);
+} catch (exc) {
+    Error$1('Scrollbar test exception: ' + exc);
+}
+
+function isMac() {
+    return navigator && !!/mac/i.exec(navigator.platform);
+}
+
+function isWindows() {
+    return navigator && !!/win/i.exec(navigator.platform);
+}
+
+function isIOS() {
+    return navigator && (!!/ipad/i.exec(navigator.platform) || !!/iphone/i.exec(navigator.platform) || !!/ipod/i.exec(navigator.platform));
+}
+
+function isIE() {
+    return navigator && !!/trident/i.exec(navigator.userAgent);
+}
+
+function isEdge() {
+    return navigator && !!/edge/i.exec(navigator.userAgent);
+}
+
+function isFirefox() {
+    return navigator && !!/firefox/i.exec(navigator.userAgent);
+}
+
+function clientToElement(x, y, elem) {
+    const bounds = elem.getBoundingClientRect();
+    let pos = {
+        x: 0,
+        y: 0,
+    };
+    return x < bounds.left ? (pos.x = 0) : x >= bounds.right ? (pos.x = bounds.width - 1) : (pos.x = x - bounds.left), y < bounds.top ? (pos.y = 0) : y >= bounds.bottom ? (pos.y = bounds.height - 1) : (pos.y = y - bounds.top), pos;
+}
+
+function stopEvent(e2) {
+    e2.stopPropagation(), e2.preventDefault();
+}
+
+let _captureRecursion = !1,
+    _elementForUnflushedEvents = null;
+
+function _captureProxy(e2) {
+    if (_captureRecursion) return;
+    const newEv = new e2.constructor(e2.type, e2);
+    (_captureRecursion = !0), document.captureElement ? document.captureElement.dispatchEvent(newEv) : _elementForUnflushedEvents.dispatchEvent(newEv), (_captureRecursion = !1), e2.stopPropagation(), newEv.defaultPrevented && e2.preventDefault(), 'mouseup' === e2.type && releaseCapture();
+}
+
+function _capturedElemChanged() {
+    document.getElementById('noVNC_mouse_capture_elem').style.cursor = window.getComputedStyle(document.captureElement).cursor;
+}
+
+document.captureElement = null;
+
+const _captureObserver = new MutationObserver(_capturedElemChanged);
+
+function releaseCapture() {
+    if (document.releaseCapture) document.releaseCapture(), (document.captureElement = null);
+    else {
+        if (!document.captureElement) return;
+        (_elementForUnflushedEvents = document.captureElement), (document.captureElement = null), _captureObserver.disconnect();
+        (document.getElementById('noVNC_mouse_capture_elem').style.display = 'none'), window.removeEventListener('mousemove', _captureProxy), window.removeEventListener('mouseup', _captureProxy);
+    }
+}
+
+class EventTargetMixin {
+    constructor() {
+        this._listeners = new Map();
+    }
+    addEventListener(type, callback) {
+        this._listeners.has(type) || this._listeners.set(type, new Set()), this._listeners.get(type).add(callback);
+    }
+    removeEventListener(type, callback) {
+        this._listeners.has(type) && this._listeners.get(type).delete(callback);
+    }
+    dispatchEvent(event) {
+        return !this._listeners.has(event.type) || (this._listeners.get(event.type).forEach(callback => callback.call(this, event)), !event.defaultPrevented);
+    }
+}
+
+const Base64 = {
+    toBase64Table: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='.split(''),
+    base64Pad: '=',
+    encode(data) {
+        let result = '';
+        const length = data.length,
+            lengthpad = length % 3;
+        for (let i = 0; i < length - 2; i += 3) (result += this.toBase64Table[data[i] >> 2]), (result += this.toBase64Table[((3 & data[i]) << 4) + (data[i + 1] >> 4)]), (result += this.toBase64Table[((15 & data[i + 1]) << 2) + (data[i + 2] >> 6)]), (result += this.toBase64Table[63 & data[i + 2]]);
+        const j = length - lengthpad;
+        return (
+            2 === lengthpad
+                ? ((result += this.toBase64Table[data[j] >> 2]), (result += this.toBase64Table[((3 & data[j]) << 4) + (data[j + 1] >> 4)]), (result += this.toBase64Table[(15 & data[j + 1]) << 2]), (result += this.toBase64Table[64]))
+                : 1 === lengthpad && ((result += this.toBase64Table[data[j] >> 2]), (result += this.toBase64Table[(3 & data[j]) << 4]), (result += this.toBase64Table[64]), (result += this.toBase64Table[64])),
+            result
+        );
+    },
+    toBinaryTable: [
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, 0, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29,
+        30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1,
+    ],
+    decode(data, offset = 0) {
+        let dataLength = data.indexOf('=') - offset;
+        dataLength < 0 && (dataLength = data.length - offset);
+        const resultLength = 3 * (dataLength >> 2) + Math.floor((dataLength % 4) / 1.5),
+            result = new Array(resultLength);
+        let leftbits = 0,
+            leftdata = 0;
+        for (let idx = 0, i = offset; i < data.length; i++) {
+            const c2 = this.toBinaryTable[127 & data.charCodeAt(i)],
+                padding = data.charAt(i) === this.base64Pad;
+            -1 !== c2 ? ((leftdata = (leftdata << 6) | c2), (leftbits += 6), leftbits >= 8 && ((leftbits -= 8), padding || (result[idx++] = (leftdata >> leftbits) & 255), (leftdata &= (1 << leftbits) - 1))) : Error$1('Illegal character code ' + data.charCodeAt(i) + ' at position ' + i);
+        }
+        if (leftbits) {
+            const err2 = new Error('Corrupted base64 string');
+            throw ((err2.name = 'Base64-Error'), err2);
+        }
+        return result;
+    },
+};
+
+class Display {
+    constructor(target) {
+        if (((this._drawCtx = null), (this._renderQ = []), (this._flushing = !1), (this._fbWidth = 0), (this._fbHeight = 0), (this._prevDrawStyle = ''), (this._tile = null), (this._tile16x16 = null), (this._tileX = 0), (this._tileY = 0), Debug('>> Display.constructor'), (this._target = target), !this._target)) throw new Error('Target must be set');
+        if ('string' == typeof this._target) throw new Error('target must be a DOM element');
+        if (!this._target.getContext) throw new Error('no getContext method');
+        if (
+            ((this._targetCtx = this._target.getContext('2d')),
+            (this._viewportLoc = {
+                x: 0,
+                y: 0,
+                w: this._target.width,
+                h: this._target.height,
+            }),
+            (this._backbuffer = document.createElement('canvas')),
+            (this._drawCtx = this._backbuffer.getContext('2d')),
+            (this._damageBounds = {
+                left: 0,
+                top: 0,
+                right: this._backbuffer.width,
+                bottom: this._backbuffer.height,
+            }),
+            Debug('User Agent: ' + navigator.userAgent),
+            !('createImageData' in this._drawCtx))
+        )
+            throw new Error('Canvas does not support createImageData');
+        (this._tile16x16 = this._drawCtx.createImageData(16, 16)), Debug('<< Display.constructor'), (this._scale = 1), (this._clipViewport = !1), (this.onflush = () => {});
+    }
+    get scale() {
+        return this._scale;
+    }
+    set scale(scale) {
+        this._rescale(scale);
+    }
+    get clipViewport() {
+        return this._clipViewport;
+    }
+    set clipViewport(viewport) {
+        this._clipViewport = viewport;
+        const vp = this._viewportLoc;
+        this.viewportChangeSize(vp.w, vp.h), this.viewportChangePos(0, 0);
+    }
+    get width() {
+        return this._fbWidth;
+    }
+    get height() {
+        return this._fbHeight;
+    }
+    viewportChangePos(deltaX, deltaY) {
+        const vp = this._viewportLoc;
+        (deltaX = Math.floor(deltaX)), (deltaY = Math.floor(deltaY)), this._clipViewport || ((deltaX = -vp.w), (deltaY = -vp.h));
+        const vx2 = vp.x + vp.w - 1,
+            vy2 = vp.y + vp.h - 1;
+        deltaX < 0 && vp.x + deltaX < 0 && (deltaX = -vp.x),
+            vx2 + deltaX >= this._fbWidth && (deltaX -= vx2 + deltaX - this._fbWidth + 1),
+            vp.y + deltaY < 0 && (deltaY = -vp.y),
+            vy2 + deltaY >= this._fbHeight && (deltaY -= vy2 + deltaY - this._fbHeight + 1),
+            (0 === deltaX && 0 === deltaY) || (Debug('viewportChange deltaX: ' + deltaX + ', deltaY: ' + deltaY), (vp.x += deltaX), (vp.y += deltaY), this._damage(vp.x, vp.y, vp.w, vp.h), this.flip());
+    }
+    viewportChangeSize(width, height) {
+        (this._clipViewport && void 0 !== width && void 0 !== height) || (Debug('Setting viewport to full display region'), (width = this._fbWidth), (height = this._fbHeight)), (width = Math.floor(width)), (height = Math.floor(height)), width > this._fbWidth && (width = this._fbWidth), height > this._fbHeight && (height = this._fbHeight);
+        const vp = this._viewportLoc;
+        if (vp.w !== width || vp.h !== height) {
+            (vp.w = width), (vp.h = height);
+            const canvas = this._target;
+            (canvas.width = width), (canvas.height = height), this.viewportChangePos(0, 0), this._damage(vp.x, vp.y, vp.w, vp.h), this.flip(), this._rescale(this._scale);
+        }
+    }
+    absX(x) {
+        return 0 === this._scale ? 0 : toSigned32bit(x / this._scale + this._viewportLoc.x);
+    }
+    absY(y) {
+        return 0 === this._scale ? 0 : toSigned32bit(y / this._scale + this._viewportLoc.y);
+    }
+    resize(width, height) {
+        (this._prevDrawStyle = ''), (this._fbWidth = width), (this._fbHeight = height);
+        const canvas = this._backbuffer;
+        if (canvas.width !== width || canvas.height !== height) {
+            let saveImg = null;
+            canvas.width > 0 && canvas.height > 0 && (saveImg = this._drawCtx.getImageData(0, 0, canvas.width, canvas.height)), canvas.width !== width && (canvas.width = width), canvas.height !== height && (canvas.height = height), saveImg && this._drawCtx.putImageData(saveImg, 0, 0);
+        }
+        const vp = this._viewportLoc;
+        this.viewportChangeSize(vp.w, vp.h), this.viewportChangePos(0, 0);
+    }
+    _damage(x, y, w, h) {
+        x < this._damageBounds.left && (this._damageBounds.left = x), y < this._damageBounds.top && (this._damageBounds.top = y), x + w > this._damageBounds.right && (this._damageBounds.right = x + w), y + h > this._damageBounds.bottom && (this._damageBounds.bottom = y + h);
+    }
+    flip(fromQueue) {
+        if (0 === this._renderQ.length || fromQueue) {
+            let x = this._damageBounds.left,
+                y = this._damageBounds.top,
+                w = this._damageBounds.right - x,
+                h = this._damageBounds.bottom - y,
+                vx = x - this._viewportLoc.x,
+                vy = y - this._viewportLoc.y;
+            vx < 0 && ((w += vx), (x -= vx), (vx = 0)),
+                vy < 0 && ((h += vy), (y -= vy), (vy = 0)),
+                vx + w > this._viewportLoc.w && (w = this._viewportLoc.w - vx),
+                vy + h > this._viewportLoc.h && (h = this._viewportLoc.h - vy),
+                w > 0 && h > 0 && this._targetCtx.drawImage(this._backbuffer, x, y, w, h, vx, vy, w, h),
+                (this._damageBounds.left = this._damageBounds.top = 65535),
+                (this._damageBounds.right = this._damageBounds.bottom = 0);
+        } else
+            this._renderQPush({
+                type: 'flip',
+            });
+    }
+    pending() {
+        return this._renderQ.length > 0;
+    }
+    flush() {
+        0 === this._renderQ.length ? this.onflush() : (this._flushing = !0);
+    }
+    fillRect(x, y, width, height, color, fromQueue) {
+        0 === this._renderQ.length || fromQueue
+            ? (this._setFillColor(color), this._drawCtx.fillRect(x, y, width, height), this._damage(x, y, width, height))
+            : this._renderQPush({
+                  type: 'fill',
+                  x: x,
+                  y: y,
+                  width: width,
+                  height: height,
+                  color: color,
+              });
+    }
+    copyImage(oldX, oldY, newX, newY, w, h, fromQueue) {
+        0 === this._renderQ.length || fromQueue
+            ? ((this._drawCtx.mozImageSmoothingEnabled = !1), (this._drawCtx.webkitImageSmoothingEnabled = !1), (this._drawCtx.msImageSmoothingEnabled = !1), (this._drawCtx.imageSmoothingEnabled = !1), this._drawCtx.drawImage(this._backbuffer, oldX, oldY, w, h, newX, newY, w, h), this._damage(newX, newY, w, h))
+            : this._renderQPush({
+                  type: 'copy',
+                  oldX: oldX,
+                  oldY: oldY,
+                  x: newX,
+                  y: newY,
+                  width: w,
+                  height: h,
+              });
+    }
+    imageRect(x, y, width, height, mime, arr) {
+        if (0 === width || 0 === height) return;
+        const img = new Image();
+        (img.src = 'data: ' + mime + ';base64,' + Base64.encode(arr)),
+            this._renderQPush({
+                type: 'img',
+                img: img,
+                x: x,
+                y: y,
+                width: width,
+                height: height,
+            });
+    }
+    startTile(x, y, width, height, color) {
+        (this._tileX = x), (this._tileY = y), (this._tile = 16 === width && 16 === height ? this._tile16x16 : this._drawCtx.createImageData(width, height));
+        const red = color[2],
+            green = color[1],
+            blue = color[0],
+            data = this._tile.data;
+        for (let i = 0; i < width * height * 4; i += 4) (data[i] = red), (data[i + 1] = green), (data[i + 2] = blue), (data[i + 3] = 255);
+    }
+    subTile(x, y, w, h, color) {
+        const red = color[2],
+            green = color[1],
+            blue = color[0],
+            xend = x + w,
+            yend = y + h,
+            data = this._tile.data,
+            width = this._tile.width;
+        for (let j = y; j < yend; j++)
+            for (let i = x; i < xend; i++) {
+                const p = 4 * (i + j * width);
+                (data[p] = red), (data[p + 1] = green), (data[p + 2] = blue), (data[p + 3] = 255);
+            }
+    }
+    finishTile() {
+        this._drawCtx.putImageData(this._tile, this._tileX, this._tileY), this._damage(this._tileX, this._tileY, this._tile.width, this._tile.height);
+    }
+    blitImage(x, y, width, height, arr, offset, fromQueue) {
+        if (0 === this._renderQ.length || fromQueue) this._bgrxImageData(x, y, width, height, arr, offset);
+        else {
+            const newArr = new Uint8Array(width * height * 4);
+            newArr.set(new Uint8Array(arr.buffer, 0, newArr.length)),
+                this._renderQPush({
+                    type: 'blit',
+                    data: newArr,
+                    x: x,
+                    y: y,
+                    width: width,
+                    height: height,
+                });
+        }
+    }
+    blitRgbImage(x, y, width, height, arr, offset, fromQueue) {
+        if (0 === this._renderQ.length || fromQueue) this._rgbImageData(x, y, width, height, arr, offset);
+        else {
+            const newArr = new Uint8Array(width * height * 3);
+            newArr.set(new Uint8Array(arr.buffer, 0, newArr.length)),
+                this._renderQPush({
+                    type: 'blitRgb',
+                    data: newArr,
+                    x: x,
+                    y: y,
+                    width: width,
+                    height: height,
+                });
+        }
+    }
+    blitRgbxImage(x, y, width, height, arr, offset, fromQueue) {
+        if (0 === this._renderQ.length || fromQueue) this._rgbxImageData(x, y, width, height, arr, offset);
+        else {
+            const newArr = new Uint8Array(width * height * 4);
+            newArr.set(new Uint8Array(arr.buffer, 0, newArr.length)),
+                this._renderQPush({
+                    type: 'blitRgbx',
+                    data: newArr,
+                    x: x,
+                    y: y,
+                    width: width,
+                    height: height,
+                });
+        }
+    }
+    drawImage(img, x, y) {
+        this._drawCtx.drawImage(img, x, y), this._damage(x, y, img.width, img.height);
+    }
+    autoscale(containerWidth, containerHeight) {
+        let scaleRatio;
+        if (0 === containerWidth || 0 === containerHeight) scaleRatio = 0;
+        else {
+            const vp = this._viewportLoc,
+                targetAspectRatio = containerWidth / containerHeight;
+            scaleRatio = vp.w / vp.h >= targetAspectRatio ? containerWidth / vp.w : containerHeight / vp.h;
+        }
+        this._rescale(scaleRatio);
+    }
+    _rescale(factor) {
+        this._scale = factor;
+        const vp = this._viewportLoc,
+            width = factor * vp.w + 'px',
+            height = factor * vp.h + 'px';
+        (this._target.style.width === width && this._target.style.height === height) || ((this._target.style.width = width), (this._target.style.height = height));
+    }
+    _setFillColor(color) {
+        const newStyle = 'rgb(' + color[2] + ',' + color[1] + ',' + color[0] + ')';
+        newStyle !== this._prevDrawStyle && ((this._drawCtx.fillStyle = newStyle), (this._prevDrawStyle = newStyle));
+    }
+    _rgbImageData(x, y, width, height, arr, offset) {
+        const img = this._drawCtx.createImageData(width, height),
+            data = img.data;
+        for (let i = 0, j = offset; i < width * height * 4; i += 4, j += 3) (data[i] = arr[j]), (data[i + 1] = arr[j + 1]), (data[i + 2] = arr[j + 2]), (data[i + 3] = 255);
+        this._drawCtx.putImageData(img, x, y), this._damage(x, y, img.width, img.height);
+    }
+    _bgrxImageData(x, y, width, height, arr, offset) {
+        const img = this._drawCtx.createImageData(width, height),
+            data = img.data;
+        for (let i = 0, j = offset; i < width * height * 4; i += 4, j += 4) (data[i] = arr[j + 2]), (data[i + 1] = arr[j + 1]), (data[i + 2] = arr[j]), (data[i + 3] = 255);
+        this._drawCtx.putImageData(img, x, y), this._damage(x, y, img.width, img.height);
+    }
+    _rgbxImageData(x, y, width, height, arr, offset) {
+        let img;
+        supportsImageMetadata ? (img = new ImageData(new Uint8ClampedArray(arr.buffer, arr.byteOffset, width * height * 4), width, height)) : ((img = this._drawCtx.createImageData(width, height)), img.data.set(new Uint8ClampedArray(arr.buffer, arr.byteOffset, width * height * 4))), this._drawCtx.putImageData(img, x, y), this._damage(x, y, img.width, img.height);
+    }
+    _renderQPush(action) {
+        this._renderQ.push(action), 1 === this._renderQ.length && this._scanRenderQ();
+    }
+    _resumeRenderQ() {
+        this.removeEventListener('load', this._noVNCDisplay._resumeRenderQ), this._noVNCDisplay._scanRenderQ();
+    }
+    _scanRenderQ() {
+        let ready = !0;
+        for (; ready && this._renderQ.length > 0; ) {
+            const a2 = this._renderQ[0];
+            switch (a2.type) {
+                case 'flip':
+                    this.flip(!0);
+                    break;
+
+                case 'copy':
+                    this.copyImage(a2.oldX, a2.oldY, a2.x, a2.y, a2.width, a2.height, !0);
+                    break;
+
+                case 'fill':
+                    this.fillRect(a2.x, a2.y, a2.width, a2.height, a2.color, !0);
+                    break;
+
+                case 'blit':
+                    this.blitImage(a2.x, a2.y, a2.width, a2.height, a2.data, 0, !0);
+                    break;
+
+                case 'blitRgb':
+                    this.blitRgbImage(a2.x, a2.y, a2.width, a2.height, a2.data, 0, !0);
+                    break;
+
+                case 'blitRgbx':
+                    this.blitRgbxImage(a2.x, a2.y, a2.width, a2.height, a2.data, 0, !0);
+                    break;
+
+                case 'img':
+                    if (a2.img.complete && 0 !== a2.img.width && 0 !== a2.img.height) {
+                        if (a2.img.width !== a2.width || a2.img.height !== a2.height) return void Error$1('Decoded image has incorrect dimensions. Got ' + a2.img.width + 'x' + a2.img.height + '. Expected ' + a2.width + 'x' + a2.height + '.');
+                        this.drawImage(a2.img, a2.x, a2.y);
+                    } else (a2.img._noVNCDisplay = this), a2.img.addEventListener('load', this._resumeRenderQ), (ready = !1);
+            }
+            ready && this._renderQ.shift();
+        }
+        0 === this._renderQ.length && this._flushing && ((this._flushing = !1), this.onflush());
+    }
+}
+
+function arraySet(dest, src, src_offs, len, dest_offs) {
+    if (src.subarray && dest.subarray) dest.set(src.subarray(src_offs, src_offs + len), dest_offs);
+    else for (var i = 0; i < len; i++) dest[dest_offs + i] = src[src_offs + i];
+}
+
+var Buf8 = Uint8Array,
+    Buf16 = Uint16Array,
+    Buf32 = Int32Array;
+
+function adler32(adler, buf, len, pos) {
+    for (var s1 = 65535 & adler, s2 = (adler >>> 16) & 65535, n = 0; 0 !== len; ) {
+        len -= n = len > 2e3 ? 2e3 : len;
+        do {
+            s2 = (s2 + (s1 = (s1 + buf[pos++]) | 0)) | 0;
+        } while (--n);
+        (s1 %= 65521), (s2 %= 65521);
+    }
+    return s1 | (s2 << 16);
+}
+
+function makeTable() {
+    for (var c2, table = [], n = 0; n < 256; n++) {
+        c2 = n;
+        for (var k = 0; k < 8; k++) c2 = 1 & c2 ? 3988292384 ^ (c2 >>> 1) : c2 >>> 1;
+        table[n] = c2;
+    }
+    return table;
+}
+
+makeTable();
+
+function inflate_fast(strm, start) {
+    var state, _in, last, _out, beg, end, dmax, wsize, whave, wnext, s_window, hold, bits, lcode, dcode, lmask, dmask, here, op, len, dist, from, from_source, input, output;
+    (state = strm.state),
+        (_in = strm.next_in),
+        (input = strm.input),
+        (last = _in + (strm.avail_in - 5)),
+        (_out = strm.next_out),
+        (output = strm.output),
+        (beg = _out - (start - strm.avail_out)),
+        (end = _out + (strm.avail_out - 257)),
+        (dmax = state.dmax),
+        (wsize = state.wsize),
+        (whave = state.whave),
+        (wnext = state.wnext),
+        (s_window = state.window),
+        (hold = state.hold),
+        (bits = state.bits),
+        (lcode = state.lencode),
+        (dcode = state.distcode),
+        (lmask = (1 << state.lenbits) - 1),
+        (dmask = (1 << state.distbits) - 1);
+    top: do {
+        bits < 15 && ((hold += input[_in++] << bits), (bits += 8), (hold += input[_in++] << bits), (bits += 8)), (here = lcode[hold & lmask]);
+        dolen: for (;;) {
+            if (((hold >>>= op = here >>> 24), (bits -= op), 0 === (op = (here >>> 16) & 255))) output[_out++] = 65535 & here;
+            else {
+                if (!(16 & op)) {
+                    if (64 & op) {
+                        if (32 & op) {
+                            state.mode = 12;
+                            break top;
+                        }
+                        (strm.msg = 'invalid literal/length code'), (state.mode = 30);
+                        break top;
+                    }
+                    here = lcode[(65535 & here) + (hold & ((1 << op) - 1))];
+                    continue dolen;
+                }
+                for (len = 65535 & here, (op &= 15) && (bits < op && ((hold += input[_in++] << bits), (bits += 8)), (len += hold & ((1 << op) - 1)), (hold >>>= op), (bits -= op)), bits < 15 && ((hold += input[_in++] << bits), (bits += 8), (hold += input[_in++] << bits), (bits += 8)), here = dcode[hold & dmask]; ; ) {
+                    if (((hold >>>= op = here >>> 24), (bits -= op), 16 & (op = (here >>> 16) & 255))) {
+                        if (((dist = 65535 & here), bits < (op &= 15) && ((hold += input[_in++] << bits), (bits += 8) < op && ((hold += input[_in++] << bits), (bits += 8))), (dist += hold & ((1 << op) - 1)) > dmax)) {
+                            (strm.msg = 'invalid distance too far back'), (state.mode = 30);
+                            break top;
+                        }
+                        if (((hold >>>= op), (bits -= op), dist > (op = _out - beg))) {
+                            if ((op = dist - op) > whave && state.sane) {
+                                (strm.msg = 'invalid distance too far back'), (state.mode = 30);
+                                break top;
+                            }
+                            if (((from = 0), (from_source = s_window), 0 === wnext)) {
+                                if (((from += wsize - op), op < len)) {
+                                    len -= op;
+                                    do {
+                                        output[_out++] = s_window[from++];
+                                    } while (--op);
+                                    (from = _out - dist), (from_source = output);
+                                }
+                            } else if (wnext < op) {
+                                if (((from += wsize + wnext - op), (op -= wnext) < len)) {
+                                    len -= op;
+                                    do {
+                                        output[_out++] = s_window[from++];
+                                    } while (--op);
+                                    if (((from = 0), wnext < len)) {
+                                        len -= op = wnext;
+                                        do {
+                                            output[_out++] = s_window[from++];
+                                        } while (--op);
+                                        (from = _out - dist), (from_source = output);
+                                    }
+                                }
+                            } else if (((from += wnext - op), op < len)) {
+                                len -= op;
+                                do {
+                                    output[_out++] = s_window[from++];
+                                } while (--op);
+                                (from = _out - dist), (from_source = output);
+                            }
+                            for (; len > 2; ) (output[_out++] = from_source[from++]), (output[_out++] = from_source[from++]), (output[_out++] = from_source[from++]), (len -= 3);
+                            len && ((output[_out++] = from_source[from++]), len > 1 && (output[_out++] = from_source[from++]));
+                        } else {
+                            from = _out - dist;
+                            do {
+                                (output[_out++] = output[from++]), (output[_out++] = output[from++]), (output[_out++] = output[from++]), (len -= 3);
+                            } while (len > 2);
+                            len && ((output[_out++] = output[from++]), len > 1 && (output[_out++] = output[from++]));
+                        }
+                        break;
+                    }
+                    if (64 & op) {
+                        (strm.msg = 'invalid distance code'), (state.mode = 30);
+                        break top;
+                    }
+                    here = dcode[(65535 & here) + (hold & ((1 << op) - 1))];
+                }
+            }
+            break;
+        }
+    } while (_in < last && _out < end);
+    (_in -= len = bits >> 3), (hold &= (1 << (bits -= len << 3)) - 1), (strm.next_in = _in), (strm.next_out = _out), (strm.avail_in = _in < last ? last - _in + 5 : 5 - (_in - last)), (strm.avail_out = _out < end ? end - _out + 257 : 257 - (_out - end)), (state.hold = hold), (state.bits = bits);
+}
+
+var lbase = [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 0, 0],
+    lext = [16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 16, 72, 78],
+    dbase = [1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577, 0, 0],
+    dext = [16, 16, 16, 16, 17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 23, 24, 24, 25, 25, 26, 26, 27, 27, 28, 28, 29, 29, 64, 64];
+
+function inflate_table(type, lens, lens_index, codes, table, table_index, work, opts) {
+    var incr,
+        fill,
+        low,
+        mask,
+        next,
+        end,
+        here_bits,
+        here_op,
+        here_val,
+        bits = opts.bits,
+        len = 0,
+        sym = 0,
+        min = 0,
+        max = 0,
+        root = 0,
+        curr = 0,
+        drop = 0,
+        left = 0,
+        used = 0,
+        huff = 0,
+        base = null,
+        base_index = 0,
+        count = new Buf16(16),
+        offs = new Buf16(16),
+        extra = null,
+        extra_index = 0;
+    for (len = 0; len <= 15; len++) count[len] = 0;
+    for (sym = 0; sym < codes; sym++) count[lens[lens_index + sym]]++;
+    for (root = bits, max = 15; max >= 1 && 0 === count[max]; max--);
+    if ((root > max && (root = max), 0 === max)) return (table[table_index++] = 20971520), (table[table_index++] = 20971520), (opts.bits = 1), 0;
+    for (min = 1; min < max && 0 === count[min]; min++);
+    for (root < min && (root = min), left = 1, len = 1; len <= 15; len++) if (((left <<= 1), (left -= count[len]) < 0)) return -1;
+    if (left > 0 && (0 === type || 1 !== max)) return -1;
+    for (offs[1] = 0, len = 1; len < 15; len++) offs[len + 1] = offs[len] + count[len];
+    for (sym = 0; sym < codes; sym++) 0 !== lens[lens_index + sym] && (work[offs[lens[lens_index + sym]]++] = sym);
+    if ((0 === type ? ((base = extra = work), (end = 19)) : 1 === type ? ((base = lbase), (base_index -= 257), (extra = lext), (extra_index -= 257), (end = 256)) : ((base = dbase), (extra = dext), (end = -1)), (huff = 0), (sym = 0), (len = min), (next = table_index), (curr = root), (drop = 0), (low = -1), (mask = (used = 1 << root) - 1), (1 === type && used > 852) || (2 === type && used > 592)))
+        return 1;
+    for (;;) {
+        (here_bits = len - drop), work[sym] < end ? ((here_op = 0), (here_val = work[sym])) : work[sym] > end ? ((here_op = extra[extra_index + work[sym]]), (here_val = base[base_index + work[sym]])) : ((here_op = 96), (here_val = 0)), (incr = 1 << (len - drop)), (min = fill = 1 << curr);
+        do {
+            table[next + (huff >> drop) + (fill -= incr)] = (here_bits << 24) | (here_op << 16) | here_val;
+        } while (0 !== fill);
+        for (incr = 1 << (len - 1); huff & incr; ) incr >>= 1;
+        if ((0 !== incr ? ((huff &= incr - 1), (huff += incr)) : (huff = 0), sym++, 0 == --count[len])) {
+            if (len === max) break;
+            len = lens[lens_index + work[sym]];
+        }
+        if (len > root && (huff & mask) !== low) {
+            for (0 === drop && (drop = root), next += min, left = 1 << (curr = len - drop); curr + drop < max && !((left -= count[curr + drop]) <= 0); ) curr++, (left <<= 1);
+            if (((used += 1 << curr), (1 === type && used > 852) || (2 === type && used > 592))) return 1;
+            table[(low = huff & mask)] = (root << 24) | (curr << 16) | (next - table_index);
+        }
+    }
+    return 0 !== huff && (table[next + huff] = ((len - drop) << 24) | (64 << 16)), (opts.bits = root), 0;
+}
+
+function zswap32(q) {
+    return ((q >>> 24) & 255) + ((q >>> 8) & 65280) + ((65280 & q) << 8) + ((255 & q) << 24);
+}
+
+function InflateState() {
+    (this.mode = 0),
+        (this.last = !1),
+        (this.wrap = 0),
+        (this.havedict = !1),
+        (this.flags = 0),
+        (this.dmax = 0),
+        (this.check = 0),
+        (this.total = 0),
+        (this.head = null),
+        (this.wbits = 0),
+        (this.wsize = 0),
+        (this.whave = 0),
+        (this.wnext = 0),
+        (this.window = null),
+        (this.hold = 0),
+        (this.bits = 0),
+        (this.length = 0),
+        (this.offset = 0),
+        (this.extra = 0),
+        (this.lencode = null),
+        (this.distcode = null),
+        (this.lenbits = 0),
+        (this.distbits = 0),
+        (this.ncode = 0),
+        (this.nlen = 0),
+        (this.ndist = 0),
+        (this.have = 0),
+        (this.next = null),
+        (this.lens = new Buf16(320)),
+        (this.work = new Buf16(288)),
+        (this.lendyn = null),
+        (this.distdyn = null),
+        (this.sane = 0),
+        (this.back = 0),
+        (this.was = 0);
+}
+
+function inflateReset(strm) {
+    var state;
+    return strm && strm.state
+        ? (((state = strm.state).wsize = 0),
+          (state.whave = 0),
+          (state.wnext = 0),
+          (function (strm) {
+              var state;
+              return strm && strm.state
+                  ? ((state = strm.state),
+                    (strm.total_in = strm.total_out = state.total = 0),
+                    (strm.msg = ''),
+                    state.wrap && (strm.adler = 1 & state.wrap),
+                    (state.mode = 1),
+                    (state.last = 0),
+                    (state.havedict = 0),
+                    (state.dmax = 32768),
+                    (state.head = null),
+                    (state.hold = 0),
+                    (state.bits = 0),
+                    (state.lencode = state.lendyn = new Buf32(852)),
+                    (state.distcode = state.distdyn = new Buf32(592)),
+                    (state.sane = 1),
+                    (state.back = -1),
+                    0)
+                  : -2;
+          })(strm))
+        : -2;
+}
+
+function inflateInit2(strm, windowBits) {
+    var ret, state;
+    return strm
+        ? ((state = new InflateState()),
+          (strm.state = state),
+          (state.window = null),
+          (ret = (function (strm, windowBits) {
+              var wrap, state;
+              return strm && strm.state
+                  ? ((state = strm.state), windowBits < 0 ? ((wrap = 0), (windowBits = -windowBits)) : ((wrap = 1 + (windowBits >> 4)), windowBits < 48 && (windowBits &= 15)), windowBits && (windowBits < 8 || windowBits > 15) ? -2 : (null !== state.window && state.wbits !== windowBits && (state.window = null), (state.wrap = wrap), (state.wbits = windowBits), inflateReset(strm)))
+                  : -2;
+          })(strm, windowBits)),
+          0 !== ret && (strm.state = null),
+          ret)
+        : -2;
+}
+
+var lenfix,
+    distfix,
+    virgin = !0;
+
+function fixedtables(state) {
+    if (virgin) {
+        var sym;
+        for (lenfix = new Buf32(512), distfix = new Buf32(32), sym = 0; sym < 144; ) state.lens[sym++] = 8;
+        for (; sym < 256; ) state.lens[sym++] = 9;
+        for (; sym < 280; ) state.lens[sym++] = 7;
+        for (; sym < 288; ) state.lens[sym++] = 8;
+        for (
+            inflate_table(1, state.lens, 0, 288, lenfix, 0, state.work, {
+                bits: 9,
+            }),
+                sym = 0;
+            sym < 32;
+
+        )
+            state.lens[sym++] = 5;
+        inflate_table(2, state.lens, 0, 32, distfix, 0, state.work, {
+            bits: 5,
+        }),
+            (virgin = !1);
+    }
+    (state.lencode = lenfix), (state.lenbits = 9), (state.distcode = distfix), (state.distbits = 5);
+}
+
+function inflate(strm, flush) {
+    var state,
+        input,
+        output,
+        next,
+        put,
+        have,
+        left,
+        hold,
+        bits,
+        _in,
+        _out,
+        copy,
+        from,
+        from_source,
+        here_bits,
+        here_op,
+        here_val,
+        last_bits,
+        last_op,
+        last_val,
+        len,
+        ret,
+        opts,
+        n,
+        here = 0,
+        hbuf = new Buf8(4),
+        order = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15];
+    if (!strm || !strm.state || !strm.output || (!strm.input && 0 !== strm.avail_in)) return -2;
+    12 === (state = strm.state).mode && (state.mode = 13), (put = strm.next_out), (output = strm.output), (left = strm.avail_out), (next = strm.next_in), (input = strm.input), (have = strm.avail_in), (hold = state.hold), (bits = state.bits), (_in = have), (_out = left), (ret = 0);
+    inf_leave: for (;;)
+        switch (state.mode) {
+            case 1:
+                if (0 === state.wrap) {
+                    state.mode = 13;
+                    break;
+                }
+                for (; bits < 16; ) {
+                    if (0 === have) break inf_leave;
+                    have--, (hold += input[next++] << bits), (bits += 8);
+                }
+                if (2 & state.wrap && 35615 === hold) {
+                    (state.check = 0), (hbuf[0] = 255 & hold), (hbuf[1] = (hold >>> 8) & 255), (state.check = makeTable(state.check)), (hold = 0), (bits = 0), (state.mode = 2);
+                    break;
+                }
+                if (((state.flags = 0), state.head && (state.head.done = !1), !(1 & state.wrap) || (((255 & hold) << 8) + (hold >> 8)) % 31)) {
+                    (strm.msg = 'incorrect header check'), (state.mode = 30);
+                    break;
+                }
+                if (8 != (15 & hold)) {
+                    (strm.msg = 'unknown compression method'), (state.mode = 30);
+                    break;
+                }
+                if (((bits -= 4), (len = 8 + (15 & (hold >>>= 4))), 0 === state.wbits)) state.wbits = len;
+                else if (len > state.wbits) {
+                    (strm.msg = 'invalid window size'), (state.mode = 30);
+                    break;
+                }
+                (state.dmax = 1 << len), (strm.adler = state.check = 1), (state.mode = 512 & hold ? 10 : 12), (hold = 0), (bits = 0);
+                break;
+
+            case 2:
+                for (; bits < 16; ) {
+                    if (0 === have) break inf_leave;
+                    have--, (hold += input[next++] << bits), (bits += 8);
+                }
+                if (((state.flags = hold), 8 != (255 & state.flags))) {
+                    (strm.msg = 'unknown compression method'), (state.mode = 30);
+                    break;
+                }
+                if (57344 & state.flags) {
+                    (strm.msg = 'unknown header flags set'), (state.mode = 30);
+                    break;
+                }
+                state.head && (state.head.text = (hold >> 8) & 1), 512 & state.flags && ((hbuf[0] = 255 & hold), (hbuf[1] = (hold >>> 8) & 255), (state.check = makeTable(state.check))), (hold = 0), (bits = 0), (state.mode = 3);
+
+            case 3:
+                for (; bits < 32; ) {
+                    if (0 === have) break inf_leave;
+                    have--, (hold += input[next++] << bits), (bits += 8);
+                }
+                state.head && (state.head.time = hold), 512 & state.flags && ((hbuf[0] = 255 & hold), (hbuf[1] = (hold >>> 8) & 255), (hbuf[2] = (hold >>> 16) & 255), (hbuf[3] = (hold >>> 24) & 255), (state.check = makeTable(state.check))), (hold = 0), (bits = 0), (state.mode = 4);
+
+            case 4:
+                for (; bits < 16; ) {
+                    if (0 === have) break inf_leave;
+                    have--, (hold += input[next++] << bits), (bits += 8);
+                }
+                state.head && ((state.head.xflags = 255 & hold), (state.head.os = hold >> 8)), 512 & state.flags && ((hbuf[0] = 255 & hold), (hbuf[1] = (hold >>> 8) & 255), (state.check = makeTable(state.check))), (hold = 0), (bits = 0), (state.mode = 5);
+
+            case 5:
+                if (1024 & state.flags) {
+                    for (; bits < 16; ) {
+                        if (0 === have) break inf_leave;
+                        have--, (hold += input[next++] << bits), (bits += 8);
+                    }
+                    (state.length = hold), state.head && (state.head.extra_len = hold), 512 & state.flags && ((hbuf[0] = 255 & hold), (hbuf[1] = (hold >>> 8) & 255), (state.check = makeTable(state.check))), (hold = 0), (bits = 0);
+                } else state.head && (state.head.extra = null);
+                state.mode = 6;
+
+            case 6:
+                if (
+                    1024 & state.flags &&
+                    ((copy = state.length) > have && (copy = have), copy && (state.head && ((len = state.head.extra_len - state.length), state.head.extra || (state.head.extra = new Array(state.head.extra_len)), arraySet(state.head.extra, input, next, copy, len)), 512 & state.flags && (state.check = makeTable(state.check)), (have -= copy), (next += copy), (state.length -= copy)), state.length)
+                )
+                    break inf_leave;
+                (state.length = 0), (state.mode = 7);
+
+            case 7:
+                if (2048 & state.flags) {
+                    if (0 === have) break inf_leave;
+                    copy = 0;
+                    do {
+                        (len = input[next + copy++]), state.head && len && state.length < 65536 && (state.head.name += String.fromCharCode(len));
+                    } while (len && copy < have);
+                    if ((512 & state.flags && (state.check = makeTable(state.check)), (have -= copy), (next += copy), len)) break inf_leave;
+                } else state.head && (state.head.name = null);
+                (state.length = 0), (state.mode = 8);
+
+            case 8:
+                if (4096 & state.flags) {
+                    if (0 === have) break inf_leave;
+                    copy = 0;
+                    do {
+                        (len = input[next + copy++]), state.head && len && state.length < 65536 && (state.head.comment += String.fromCharCode(len));
+                    } while (len && copy < have);
+                    if ((512 & state.flags && (state.check = makeTable(state.check)), (have -= copy), (next += copy), len)) break inf_leave;
+                } else state.head && (state.head.comment = null);
+                state.mode = 9;
+
+            case 9:
+                if (512 & state.flags) {
+                    for (; bits < 16; ) {
+                        if (0 === have) break inf_leave;
+                        have--, (hold += input[next++] << bits), (bits += 8);
+                    }
+                    if (hold !== (65535 & state.check)) {
+                        (strm.msg = 'header crc mismatch'), (state.mode = 30);
+                        break;
+                    }
+                    (hold = 0), (bits = 0);
+                }
+                state.head && ((state.head.hcrc = (state.flags >> 9) & 1), (state.head.done = !0)), (strm.adler = state.check = 0), (state.mode = 12);
+                break;
+
+            case 10:
+                for (; bits < 32; ) {
+                    if (0 === have) break inf_leave;
+                    have--, (hold += input[next++] << bits), (bits += 8);
+                }
+                (strm.adler = state.check = zswap32(hold)), (hold = 0), (bits = 0), (state.mode = 11);
+
+            case 11:
+                if (0 === state.havedict) return (strm.next_out = put), (strm.avail_out = left), (strm.next_in = next), (strm.avail_in = have), (state.hold = hold), (state.bits = bits), 2;
+                (strm.adler = state.check = 1), (state.mode = 12);
+
+            case 12:
+            case 13:
+                if (state.last) {
+                    (hold >>>= 7 & bits), (bits -= 7 & bits), (state.mode = 27);
+                    break;
+                }
+                for (; bits < 3; ) {
+                    if (0 === have) break inf_leave;
+                    have--, (hold += input[next++] << bits), (bits += 8);
+                }
+                switch (((state.last = 1 & hold), (bits -= 1), 3 & (hold >>>= 1))) {
+                    case 0:
+                        state.mode = 14;
+                        break;
+
+                    case 1:
+                        fixedtables(state), (state.mode = 20);
+                        break;
+
+                    case 2:
+                        state.mode = 17;
+                        break;
+
+                    case 3:
+                        (strm.msg = 'invalid block type'), (state.mode = 30);
+                }
+                (hold >>>= 2), (bits -= 2);
+                break;
+
+            case 14:
+                for (hold >>>= 7 & bits, bits -= 7 & bits; bits < 32; ) {
+                    if (0 === have) break inf_leave;
+                    have--, (hold += input[next++] << bits), (bits += 8);
+                }
+                if ((65535 & hold) != ((hold >>> 16) ^ 65535)) {
+                    (strm.msg = 'invalid stored block lengths'), (state.mode = 30);
+                    break;
+                }
+                (state.length = 65535 & hold), (hold = 0), (bits = 0), (state.mode = 15);
+
+            case 15:
+                state.mode = 16;
+
+            case 16:
+                if ((copy = state.length)) {
+                    if ((copy > have && (copy = have), copy > left && (copy = left), 0 === copy)) break inf_leave;
+                    arraySet(output, input, next, copy, put), (have -= copy), (next += copy), (left -= copy), (put += copy), (state.length -= copy);
+                    break;
+                }
+                state.mode = 12;
+                break;
+
+            case 17:
+                for (; bits < 14; ) {
+                    if (0 === have) break inf_leave;
+                    have--, (hold += input[next++] << bits), (bits += 8);
+                }
+                if (((state.nlen = 257 + (31 & hold)), (hold >>>= 5), (bits -= 5), (state.ndist = 1 + (31 & hold)), (hold >>>= 5), (bits -= 5), (state.ncode = 4 + (15 & hold)), (hold >>>= 4), (bits -= 4), state.nlen > 286 || state.ndist > 30)) {
+                    (strm.msg = 'too many length or distance symbols'), (state.mode = 30);
+                    break;
+                }
+                (state.have = 0), (state.mode = 18);
+
+            case 18:
+                for (; state.have < state.ncode; ) {
+                    for (; bits < 3; ) {
+                        if (0 === have) break inf_leave;
+                        have--, (hold += input[next++] << bits), (bits += 8);
+                    }
+                    (state.lens[order[state.have++]] = 7 & hold), (hold >>>= 3), (bits -= 3);
+                }
+                for (; state.have < 19; ) state.lens[order[state.have++]] = 0;
+                if (
+                    ((state.lencode = state.lendyn),
+                    (state.lenbits = 7),
+                    (opts = {
+                        bits: state.lenbits,
+                    }),
+                    (ret = inflate_table(0, state.lens, 0, 19, state.lencode, 0, state.work, opts)),
+                    (state.lenbits = opts.bits),
+                    ret)
+                ) {
+                    (strm.msg = 'invalid code lengths set'), (state.mode = 30);
+                    break;
+                }
+                (state.have = 0), (state.mode = 19);
+
+            case 19:
+                for (; state.have < state.nlen + state.ndist; ) {
+                    for (; (here_op = ((here = state.lencode[hold & ((1 << state.lenbits) - 1)]) >>> 16) & 255), (here_val = 65535 & here), !((here_bits = here >>> 24) <= bits); ) {
+                        if (0 === have) break inf_leave;
+                        have--, (hold += input[next++] << bits), (bits += 8);
+                    }
+                    if (here_val < 16) (hold >>>= here_bits), (bits -= here_bits), (state.lens[state.have++] = here_val);
+                    else {
+                        if (16 === here_val) {
+                            for (n = here_bits + 2; bits < n; ) {
+                                if (0 === have) break inf_leave;
+                                have--, (hold += input[next++] << bits), (bits += 8);
+                            }
+                            if (((hold >>>= here_bits), (bits -= here_bits), 0 === state.have)) {
+                                (strm.msg = 'invalid bit length repeat'), (state.mode = 30);
+                                break;
+                            }
+                            (len = state.lens[state.have - 1]), (copy = 3 + (3 & hold)), (hold >>>= 2), (bits -= 2);
+                        } else if (17 === here_val) {
+                            for (n = here_bits + 3; bits < n; ) {
+                                if (0 === have) break inf_leave;
+                                have--, (hold += input[next++] << bits), (bits += 8);
+                            }
+                            (bits -= here_bits), (len = 0), (copy = 3 + (7 & (hold >>>= here_bits))), (hold >>>= 3), (bits -= 3);
+                        } else {
+                            for (n = here_bits + 7; bits < n; ) {
+                                if (0 === have) break inf_leave;
+                                have--, (hold += input[next++] << bits), (bits += 8);
+                            }
+                            (bits -= here_bits), (len = 0), (copy = 11 + (127 & (hold >>>= here_bits))), (hold >>>= 7), (bits -= 7);
+                        }
+                        if (state.have + copy > state.nlen + state.ndist) {
+                            (strm.msg = 'invalid bit length repeat'), (state.mode = 30);
+                            break;
+                        }
+                        for (; copy--; ) state.lens[state.have++] = len;
+                    }
+                }
+                if (30 === state.mode) break;
+                if (0 === state.lens[256]) {
+                    (strm.msg = 'invalid code -- missing end-of-block'), (state.mode = 30);
+                    break;
+                }
+                if (
+                    ((state.lenbits = 9),
+                    (opts = {
+                        bits: state.lenbits,
+                    }),
+                    (ret = inflate_table(1, state.lens, 0, state.nlen, state.lencode, 0, state.work, opts)),
+                    (state.lenbits = opts.bits),
+                    ret)
+                ) {
+                    (strm.msg = 'invalid literal/lengths set'), (state.mode = 30);
+                    break;
+                }
+                if (
+                    ((state.distbits = 6),
+                    (state.distcode = state.distdyn),
+                    (opts = {
+                        bits: state.distbits,
+                    }),
+                    (ret = inflate_table(2, state.lens, state.nlen, state.ndist, state.distcode, 0, state.work, opts)),
+                    (state.distbits = opts.bits),
+                    ret)
+                ) {
+                    (strm.msg = 'invalid distances set'), (state.mode = 30);
+                    break;
+                }
+                state.mode = 20;
+
+            case 20:
+                state.mode = 21;
+
+            case 21:
+                if (have >= 6 && left >= 258) {
+                    (strm.next_out = put),
+                        (strm.avail_out = left),
+                        (strm.next_in = next),
+                        (strm.avail_in = have),
+                        (state.hold = hold),
+                        (state.bits = bits),
+                        inflate_fast(strm, _out),
+                        (put = strm.next_out),
+                        (output = strm.output),
+                        (left = strm.avail_out),
+                        (next = strm.next_in),
+                        (input = strm.input),
+                        (have = strm.avail_in),
+                        (hold = state.hold),
+                        (bits = state.bits),
+                        12 === state.mode && (state.back = -1);
+                    break;
+                }
+                for (state.back = 0; (here_op = ((here = state.lencode[hold & ((1 << state.lenbits) - 1)]) >>> 16) & 255), (here_val = 65535 & here), !((here_bits = here >>> 24) <= bits); ) {
+                    if (0 === have) break inf_leave;
+                    have--, (hold += input[next++] << bits), (bits += 8);
+                }
+                if (here_op && !(240 & here_op)) {
+                    for (last_bits = here_bits, last_op = here_op, last_val = here_val; (here_op = ((here = state.lencode[last_val + ((hold & ((1 << (last_bits + last_op)) - 1)) >> last_bits)]) >>> 16) & 255), (here_val = 65535 & here), !(last_bits + (here_bits = here >>> 24) <= bits); ) {
+                        if (0 === have) break inf_leave;
+                        have--, (hold += input[next++] << bits), (bits += 8);
+                    }
+                    (hold >>>= last_bits), (bits -= last_bits), (state.back += last_bits);
+                }
+                if (((hold >>>= here_bits), (bits -= here_bits), (state.back += here_bits), (state.length = here_val), 0 === here_op)) {
+                    state.mode = 26;
+                    break;
+                }
+                if (32 & here_op) {
+                    (state.back = -1), (state.mode = 12);
+                    break;
+                }
+                if (64 & here_op) {
+                    (strm.msg = 'invalid literal/length code'), (state.mode = 30);
+                    break;
+                }
+                (state.extra = 15 & here_op), (state.mode = 22);
+
+            case 22:
+                if (state.extra) {
+                    for (n = state.extra; bits < n; ) {
+                        if (0 === have) break inf_leave;
+                        have--, (hold += input[next++] << bits), (bits += 8);
+                    }
+                    (state.length += hold & ((1 << state.extra) - 1)), (hold >>>= state.extra), (bits -= state.extra), (state.back += state.extra);
+                }
+                (state.was = state.length), (state.mode = 23);
+
+            case 23:
+                for (; (here_op = ((here = state.distcode[hold & ((1 << state.distbits) - 1)]) >>> 16) & 255), (here_val = 65535 & here), !((here_bits = here >>> 24) <= bits); ) {
+                    if (0 === have) break inf_leave;
+                    have--, (hold += input[next++] << bits), (bits += 8);
+                }
+                if (!(240 & here_op)) {
+                    for (last_bits = here_bits, last_op = here_op, last_val = here_val; (here_op = ((here = state.distcode[last_val + ((hold & ((1 << (last_bits + last_op)) - 1)) >> last_bits)]) >>> 16) & 255), (here_val = 65535 & here), !(last_bits + (here_bits = here >>> 24) <= bits); ) {
+                        if (0 === have) break inf_leave;
+                        have--, (hold += input[next++] << bits), (bits += 8);
+                    }
+                    (hold >>>= last_bits), (bits -= last_bits), (state.back += last_bits);
+                }
+                if (((hold >>>= here_bits), (bits -= here_bits), (state.back += here_bits), 64 & here_op)) {
+                    (strm.msg = 'invalid distance code'), (state.mode = 30);
+                    break;
+                }
+                (state.offset = here_val), (state.extra = 15 & here_op), (state.mode = 24);
+
+            case 24:
+                if (state.extra) {
+                    for (n = state.extra; bits < n; ) {
+                        if (0 === have) break inf_leave;
+                        have--, (hold += input[next++] << bits), (bits += 8);
+                    }
+                    (state.offset += hold & ((1 << state.extra) - 1)), (hold >>>= state.extra), (bits -= state.extra), (state.back += state.extra);
+                }
+                if (state.offset > state.dmax) {
+                    (strm.msg = 'invalid distance too far back'), (state.mode = 30);
+                    break;
+                }
+                state.mode = 25;
+
+            case 25:
+                if (0 === left) break inf_leave;
+                if (((copy = _out - left), state.offset > copy)) {
+                    if ((copy = state.offset - copy) > state.whave && state.sane) {
+                        (strm.msg = 'invalid distance too far back'), (state.mode = 30);
+                        break;
+                    }
+                    copy > state.wnext ? ((copy -= state.wnext), (from = state.wsize - copy)) : (from = state.wnext - copy), copy > state.length && (copy = state.length), (from_source = state.window);
+                } else (from_source = output), (from = put - state.offset), (copy = state.length);
+                copy > left && (copy = left), (left -= copy), (state.length -= copy);
+                do {
+                    output[put++] = from_source[from++];
+                } while (--copy);
+                0 === state.length && (state.mode = 21);
+                break;
+
+            case 26:
+                if (0 === left) break inf_leave;
+                (output[put++] = state.length), left--, (state.mode = 21);
+                break;
+
+            case 27:
+                if (state.wrap) {
+                    for (; bits < 32; ) {
+                        if (0 === have) break inf_leave;
+                        have--, (hold |= input[next++] << bits), (bits += 8);
+                    }
+                    if (((_out -= left), (strm.total_out += _out), (state.total += _out), _out && (strm.adler = state.check = state.flags ? makeTable(state.check) : adler32(state.check, output, _out, put - _out)), (_out = left), (state.flags ? hold : zswap32(hold)) !== state.check)) {
+                        (strm.msg = 'incorrect data check'), (state.mode = 30);
+                        break;
+                    }
+                    (hold = 0), (bits = 0);
+                }
+                state.mode = 28;
+
+            case 28:
+                if (state.wrap && state.flags) {
+                    for (; bits < 32; ) {
+                        if (0 === have) break inf_leave;
+                        have--, (hold += input[next++] << bits), (bits += 8);
+                    }
+                    if (hold !== (4294967295 & state.total)) {
+                        (strm.msg = 'incorrect length check'), (state.mode = 30);
+                        break;
+                    }
+                    (hold = 0), (bits = 0);
+                }
+                state.mode = 29;
+
+            case 29:
+                ret = 1;
+                break inf_leave;
+
+            case 30:
+                ret = -3;
+                break inf_leave;
+
+            case 31:
+                return -4;
+
+            default:
+                return -2;
+        }
+    return (
+        (strm.next_out = put),
+        (strm.avail_out = left),
+        (strm.next_in = next),
+        (strm.avail_in = have),
+        (state.hold = hold),
+        (state.bits = bits),
+        (state.wsize || (_out !== strm.avail_out && state.mode < 30 && (state.mode < 27 || 4 !== flush))) &&
+            (function (strm, src, end, copy) {
+                var dist,
+                    state = strm.state;
+                null === state.window && ((state.wsize = 1 << state.wbits), (state.wnext = 0), (state.whave = 0), (state.window = new Buf8(state.wsize))),
+                    copy >= state.wsize
+                        ? (arraySet(state.window, src, end - state.wsize, state.wsize, 0), (state.wnext = 0), (state.whave = state.wsize))
+                        : ((dist = state.wsize - state.wnext) > copy && (dist = copy), arraySet(state.window, src, end - copy, dist, state.wnext), (copy -= dist) ? (arraySet(state.window, src, end - copy, copy, 0), (state.wnext = copy), (state.whave = state.wsize)) : ((state.wnext += dist), state.wnext === state.wsize && (state.wnext = 0), state.whave < state.wsize && (state.whave += dist)));
+            })(strm, strm.output, strm.next_out, _out - strm.avail_out),
+        (_in -= strm.avail_in),
+        (_out -= strm.avail_out),
+        (strm.total_in += _in),
+        (strm.total_out += _out),
+        (state.total += _out),
+        state.wrap && _out && (strm.adler = state.check = state.flags ? makeTable(state.check, strm.next_out) : adler32(state.check, output, _out, strm.next_out - _out)),
+        (strm.data_type = state.bits + (state.last ? 64 : 0) + (12 === state.mode ? 128 : 0) + (20 === state.mode || 15 === state.mode ? 256 : 0)),
+        ((0 === _in && 0 === _out) || 4 === flush) && 0 === ret && (ret = -5),
+        ret
+    );
+}
+
+function ZStream() {
+    (this.input = null), (this.next_in = 0), (this.avail_in = 0), (this.total_in = 0), (this.output = null), (this.next_out = 0), (this.avail_out = 0), (this.total_out = 0), (this.msg = ''), (this.state = null), (this.data_type = 2), (this.adler = 0);
+}
+
+class Inflate {
+    constructor() {
+        var strm;
+        (this.strm = new ZStream()), (this.chunkSize = 102400), (this.strm.output = new Uint8Array(this.chunkSize)), (this.windowBits = 5), (strm = this.strm), this.windowBits, inflateInit2(strm, 15);
+    }
+    setInput(data) {
+        data ? ((this.strm.input = data), (this.strm.avail_in = this.strm.input.length), (this.strm.next_in = 0)) : ((this.strm.input = null), (this.strm.avail_in = 0), (this.strm.next_in = 0));
+    }
+    inflate(expected) {
+        if ((expected > this.chunkSize && ((this.chunkSize = expected), (this.strm.output = new Uint8Array(this.chunkSize))), (this.strm.next_out = 0), (this.strm.avail_out = expected), inflate(this.strm, 0) < 0)) throw new Error('zlib inflate failed');
+        if (this.strm.next_out != expected) throw new Error('Incomplete zlib block');
+        return new Uint8Array(this.strm.output.buffer, 0, this.strm.next_out);
+    }
+    reset() {
+        inflateReset(this.strm);
+    }
+}
+
+function zero$1(buf) {
+    for (var len = buf.length; --len >= 0; ) buf[len] = 0;
+}
+
+var extra_lbits = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0],
+    extra_dbits = [0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13],
+    extra_blbits = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 7],
+    bl_order = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15],
+    static_ltree = new Array(576);
+
+zero$1(static_ltree);
+
+var static_dtree = new Array(60);
+
+zero$1(static_dtree);
+
+var _dist_code = new Array(512);
+
+zero$1(_dist_code);
+
+var _length_code = new Array(256);
+
+zero$1(_length_code);
+
+var base_length = new Array(29);
+
+zero$1(base_length);
+
+var static_l_desc,
+    static_d_desc,
+    static_bl_desc,
+    base_dist = new Array(30);
+
+function StaticTreeDesc(static_tree, extra_bits, extra_base, elems, max_length) {
+    (this.static_tree = static_tree), (this.extra_bits = extra_bits), (this.extra_base = extra_base), (this.elems = elems), (this.max_length = max_length), (this.has_stree = static_tree && static_tree.length);
+}
+
+function TreeDesc(dyn_tree, stat_desc) {
+    (this.dyn_tree = dyn_tree), (this.max_code = 0), (this.stat_desc = stat_desc);
+}
+
+function d_code(dist) {
+    return dist < 256 ? _dist_code[dist] : _dist_code[256 + (dist >>> 7)];
+}
+
+function put_short(s, w) {
+    (s.pending_buf[s.pending++] = 255 & w), (s.pending_buf[s.pending++] = (w >>> 8) & 255);
+}
+
+function send_bits(s, value, length) {
+    s.bi_valid > 16 - length ? ((s.bi_buf |= (value << s.bi_valid) & 65535), put_short(s, s.bi_buf), (s.bi_buf = value >> (16 - s.bi_valid)), (s.bi_valid += length - 16)) : ((s.bi_buf |= (value << s.bi_valid) & 65535), (s.bi_valid += length));
+}
+
+function send_code(s, c2, tree) {
+    send_bits(s, tree[2 * c2], tree[2 * c2 + 1]);
+}
+
+function bi_reverse(code, len) {
+    var res = 0;
+    do {
+        (res |= 1 & code), (code >>>= 1), (res <<= 1);
+    } while (--len > 0);
+    return res >>> 1;
+}
+
+function gen_codes(tree, max_code, bl_count) {
+    var bits,
+        n,
+        next_code = new Array(16),
+        code = 0;
+    for (bits = 1; bits <= 15; bits++) next_code[bits] = code = (code + bl_count[bits - 1]) << 1;
+    for (n = 0; n <= max_code; n++) {
+        var len = tree[2 * n + 1];
+        0 !== len && (tree[2 * n] = bi_reverse(next_code[len]++, len));
+    }
+}
+
+function init_block(s) {
+    var n;
+    for (n = 0; n < 286; n++) s.dyn_ltree[2 * n] = 0;
+    for (n = 0; n < 30; n++) s.dyn_dtree[2 * n] = 0;
+    for (n = 0; n < 19; n++) s.bl_tree[2 * n] = 0;
+    (s.dyn_ltree[512] = 1), (s.opt_len = s.static_len = 0), (s.last_lit = s.matches = 0);
+}
+
+function bi_windup(s) {
+    s.bi_valid > 8 ? put_short(s, s.bi_buf) : s.bi_valid > 0 && (s.pending_buf[s.pending++] = s.bi_buf), (s.bi_buf = 0), (s.bi_valid = 0);
+}
+
+function smaller(tree, n, m, depth) {
+    var _n2 = 2 * n,
+        _m2 = 2 * m;
+    return tree[_n2] < tree[_m2] || (tree[_n2] === tree[_m2] && depth[n] <= depth[m]);
+}
+
+function pqdownheap(s, tree, k) {
+    for (var v = s.heap[k], j = k << 1; j <= s.heap_len && (j < s.heap_len && smaller(tree, s.heap[j + 1], s.heap[j], s.depth) && j++, !smaller(tree, v, s.heap[j], s.depth)); ) (s.heap[k] = s.heap[j]), (k = j), (j <<= 1);
+    s.heap[k] = v;
+}
+
+function compress_block(s, ltree, dtree) {
+    var dist,
+        lc,
+        code,
+        extra,
+        lx = 0;
+    if (0 !== s.last_lit)
+        do {
+            (dist = (s.pending_buf[s.d_buf + 2 * lx] << 8) | s.pending_buf[s.d_buf + 2 * lx + 1]),
+                (lc = s.pending_buf[s.l_buf + lx]),
+                lx++,
+                0 === dist ? send_code(s, lc, ltree) : (send_code(s, (code = _length_code[lc]) + 256 + 1, ltree), 0 !== (extra = extra_lbits[code]) && send_bits(s, (lc -= base_length[code]), extra), send_code(s, (code = d_code(--dist)), dtree), 0 !== (extra = extra_dbits[code]) && send_bits(s, (dist -= base_dist[code]), extra));
+        } while (lx < s.last_lit);
+    send_code(s, 256, ltree);
+}
+
+function build_tree(s, desc) {
+    var n,
+        m,
+        node,
+        tree = desc.dyn_tree,
+        stree = desc.stat_desc.static_tree,
+        has_stree = desc.stat_desc.has_stree,
+        elems = desc.stat_desc.elems,
+        max_code = -1;
+    for (s.heap_len = 0, s.heap_max = 573, n = 0; n < elems; n++) 0 !== tree[2 * n] ? ((s.heap[++s.heap_len] = max_code = n), (s.depth[n] = 0)) : (tree[2 * n + 1] = 0);
+    for (; s.heap_len < 2; ) (tree[2 * (node = s.heap[++s.heap_len] = max_code < 2 ? ++max_code : 0)] = 1), (s.depth[node] = 0), s.opt_len--, has_stree && (s.static_len -= stree[2 * node + 1]);
+    for (desc.max_code = max_code, n = s.heap_len >> 1; n >= 1; n--) pqdownheap(s, tree, n);
+    node = elems;
+    do {
+        (n = s.heap[1]), (s.heap[1] = s.heap[s.heap_len--]), pqdownheap(s, tree, 1), (m = s.heap[1]), (s.heap[--s.heap_max] = n), (s.heap[--s.heap_max] = m), (tree[2 * node] = tree[2 * n] + tree[2 * m]), (s.depth[node] = (s.depth[n] >= s.depth[m] ? s.depth[n] : s.depth[m]) + 1), (tree[2 * n + 1] = tree[2 * m + 1] = node), (s.heap[1] = node++), pqdownheap(s, tree, 1);
+    } while (s.heap_len >= 2);
+    (s.heap[--s.heap_max] = s.heap[1]),
+        (function (s, desc) {
+            var h,
+                n,
+                m,
+                bits,
+                xbits,
+                f2,
+                tree = desc.dyn_tree,
+                max_code = desc.max_code,
+                stree = desc.stat_desc.static_tree,
+                has_stree = desc.stat_desc.has_stree,
+                extra = desc.stat_desc.extra_bits,
+                base = desc.stat_desc.extra_base,
+                max_length = desc.stat_desc.max_length,
+                overflow = 0;
+            for (bits = 0; bits <= 15; bits++) s.bl_count[bits] = 0;
+            for (tree[2 * s.heap[s.heap_max] + 1] = 0, h = s.heap_max + 1; h < 573; h++)
+                (bits = tree[2 * tree[2 * (n = s.heap[h]) + 1] + 1] + 1) > max_length && ((bits = max_length), overflow++), (tree[2 * n + 1] = bits), n > max_code || (s.bl_count[bits]++, (xbits = 0), n >= base && (xbits = extra[n - base]), (f2 = tree[2 * n]), (s.opt_len += f2 * (bits + xbits)), has_stree && (s.static_len += f2 * (stree[2 * n + 1] + xbits)));
+            if (0 !== overflow) {
+                do {
+                    for (bits = max_length - 1; 0 === s.bl_count[bits]; ) bits--;
+                    s.bl_count[bits]--, (s.bl_count[bits + 1] += 2), s.bl_count[max_length]--, (overflow -= 2);
+                } while (overflow > 0);
+                for (bits = max_length; 0 !== bits; bits--) for (n = s.bl_count[bits]; 0 !== n; ) (m = s.heap[--h]) > max_code || (tree[2 * m + 1] !== bits && ((s.opt_len += (bits - tree[2 * m + 1]) * tree[2 * m]), (tree[2 * m + 1] = bits)), n--);
+            }
+        })(s, desc),
+        gen_codes(tree, max_code, s.bl_count);
+}
+
+function scan_tree(s, tree, max_code) {
+    var n,
+        curlen,
+        prevlen = -1,
+        nextlen = tree[1],
+        count = 0,
+        max_count = 7,
+        min_count = 4;
+    for (0 === nextlen && ((max_count = 138), (min_count = 3)), tree[2 * (max_code + 1) + 1] = 65535, n = 0; n <= max_code; n++)
+        (curlen = nextlen),
+            (nextlen = tree[2 * (n + 1) + 1]),
+            (++count < max_count && curlen === nextlen) ||
+                (count < min_count ? (s.bl_tree[2 * curlen] += count) : 0 !== curlen ? (curlen !== prevlen && s.bl_tree[2 * curlen]++, s.bl_tree[32]++) : count <= 10 ? s.bl_tree[34]++ : s.bl_tree[36]++, (count = 0), (prevlen = curlen), 0 === nextlen ? ((max_count = 138), (min_count = 3)) : curlen === nextlen ? ((max_count = 6), (min_count = 3)) : ((max_count = 7), (min_count = 4)));
+}
+
+function send_tree(s, tree, max_code) {
+    var n,
+        curlen,
+        prevlen = -1,
+        nextlen = tree[1],
+        count = 0,
+        max_count = 7,
+        min_count = 4;
+    for (0 === nextlen && ((max_count = 138), (min_count = 3)), n = 0; n <= max_code; n++)
+        if (((curlen = nextlen), (nextlen = tree[2 * (n + 1) + 1]), !(++count < max_count && curlen === nextlen))) {
+            if (count < min_count)
+                do {
+                    send_code(s, curlen, s.bl_tree);
+                } while (0 != --count);
+            else 0 !== curlen ? (curlen !== prevlen && (send_code(s, curlen, s.bl_tree), count--), send_code(s, 16, s.bl_tree), send_bits(s, count - 3, 2)) : count <= 10 ? (send_code(s, 17, s.bl_tree), send_bits(s, count - 3, 3)) : (send_code(s, 18, s.bl_tree), send_bits(s, count - 11, 7));
+            (count = 0), (prevlen = curlen), 0 === nextlen ? ((max_count = 138), (min_count = 3)) : curlen === nextlen ? ((max_count = 6), (min_count = 3)) : ((max_count = 7), (min_count = 4));
+        }
+}
+
+zero$1(base_dist);
+
+var static_init_done = !1;
+
+function _tr_init(s) {
+    static_init_done ||
+        (!(function () {
+            var n,
+                bits,
+                length,
+                code,
+                dist,
+                bl_count = new Array(16);
+            for (length = 0, code = 0; code < 28; code++) for (base_length[code] = length, n = 0; n < 1 << extra_lbits[code]; n++) _length_code[length++] = code;
+            for (_length_code[length - 1] = code, dist = 0, code = 0; code < 16; code++) for (base_dist[code] = dist, n = 0; n < 1 << extra_dbits[code]; n++) _dist_code[dist++] = code;
+            for (dist >>= 7; code < 30; code++) for (base_dist[code] = dist << 7, n = 0; n < 1 << (extra_dbits[code] - 7); n++) _dist_code[256 + dist++] = code;
+            for (bits = 0; bits <= 15; bits++) bl_count[bits] = 0;
+            for (n = 0; n <= 143; ) (static_ltree[2 * n + 1] = 8), n++, bl_count[8]++;
+            for (; n <= 255; ) (static_ltree[2 * n + 1] = 9), n++, bl_count[9]++;
+            for (; n <= 279; ) (static_ltree[2 * n + 1] = 7), n++, bl_count[7]++;
+            for (; n <= 287; ) (static_ltree[2 * n + 1] = 8), n++, bl_count[8]++;
+            for (gen_codes(static_ltree, 287, bl_count), n = 0; n < 30; n++) (static_dtree[2 * n + 1] = 5), (static_dtree[2 * n] = bi_reverse(n, 5));
+            (static_l_desc = new StaticTreeDesc(static_ltree, extra_lbits, 257, 286, 15)), (static_d_desc = new StaticTreeDesc(static_dtree, extra_dbits, 0, 30, 15)), (static_bl_desc = new StaticTreeDesc(new Array(0), extra_blbits, 0, 19, 7));
+        })(),
+        (static_init_done = !0)),
+        (s.l_desc = new TreeDesc(s.dyn_ltree, static_l_desc)),
+        (s.d_desc = new TreeDesc(s.dyn_dtree, static_d_desc)),
+        (s.bl_desc = new TreeDesc(s.bl_tree, static_bl_desc)),
+        (s.bi_buf = 0),
+        (s.bi_valid = 0),
+        init_block(s);
+}
+
+function _tr_stored_block(s, buf, stored_len, last) {
+    send_bits(s, 0 + (last ? 1 : 0), 3),
+        (function (s, buf, len) {
+            bi_windup(s), put_short(s, len), put_short(s, ~len), arraySet(s.pending_buf, s.window, buf, len, s.pending), (s.pending += len);
+        })(s, buf, stored_len);
+}
+
+function _tr_flush_block(s, buf, stored_len, last) {
+    var opt_lenb,
+        static_lenb,
+        max_blindex = 0;
+    s.level > 0
+        ? (2 === s.strm.data_type &&
+              (s.strm.data_type = (function (s) {
+                  var n,
+                      black_mask = 4093624447;
+                  for (n = 0; n <= 31; n++, black_mask >>>= 1) if (1 & black_mask && 0 !== s.dyn_ltree[2 * n]) return 0;
+                  if (0 !== s.dyn_ltree[18] || 0 !== s.dyn_ltree[20] || 0 !== s.dyn_ltree[26]) return 1;
+                  for (n = 32; n < 256; n++) if (0 !== s.dyn_ltree[2 * n]) return 1;
+                  return 0;
+              })(s)),
+          build_tree(s, s.l_desc),
+          build_tree(s, s.d_desc),
+          (max_blindex = (function (s) {
+              var max_blindex;
+              for (scan_tree(s, s.dyn_ltree, s.l_desc.max_code), scan_tree(s, s.dyn_dtree, s.d_desc.max_code), build_tree(s, s.bl_desc), max_blindex = 18; max_blindex >= 3 && 0 === s.bl_tree[2 * bl_order[max_blindex] + 1]; max_blindex--);
+              return (s.opt_len += 3 * (max_blindex + 1) + 5 + 5 + 4), max_blindex;
+          })(s)),
+          (opt_lenb = (s.opt_len + 3 + 7) >>> 3),
+          (static_lenb = (s.static_len + 3 + 7) >>> 3) <= opt_lenb && (opt_lenb = static_lenb))
+        : (opt_lenb = static_lenb = stored_len + 5),
+        stored_len + 4 <= opt_lenb && -1 !== buf
+            ? _tr_stored_block(s, buf, stored_len, last)
+            : 4 === s.strategy || static_lenb === opt_lenb
+            ? (send_bits(s, 2 + (last ? 1 : 0), 3), compress_block(s, static_ltree, static_dtree))
+            : (send_bits(s, 4 + (last ? 1 : 0), 3),
+              (function (s, lcodes, dcodes, blcodes) {
+                  var rank2;
+                  for (send_bits(s, lcodes - 257, 5), send_bits(s, dcodes - 1, 5), send_bits(s, blcodes - 4, 4), rank2 = 0; rank2 < blcodes; rank2++) send_bits(s, s.bl_tree[2 * bl_order[rank2] + 1], 3);
+                  send_tree(s, s.dyn_ltree, lcodes - 1), send_tree(s, s.dyn_dtree, dcodes - 1);
+              })(s, s.l_desc.max_code + 1, s.d_desc.max_code + 1, max_blindex + 1),
+              compress_block(s, s.dyn_ltree, s.dyn_dtree)),
+        init_block(s),
+        last && bi_windup(s);
+}
+
+function _tr_tally(s, dist, lc) {
+    return (s.pending_buf[s.d_buf + 2 * s.last_lit] = (dist >>> 8) & 255), (s.pending_buf[s.d_buf + 2 * s.last_lit + 1] = 255 & dist), (s.pending_buf[s.l_buf + s.last_lit] = 255 & lc), s.last_lit++, 0 === dist ? s.dyn_ltree[2 * lc]++ : (s.matches++, dist--, s.dyn_ltree[2 * (_length_code[lc] + 256 + 1)]++, s.dyn_dtree[2 * d_code(dist)]++), s.last_lit === s.lit_bufsize - 1;
+}
+
+const msg = {
+    2: 'need dictionary',
+    1: 'stream end',
+    0: '',
+    '-1': 'file error',
+    '-2': 'stream error',
+    '-3': 'data error',
+    '-4': 'insufficient memory',
+    '-5': 'buffer error',
+    '-6': 'incompatible version',
+};
+
+var configuration_table;
+
+function err(strm, errorCode) {
+    return (strm.msg = msg[errorCode]), errorCode;
+}
+
+function rank(f2) {
+    return (f2 << 1) - (f2 > 4 ? 9 : 0);
+}
+
+function zero(buf) {
+    for (var len = buf.length; --len >= 0; ) buf[len] = 0;
+}
+
+function flush_pending(strm) {
+    var s = strm.state,
+        len = s.pending;
+    len > strm.avail_out && (len = strm.avail_out), 0 !== len && (arraySet(strm.output, s.pending_buf, s.pending_out, len, strm.next_out), (strm.next_out += len), (s.pending_out += len), (strm.total_out += len), (strm.avail_out -= len), (s.pending -= len), 0 === s.pending && (s.pending_out = 0));
+}
+
+function flush_block_only(s, last) {
+    _tr_flush_block(s, s.block_start >= 0 ? s.block_start : -1, s.strstart - s.block_start, last), (s.block_start = s.strstart), flush_pending(s.strm);
+}
+
+function put_byte(s, b2) {
+    s.pending_buf[s.pending++] = b2;
+}
+
+function putShortMSB(s, b2) {
+    (s.pending_buf[s.pending++] = (b2 >>> 8) & 255), (s.pending_buf[s.pending++] = 255 & b2);
+}
+
+function longest_match(s, cur_match) {
+    var match,
+        len,
+        chain_length = s.max_chain_length,
+        scan = s.strstart,
+        best_len = s.prev_length,
+        nice_match = s.nice_match,
+        limit = s.strstart > s.w_size - 262 ? s.strstart - (s.w_size - 262) : 0,
+        _win = s.window,
+        wmask = s.w_mask,
+        prev = s.prev,
+        strend = s.strstart + 258,
+        scan_end1 = _win[scan + best_len - 1],
+        scan_end = _win[scan + best_len];
+    s.prev_length >= s.good_match && (chain_length >>= 2), nice_match > s.lookahead && (nice_match = s.lookahead);
+    do {
+        if (_win[(match = cur_match) + best_len] === scan_end && _win[match + best_len - 1] === scan_end1 && _win[match] === _win[scan] && _win[++match] === _win[scan + 1]) {
+            (scan += 2), match++;
+            do {} while (_win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && _win[++scan] === _win[++match] && scan < strend);
+            if (((len = 258 - (strend - scan)), (scan = strend - 258), len > best_len)) {
+                if (((s.match_start = cur_match), (best_len = len), len >= nice_match)) break;
+                (scan_end1 = _win[scan + best_len - 1]), (scan_end = _win[scan + best_len]);
+            }
+        }
+    } while ((cur_match = prev[cur_match & wmask]) > limit && 0 != --chain_length);
+    return best_len <= s.lookahead ? best_len : s.lookahead;
+}
+
+function fill_window(s) {
+    var p,
+        n,
+        m,
+        more,
+        str,
+        strm,
+        buf,
+        start,
+        size,
+        len,
+        _w_size = s.w_size;
+    do {
+        if (((more = s.window_size - s.lookahead - s.strstart), s.strstart >= _w_size + (_w_size - 262))) {
+            arraySet(s.window, s.window, _w_size, _w_size, 0), (s.match_start -= _w_size), (s.strstart -= _w_size), (s.block_start -= _w_size), (p = n = s.hash_size);
+            do {
+                (m = s.head[--p]), (s.head[p] = m >= _w_size ? m - _w_size : 0);
+            } while (--n);
+            p = n = _w_size;
+            do {
+                (m = s.prev[--p]), (s.prev[p] = m >= _w_size ? m - _w_size : 0);
+            } while (--n);
+            more += _w_size;
+        }
+        if (0 === s.strm.avail_in) break;
+        if (
+            ((strm = s.strm),
+            (buf = s.window),
+            (start = s.strstart + s.lookahead),
+            (size = more),
+            (len = void 0),
+            (len = strm.avail_in) > size && (len = size),
+            (n = 0 === len ? 0 : ((strm.avail_in -= len), arraySet(buf, strm.input, strm.next_in, len, start), 1 === strm.state.wrap ? (strm.adler = adler32(strm.adler, buf, len, start)) : 2 === strm.state.wrap && (strm.adler = makeTable(strm.adler)), (strm.next_in += len), (strm.total_in += len), len)),
+            (s.lookahead += n),
+            s.lookahead + s.insert >= 3)
+        )
+            for (str = s.strstart - s.insert, s.ins_h = s.window[str], s.ins_h = ((s.ins_h << s.hash_shift) ^ s.window[str + 1]) & s.hash_mask; s.insert && ((s.ins_h = ((s.ins_h << s.hash_shift) ^ s.window[str + 3 - 1]) & s.hash_mask), (s.prev[str & s.w_mask] = s.head[s.ins_h]), (s.head[s.ins_h] = str), str++, s.insert--, !(s.lookahead + s.insert < 3)); );
+    } while (s.lookahead < 262 && 0 !== s.strm.avail_in);
+}
+
+function deflate_fast(s, flush) {
+    for (var hash_head, bflush; ; ) {
+        if (s.lookahead < 262) {
+            if ((fill_window(s), s.lookahead < 262 && 0 === flush)) return 1;
+            if (0 === s.lookahead) break;
+        }
+        if (((hash_head = 0), s.lookahead >= 3 && ((s.ins_h = ((s.ins_h << s.hash_shift) ^ s.window[s.strstart + 3 - 1]) & s.hash_mask), (hash_head = s.prev[s.strstart & s.w_mask] = s.head[s.ins_h]), (s.head[s.ins_h] = s.strstart)), 0 !== hash_head && s.strstart - hash_head <= s.w_size - 262 && (s.match_length = longest_match(s, hash_head)), s.match_length >= 3))
+            if (((bflush = _tr_tally(s, s.strstart - s.match_start, s.match_length - 3)), (s.lookahead -= s.match_length), s.match_length <= s.max_lazy_match && s.lookahead >= 3)) {
+                s.match_length--;
+                do {
+                    s.strstart++, (s.ins_h = ((s.ins_h << s.hash_shift) ^ s.window[s.strstart + 3 - 1]) & s.hash_mask), (hash_head = s.prev[s.strstart & s.w_mask] = s.head[s.ins_h]), (s.head[s.ins_h] = s.strstart);
+                } while (0 != --s.match_length);
+                s.strstart++;
+            } else (s.strstart += s.match_length), (s.match_length = 0), (s.ins_h = s.window[s.strstart]), (s.ins_h = ((s.ins_h << s.hash_shift) ^ s.window[s.strstart + 1]) & s.hash_mask);
+        else (bflush = _tr_tally(s, 0, s.window[s.strstart])), s.lookahead--, s.strstart++;
+        if (bflush && (flush_block_only(s, !1), 0 === s.strm.avail_out)) return 1;
+    }
+    return (s.insert = s.strstart < 2 ? s.strstart : 2), 4 === flush ? (flush_block_only(s, !0), 0 === s.strm.avail_out ? 3 : 4) : s.last_lit && (flush_block_only(s, !1), 0 === s.strm.avail_out) ? 1 : 2;
+}
+
+function deflate_slow(s, flush) {
+    for (var hash_head, bflush, max_insert; ; ) {
+        if (s.lookahead < 262) {
+            if ((fill_window(s), s.lookahead < 262 && 0 === flush)) return 1;
+            if (0 === s.lookahead) break;
+        }
+        if (
+            ((hash_head = 0),
+            s.lookahead >= 3 && ((s.ins_h = ((s.ins_h << s.hash_shift) ^ s.window[s.strstart + 3 - 1]) & s.hash_mask), (hash_head = s.prev[s.strstart & s.w_mask] = s.head[s.ins_h]), (s.head[s.ins_h] = s.strstart)),
+            (s.prev_length = s.match_length),
+            (s.prev_match = s.match_start),
+            (s.match_length = 2),
+            0 !== hash_head && s.prev_length < s.max_lazy_match && s.strstart - hash_head <= s.w_size - 262 && ((s.match_length = longest_match(s, hash_head)), s.match_length <= 5 && (1 === s.strategy || (3 === s.match_length && s.strstart - s.match_start > 4096)) && (s.match_length = 2)),
+            s.prev_length >= 3 && s.match_length <= s.prev_length)
+        ) {
+            (max_insert = s.strstart + s.lookahead - 3), (bflush = _tr_tally(s, s.strstart - 1 - s.prev_match, s.prev_length - 3)), (s.lookahead -= s.prev_length - 1), (s.prev_length -= 2);
+            do {
+                ++s.strstart <= max_insert && ((s.ins_h = ((s.ins_h << s.hash_shift) ^ s.window[s.strstart + 3 - 1]) & s.hash_mask), (hash_head = s.prev[s.strstart & s.w_mask] = s.head[s.ins_h]), (s.head[s.ins_h] = s.strstart));
+            } while (0 != --s.prev_length);
+            if (((s.match_available = 0), (s.match_length = 2), s.strstart++, bflush && (flush_block_only(s, !1), 0 === s.strm.avail_out))) return 1;
+        } else if (s.match_available) {
+            if (((bflush = _tr_tally(s, 0, s.window[s.strstart - 1])) && flush_block_only(s, !1), s.strstart++, s.lookahead--, 0 === s.strm.avail_out)) return 1;
+        } else (s.match_available = 1), s.strstart++, s.lookahead--;
+    }
+    return s.match_available && ((bflush = _tr_tally(s, 0, s.window[s.strstart - 1])), (s.match_available = 0)), (s.insert = s.strstart < 2 ? s.strstart : 2), 4 === flush ? (flush_block_only(s, !0), 0 === s.strm.avail_out ? 3 : 4) : s.last_lit && (flush_block_only(s, !1), 0 === s.strm.avail_out) ? 1 : 2;
+}
+
+function Config(good_length, max_lazy, nice_length, max_chain, func) {
+    (this.good_length = good_length), (this.max_lazy = max_lazy), (this.nice_length = nice_length), (this.max_chain = max_chain), (this.func = func);
+}
+
+function DeflateState() {
+    (this.strm = null),
+        (this.status = 0),
+        (this.pending_buf = null),
+        (this.pending_buf_size = 0),
+        (this.pending_out = 0),
+        (this.pending = 0),
+        (this.wrap = 0),
+        (this.gzhead = null),
+        (this.gzindex = 0),
+        (this.method = 8),
+        (this.last_flush = -1),
+        (this.w_size = 0),
+        (this.w_bits = 0),
+        (this.w_mask = 0),
+        (this.window = null),
+        (this.window_size = 0),
+        (this.prev = null),
+        (this.head = null),
+        (this.ins_h = 0),
+        (this.hash_size = 0),
+        (this.hash_bits = 0),
+        (this.hash_mask = 0),
+        (this.hash_shift = 0),
+        (this.block_start = 0),
+        (this.match_length = 0),
+        (this.prev_match = 0),
+        (this.match_available = 0),
+        (this.strstart = 0),
+        (this.match_start = 0),
+        (this.lookahead = 0),
+        (this.prev_length = 0),
+        (this.max_chain_length = 0),
+        (this.max_lazy_match = 0),
+        (this.level = 0),
+        (this.strategy = 0),
+        (this.good_match = 0),
+        (this.nice_match = 0),
+        (this.dyn_ltree = new Buf16(1146)),
+        (this.dyn_dtree = new Buf16(122)),
+        (this.bl_tree = new Buf16(78)),
+        zero(this.dyn_ltree),
+        zero(this.dyn_dtree),
+        zero(this.bl_tree),
+        (this.l_desc = null),
+        (this.d_desc = null),
+        (this.bl_desc = null),
+        (this.bl_count = new Buf16(16)),
+        (this.heap = new Buf16(573)),
+        zero(this.heap),
+        (this.heap_len = 0),
+        (this.heap_max = 0),
+        (this.depth = new Buf16(573)),
+        zero(this.depth),
+        (this.l_buf = 0),
+        (this.lit_bufsize = 0),
+        (this.last_lit = 0),
+        (this.d_buf = 0),
+        (this.opt_len = 0),
+        (this.static_len = 0),
+        (this.matches = 0),
+        (this.insert = 0),
+        (this.bi_buf = 0),
+        (this.bi_valid = 0);
+}
+
+function deflateReset(strm) {
+    var s,
+        ret = (function (strm) {
+            var s;
+            return strm && strm.state ? ((strm.total_in = strm.total_out = 0), (strm.data_type = 2), ((s = strm.state).pending = 0), (s.pending_out = 0), s.wrap < 0 && (s.wrap = -s.wrap), (s.status = s.wrap ? 42 : 113), (strm.adler = 2 === s.wrap ? 0 : 1), (s.last_flush = 0), _tr_init(s), 0) : err(strm, -2);
+        })(strm);
+    return (
+        0 === ret &&
+            (((s = strm.state).window_size = 2 * s.w_size),
+            zero(s.head),
+            (s.max_lazy_match = configuration_table[s.level].max_lazy),
+            (s.good_match = configuration_table[s.level].good_length),
+            (s.nice_match = configuration_table[s.level].nice_length),
+            (s.max_chain_length = configuration_table[s.level].max_chain),
+            (s.strstart = 0),
+            (s.block_start = 0),
+            (s.lookahead = 0),
+            (s.insert = 0),
+            (s.match_length = s.prev_length = 2),
+            (s.match_available = 0),
+            (s.ins_h = 0)),
+        ret
+    );
+}
+
+function deflateInit(strm, level) {
+    return (function (strm, level, method, windowBits, memLevel, strategy) {
+        if (!strm) return -2;
+        if ((-1 === level && (level = 6), level < 0 || level > 9 || strategy < 0 || strategy > 4)) return err(strm, -2);
+        var s = new DeflateState();
+        return (
+            (strm.state = s),
+            (s.strm = strm),
+            (s.wrap = 1),
+            (s.gzhead = null),
+            (s.w_bits = windowBits),
+            (s.w_size = 1 << s.w_bits),
+            (s.w_mask = s.w_size - 1),
+            (s.hash_bits = memLevel + 7),
+            (s.hash_size = 1 << s.hash_bits),
+            (s.hash_mask = s.hash_size - 1),
+            (s.hash_shift = ~~((s.hash_bits + 3 - 1) / 3)),
+            (s.window = new Buf8(2 * s.w_size)),
+            (s.head = new Buf16(s.hash_size)),
+            (s.prev = new Buf16(s.w_size)),
+            (s.lit_bufsize = 1 << (memLevel + 6)),
+            (s.pending_buf_size = 4 * s.lit_bufsize),
+            (s.pending_buf = new Buf8(s.pending_buf_size)),
+            (s.d_buf = 1 * s.lit_bufsize),
+            (s.l_buf = 3 * s.lit_bufsize),
+            (s.level = level),
+            (s.strategy = strategy),
+            (s.method = method),
+            deflateReset(strm)
+        );
+    })(strm, level, 8, 15, 8, 0);
+}
+
+function deflate(strm, flush) {
+    var old_flush, s, beg, val;
+    if (!strm || !strm.state || flush > 5 || flush < 0) return strm ? err(strm, -2) : -2;
+    if (((s = strm.state), !strm.output || (!strm.input && 0 !== strm.avail_in) || (666 === s.status && 4 !== flush))) return err(strm, 0 === strm.avail_out ? -5 : -2);
+    if (((s.strm = strm), (old_flush = s.last_flush), (s.last_flush = flush), 42 === s.status))
+        if (2 === s.wrap)
+            (strm.adler = 0),
+                put_byte(s, 31),
+                put_byte(s, 139),
+                put_byte(s, 8),
+                s.gzhead
+                    ? (put_byte(s, (s.gzhead.text ? 1 : 0) + (s.gzhead.hcrc ? 2 : 0) + (s.gzhead.extra ? 4 : 0) + (s.gzhead.name ? 8 : 0) + (s.gzhead.comment ? 16 : 0)),
+                      put_byte(s, 255 & s.gzhead.time),
+                      put_byte(s, (s.gzhead.time >> 8) & 255),
+                      put_byte(s, (s.gzhead.time >> 16) & 255),
+                      put_byte(s, (s.gzhead.time >> 24) & 255),
+                      put_byte(s, 9 === s.level ? 2 : s.strategy >= 2 || s.level < 2 ? 4 : 0),
+                      put_byte(s, 255 & s.gzhead.os),
+                      s.gzhead.extra && s.gzhead.extra.length && (put_byte(s, 255 & s.gzhead.extra.length), put_byte(s, (s.gzhead.extra.length >> 8) & 255)),
+                      s.gzhead.hcrc && (strm.adler = makeTable(strm.adler, s.pending_buf, s.pending)),
+                      (s.gzindex = 0),
+                      (s.status = 69))
+                    : (put_byte(s, 0), put_byte(s, 0), put_byte(s, 0), put_byte(s, 0), put_byte(s, 0), put_byte(s, 9 === s.level ? 2 : s.strategy >= 2 || s.level < 2 ? 4 : 0), put_byte(s, 3), (s.status = 113));
+        else {
+            var header = (8 + ((s.w_bits - 8) << 4)) << 8;
+            (header |= (s.strategy >= 2 || s.level < 2 ? 0 : s.level < 6 ? 1 : 6 === s.level ? 2 : 3) << 6), 0 !== s.strstart && (header |= 32), (header += 31 - (header % 31)), (s.status = 113), putShortMSB(s, header), 0 !== s.strstart && (putShortMSB(s, strm.adler >>> 16), putShortMSB(s, 65535 & strm.adler)), (strm.adler = 1);
+        }
+    if (69 === s.status)
+        if (s.gzhead.extra) {
+            for (beg = s.pending; s.gzindex < (65535 & s.gzhead.extra.length) && (s.pending !== s.pending_buf_size || (s.gzhead.hcrc && s.pending > beg && (strm.adler = makeTable(strm.adler, s.pending_buf, s.pending)), flush_pending(strm), (beg = s.pending), s.pending !== s.pending_buf_size)); ) put_byte(s, 255 & s.gzhead.extra[s.gzindex]), s.gzindex++;
+            s.gzhead.hcrc && s.pending > beg && (strm.adler = makeTable(strm.adler, s.pending_buf, s.pending)), s.gzindex === s.gzhead.extra.length && ((s.gzindex = 0), (s.status = 73));
+        } else s.status = 73;
+    if (73 === s.status)
+        if (s.gzhead.name) {
+            beg = s.pending;
+            do {
+                if (s.pending === s.pending_buf_size && (s.gzhead.hcrc && s.pending > beg && (strm.adler = makeTable(strm.adler, s.pending_buf, s.pending)), flush_pending(strm), (beg = s.pending), s.pending === s.pending_buf_size)) {
+                    val = 1;
+                    break;
+                }
+                (val = s.gzindex < s.gzhead.name.length ? 255 & s.gzhead.name.charCodeAt(s.gzindex++) : 0), put_byte(s, val);
+            } while (0 !== val);
+            s.gzhead.hcrc && s.pending > beg && (strm.adler = makeTable(strm.adler, s.pending_buf, s.pending)), 0 === val && ((s.gzindex = 0), (s.status = 91));
+        } else s.status = 91;
+    if (91 === s.status)
+        if (s.gzhead.comment) {
+            beg = s.pending;
+            do {
+                if (s.pending === s.pending_buf_size && (s.gzhead.hcrc && s.pending > beg && (strm.adler = makeTable(strm.adler, s.pending_buf, s.pending)), flush_pending(strm), (beg = s.pending), s.pending === s.pending_buf_size)) {
+                    val = 1;
+                    break;
+                }
+                (val = s.gzindex < s.gzhead.comment.length ? 255 & s.gzhead.comment.charCodeAt(s.gzindex++) : 0), put_byte(s, val);
+            } while (0 !== val);
+            s.gzhead.hcrc && s.pending > beg && (strm.adler = makeTable(strm.adler, s.pending_buf, s.pending)), 0 === val && (s.status = 103);
+        } else s.status = 103;
+    if ((103 === s.status && (s.gzhead.hcrc ? (s.pending + 2 > s.pending_buf_size && flush_pending(strm), s.pending + 2 <= s.pending_buf_size && (put_byte(s, 255 & strm.adler), put_byte(s, (strm.adler >> 8) & 255), (strm.adler = 0), (s.status = 113))) : (s.status = 113)), 0 !== s.pending)) {
+        if ((flush_pending(strm), 0 === strm.avail_out)) return (s.last_flush = -1), 0;
+    } else if (0 === strm.avail_in && rank(flush) <= rank(old_flush) && 4 !== flush) return err(strm, -5);
+    if (666 === s.status && 0 !== strm.avail_in) return err(strm, -5);
+    if (0 !== strm.avail_in || 0 !== s.lookahead || 666 !== s.status) {
+        var bstate =
+            2 === s.strategy
+                ? (function (s) {
+                      for (var bflush; 0 !== s.lookahead || (fill_window(s), 0 !== s.lookahead); ) if (((s.match_length = 0), (bflush = _tr_tally(s, 0, s.window[s.strstart])), s.lookahead--, s.strstart++, bflush && (flush_block_only(s, !1), 0 === s.strm.avail_out))) return 1;
+                      return (s.insert = 0), s.last_lit && (flush_block_only(s, !1), 0 === s.strm.avail_out) ? 1 : 2;
+                  })(s)
+                : 3 === s.strategy
+                ? (function (s, flush) {
+                      for (var bflush, prev, scan, strend, _win = s.window; ; ) {
+                          if (s.lookahead <= 258) {
+                              if ((fill_window(s), s.lookahead <= 258 && 0 === flush)) return 1;
+                              if (0 === s.lookahead) break;
+                          }
+                          if (((s.match_length = 0), s.lookahead >= 3 && s.strstart > 0 && (prev = _win[(scan = s.strstart - 1)]) === _win[++scan] && prev === _win[++scan] && prev === _win[++scan])) {
+                              strend = s.strstart + 258;
+                              do {} while (prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && prev === _win[++scan] && scan < strend);
+                              (s.match_length = 258 - (strend - scan)), s.match_length > s.lookahead && (s.match_length = s.lookahead);
+                          }
+                          if ((s.match_length >= 3 ? ((bflush = _tr_tally(s, 1, s.match_length - 3)), (s.lookahead -= s.match_length), (s.strstart += s.match_length), (s.match_length = 0)) : ((bflush = _tr_tally(s, 0, s.window[s.strstart])), s.lookahead--, s.strstart++), bflush && (flush_block_only(s, !1), 0 === s.strm.avail_out))) return 1;
+                      }
+                      return (s.insert = 0), s.last_lit && (flush_block_only(s, !1), 0 === s.strm.avail_out) ? 1 : 2;
+                  })(s, flush)
+                : configuration_table[s.level].func(s, flush);
+        if (((3 !== bstate && 4 !== bstate) || (s.status = 666), 1 === bstate || 3 === bstate)) return 0 === strm.avail_out && (s.last_flush = -1), 0;
+        if (2 === bstate && (_tr_stored_block(s, 0, 0, !1), zero(s.head), 0 === s.lookahead && ((s.strstart = 0), (s.block_start = 0), (s.insert = 0)), flush_pending(strm), 0 === strm.avail_out)) return (s.last_flush = -1), 0;
+    }
+    return 0;
+}
+
+configuration_table = [
+    new Config(0, 0, 0, 0, function (s, flush) {
+        var max_block_size = 65535;
+        for (max_block_size > s.pending_buf_size - 5 && (max_block_size = s.pending_buf_size - 5); ; ) {
+            if (s.lookahead <= 1) {
+                if ((fill_window(s), 0 === s.lookahead && 0 === flush)) return 1;
+                if (0 === s.lookahead) break;
+            }
+            (s.strstart += s.lookahead), (s.lookahead = 0);
+            var max_start = s.block_start + max_block_size;
+            if ((0 === s.strstart || s.strstart >= max_start) && ((s.lookahead = s.strstart - max_start), (s.strstart = max_start), flush_block_only(s, !1), 0 === s.strm.avail_out)) return 1;
+            if (s.strstart - s.block_start >= s.w_size - 262 && (flush_block_only(s, !1), 0 === s.strm.avail_out)) return 1;
+        }
+        return (s.insert = 0), 4 === flush ? (flush_block_only(s, !0), 0 === s.strm.avail_out ? 3 : 4) : (s.strstart > s.block_start && (flush_block_only(s, !1), s.strm.avail_out), 1);
+    }),
+    new Config(4, 4, 8, 4, deflate_fast),
+    new Config(4, 5, 16, 8, deflate_fast),
+    new Config(4, 6, 32, 32, deflate_fast),
+    new Config(4, 4, 16, 16, deflate_slow),
+    new Config(8, 16, 32, 32, deflate_slow),
+    new Config(8, 16, 128, 128, deflate_slow),
+    new Config(8, 32, 128, 256, deflate_slow),
+    new Config(32, 128, 258, 1024, deflate_slow),
+    new Config(32, 258, 258, 4096, deflate_slow),
+];
+
+class Deflator {
+    constructor() {
+        (this.strm = new ZStream()), (this.chunkSize = 102400), (this.outputBuffer = new Uint8Array(this.chunkSize)), (this.windowBits = 5), deflateInit(this.strm, this.windowBits);
+    }
+    deflate(inData) {
+        (this.strm.input = inData), (this.strm.avail_in = this.strm.input.length), (this.strm.next_in = 0), (this.strm.output = this.outputBuffer), (this.strm.avail_out = this.chunkSize), (this.strm.next_out = 0);
+        let lastRet = deflate(this.strm, 3),
+            outData = new Uint8Array(this.strm.output.buffer, 0, this.strm.next_out);
+        if (lastRet < 0) throw new Error('zlib deflate failed');
+        if (this.strm.avail_in > 0) {
+            let chunks = [outData],
+                totalLen = outData.length;
+            do {
+                if (((this.strm.output = new Uint8Array(this.chunkSize)), (this.strm.next_out = 0), (this.strm.avail_out = this.chunkSize), (lastRet = deflate(this.strm, 3)), lastRet < 0)) throw new Error('zlib deflate failed');
+                let chunk = new Uint8Array(this.strm.output.buffer, 0, this.strm.next_out);
+                (totalLen += chunk.length), chunks.push(chunk);
+            } while (this.strm.avail_in > 0);
+            let newData = new Uint8Array(totalLen),
+                offset = 0;
+            for (let i = 0; i < chunks.length; i++) newData.set(chunks[i], offset), (offset += chunks[i].length);
+            outData = newData;
+        }
+        return (this.strm.input = null), (this.strm.avail_in = 0), (this.strm.next_in = 0), outData;
+    }
+}
+
+const KeyTable_XK_BackSpace = 65288,
+    KeyTable_XK_Tab = 65289,
+    KeyTable_XK_Clear = 65291,
+    KeyTable_XK_Return = 65293,
+    KeyTable_XK_Pause = 65299,
+    KeyTable_XK_Scroll_Lock = 65300,
+    KeyTable_XK_Escape = 65307,
+    KeyTable_XK_Delete = 65535,
+    KeyTable_XK_Multi_key = 65312,
+    KeyTable_XK_Codeinput = 65335,
+    KeyTable_XK_SingleCandidate = 65340,
+    KeyTable_XK_MultipleCandidate = 65341,
+    KeyTable_XK_PreviousCandidate = 65342,
+    KeyTable_XK_Kanji = 65313,
+    KeyTable_XK_Muhenkan = 65314,
+    KeyTable_XK_Henkan = 65315,
+    KeyTable_XK_Romaji = 65316,
+    KeyTable_XK_Hiragana = 65317,
+    KeyTable_XK_Katakana = 65318,
+    KeyTable_XK_Hiragana_Katakana = 65319,
+    KeyTable_XK_Zenkaku = 65320,
+    KeyTable_XK_Hankaku = 65321,
+    KeyTable_XK_Zenkaku_Hankaku = 65322,
+    KeyTable_XK_Kana_Shift = 65326,
+    KeyTable_XK_Eisu_Shift = 65327,
+    KeyTable_XK_Eisu_toggle = 65328,
+    KeyTable_XK_Home = 65360,
+    KeyTable_XK_Left = 65361,
+    KeyTable_XK_Up = 65362,
+    KeyTable_XK_Right = 65363,
+    KeyTable_XK_Down = 65364,
+    KeyTable_XK_Prior = 65365,
+    KeyTable_XK_Next = 65366,
+    KeyTable_XK_End = 65367,
+    KeyTable_XK_Select = 65376,
+    KeyTable_XK_Print = 65377,
+    KeyTable_XK_Execute = 65378,
+    KeyTable_XK_Insert = 65379,
+    KeyTable_XK_Undo = 65381,
+    KeyTable_XK_Redo = 65382,
+    KeyTable_XK_Menu = 65383,
+    KeyTable_XK_Find = 65384,
+    KeyTable_XK_Cancel = 65385,
+    KeyTable_XK_Help = 65386,
+    KeyTable_XK_Mode_switch = 65406,
+    KeyTable_XK_Num_Lock = 65407,
+    KeyTable_XK_KP_Space = 65408,
+    KeyTable_XK_KP_Enter = 65421,
+    KeyTable_XK_KP_Home = 65429,
+    KeyTable_XK_KP_Left = 65430,
+    KeyTable_XK_KP_Up = 65431,
+    KeyTable_XK_KP_Right = 65432,
+    KeyTable_XK_KP_Down = 65433,
+    KeyTable_XK_KP_Prior = 65434,
+    KeyTable_XK_KP_Next = 65435,
+    KeyTable_XK_KP_End = 65436,
+    KeyTable_XK_KP_Begin = 65437,
+    KeyTable_XK_KP_Insert = 65438,
+    KeyTable_XK_KP_Delete = 65439,
+    KeyTable_XK_KP_Equal = 65469,
+    KeyTable_XK_KP_Multiply = 65450,
+    KeyTable_XK_KP_Add = 65451,
+    KeyTable_XK_KP_Separator = 65452,
+    KeyTable_XK_KP_Subtract = 65453,
+    KeyTable_XK_KP_Decimal = 65454,
+    KeyTable_XK_KP_Divide = 65455,
+    KeyTable_XK_KP_0 = 65456,
+    KeyTable_XK_KP_1 = 65457,
+    KeyTable_XK_KP_2 = 65458,
+    KeyTable_XK_KP_3 = 65459,
+    KeyTable_XK_KP_4 = 65460,
+    KeyTable_XK_KP_5 = 65461,
+    KeyTable_XK_KP_6 = 65462,
+    KeyTable_XK_KP_7 = 65463,
+    KeyTable_XK_KP_8 = 65464,
+    KeyTable_XK_KP_9 = 65465,
+    KeyTable_XK_F1 = 65470,
+    KeyTable_XK_F2 = 65471,
+    KeyTable_XK_F3 = 65472,
+    KeyTable_XK_F4 = 65473,
+    KeyTable_XK_F5 = 65474,
+    KeyTable_XK_F6 = 65475,
+    KeyTable_XK_F7 = 65476,
+    KeyTable_XK_F8 = 65477,
+    KeyTable_XK_F9 = 65478,
+    KeyTable_XK_F10 = 65479,
+    KeyTable_XK_F11 = 65480,
+    KeyTable_XK_F12 = 65481,
+    KeyTable_XK_F13 = 65482,
+    KeyTable_XK_F14 = 65483,
+    KeyTable_XK_F15 = 65484,
+    KeyTable_XK_F16 = 65485,
+    KeyTable_XK_F17 = 65486,
+    KeyTable_XK_F18 = 65487,
+    KeyTable_XK_F19 = 65488,
+    KeyTable_XK_F20 = 65489,
+    KeyTable_XK_F21 = 65490,
+    KeyTable_XK_F22 = 65491,
+    KeyTable_XK_F23 = 65492,
+    KeyTable_XK_F24 = 65493,
+    KeyTable_XK_F25 = 65494,
+    KeyTable_XK_F26 = 65495,
+    KeyTable_XK_F27 = 65496,
+    KeyTable_XK_F28 = 65497,
+    KeyTable_XK_F29 = 65498,
+    KeyTable_XK_F30 = 65499,
+    KeyTable_XK_F31 = 65500,
+    KeyTable_XK_F32 = 65501,
+    KeyTable_XK_F33 = 65502,
+    KeyTable_XK_F34 = 65503,
+    KeyTable_XK_F35 = 65504,
+    KeyTable_XK_Shift_L = 65505,
+    KeyTable_XK_Shift_R = 65506,
+    KeyTable_XK_Control_L = 65507,
+    KeyTable_XK_Control_R = 65508,
+    KeyTable_XK_Caps_Lock = 65509,
+    KeyTable_XK_Meta_L = 65511,
+    KeyTable_XK_Meta_R = 65512,
+    KeyTable_XK_Alt_L = 65513,
+    KeyTable_XK_Alt_R = 65514,
+    KeyTable_XK_Super_L = 65515,
+    KeyTable_XK_Super_R = 65516,
+    KeyTable_XK_ISO_Level3_Shift = 65027,
+    KeyTable_XK_ISO_Next_Group = 65032,
+    KeyTable_XK_ISO_Prev_Group = 65034,
+    KeyTable_XK_ISO_First_Group = 65036,
+    KeyTable_XK_ISO_Last_Group = 65038,
+    KeyTable_XK_space = 32,
+    KeyTable_XK_asterisk = 42,
+    KeyTable_XK_plus = 43,
+    KeyTable_XK_comma = 44,
+    KeyTable_XK_minus = 45,
+    KeyTable_XK_period = 46,
+    KeyTable_XK_slash = 47,
+    KeyTable_XK_0 = 48,
+    KeyTable_XK_1 = 49,
+    KeyTable_XK_2 = 50,
+    KeyTable_XK_3 = 51,
+    KeyTable_XK_4 = 52,
+    KeyTable_XK_5 = 53,
+    KeyTable_XK_6 = 54,
+    KeyTable_XK_7 = 55,
+    KeyTable_XK_8 = 56,
+    KeyTable_XK_9 = 57,
+    KeyTable_XK_equal = 61,
+    KeyTable_XK_Hangul = 65329,
+    KeyTable_XK_Hangul_Hanja = 65332,
+    KeyTable_XK_Hangul_Jeonja = 65336,
+    KeyTable_XF86XK_MonBrightnessUp = 269025026,
+    KeyTable_XF86XK_MonBrightnessDown = 269025027,
+    KeyTable_XF86XK_Standby = 269025040,
+    KeyTable_XF86XK_AudioLowerVolume = 269025041,
+    KeyTable_XF86XK_AudioMute = 269025042,
+    KeyTable_XF86XK_AudioRaiseVolume = 269025043,
+    KeyTable_XF86XK_AudioPlay = 269025044,
+    KeyTable_XF86XK_AudioStop = 269025045,
+    KeyTable_XF86XK_AudioPrev = 269025046,
+    KeyTable_XF86XK_AudioNext = 269025047,
+    KeyTable_XF86XK_HomePage = 269025048,
+    KeyTable_XF86XK_Mail = 269025049,
+    KeyTable_XF86XK_Search = 269025051,
+    KeyTable_XF86XK_AudioRecord = 269025052,
+    KeyTable_XF86XK_Calculator = 269025053,
+    KeyTable_XF86XK_Calendar = 269025056,
+    KeyTable_XF86XK_PowerDown = 269025057,
+    KeyTable_XF86XK_Back = 269025062,
+    KeyTable_XF86XK_Forward = 269025063,
+    KeyTable_XF86XK_Stop = 269025064,
+    KeyTable_XF86XK_Refresh = 269025065,
+    KeyTable_XF86XK_PowerOff = 269025066,
+    KeyTable_XF86XK_WakeUp = 269025067,
+    KeyTable_XF86XK_Eject = 269025068,
+    KeyTable_XF86XK_ScreenSaver = 269025069,
+    KeyTable_XF86XK_WWW = 269025070,
+    KeyTable_XF86XK_Favorites = 269025072,
+    KeyTable_XF86XK_AudioPause = 269025073,
+    KeyTable_XF86XK_AudioMedia = 269025074,
+    KeyTable_XF86XK_MyComputer = 269025075,
+    KeyTable_XF86XK_BrightnessAdjust = 269025083,
+    KeyTable_XF86XK_AudioRewind = 269025086,
+    KeyTable_XF86XK_Close = 269025110,
+    KeyTable_XF86XK_Copy = 269025111,
+    KeyTable_XF86XK_Cut = 269025112,
+    KeyTable_XF86XK_Excel = 269025116,
+    KeyTable_XF86XK_LogOff = 269025121,
+    KeyTable_XF86XK_New = 269025128,
+    KeyTable_XF86XK_Open = 269025131,
+    KeyTable_XF86XK_Paste = 269025133,
+    KeyTable_XF86XK_Phone = 269025134,
+    KeyTable_XF86XK_Reply = 269025138,
+    KeyTable_XF86XK_Save = 269025143,
+    KeyTable_XF86XK_Send = 269025147,
+    KeyTable_XF86XK_Spell = 269025148,
+    KeyTable_XF86XK_SplitScreen = 269025149,
+    KeyTable_XF86XK_Word = 269025161,
+    KeyTable_XF86XK_ZoomIn = 269025163,
+    KeyTable_XF86XK_ZoomOut = 269025164,
+    KeyTable_XF86XK_WebCam = 269025167,
+    KeyTable_XF86XK_MailForward = 269025168,
+    KeyTable_XF86XK_Music = 269025170,
+    KeyTable_XF86XK_AudioForward = 269025175,
+    KeyTable_XF86XK_AudioRandomPlay = 269025177,
+    KeyTable_XF86XK_Subtitle = 269025178,
+    KeyTable_XF86XK_AudioCycleTrack = 269025179,
+    KeyTable_XF86XK_Hibernate = 269025192,
+    KeyTable_XF86XK_AudioMicMute = 269025202,
+    KeyTable_XF86XK_Next_VMode = 269024802,
+    codepoints = {
+        256: 960,
+        257: 992,
+        258: 451,
+        259: 483,
+        260: 417,
+        261: 433,
+        262: 454,
+        263: 486,
+        264: 710,
+        265: 742,
+        266: 709,
+        267: 741,
+        268: 456,
+        269: 488,
+        270: 463,
+        271: 495,
+        272: 464,
+        273: 496,
+        274: 938,
+        275: 954,
+        278: 972,
+        279: 1004,
+        280: 458,
+        281: 490,
+        282: 460,
+        283: 492,
+        284: 728,
+        285: 760,
+        286: 683,
+        287: 699,
+        288: 725,
+        289: 757,
+        290: 939,
+        291: 955,
+        292: 678,
+        293: 694,
+        294: 673,
+        295: 689,
+        296: 933,
+        297: 949,
+        298: 975,
+        299: 1007,
+        302: 967,
+        303: 999,
+        304: 681,
+        305: 697,
+        308: 684,
+        309: 700,
+        310: 979,
+        311: 1011,
+        312: 930,
+        313: 453,
+        314: 485,
+        315: 934,
+        316: 950,
+        317: 421,
+        318: 437,
+        321: 419,
+        322: 435,
+        323: 465,
+        324: 497,
+        325: 977,
+        326: 1009,
+        327: 466,
+        328: 498,
+        330: 957,
+        331: 959,
+        332: 978,
+        333: 1010,
+        336: 469,
+        337: 501,
+        338: 5052,
+        339: 5053,
+        340: 448,
+        341: 480,
+        342: 931,
+        343: 947,
+        344: 472,
+        345: 504,
+        346: 422,
+        347: 438,
+        348: 734,
+        349: 766,
+        350: 426,
+        351: 442,
+        352: 425,
+        353: 441,
+        354: 478,
+        355: 510,
+        356: 427,
+        357: 443,
+        358: 940,
+        359: 956,
+        360: 989,
+        361: 1021,
+        362: 990,
+        363: 1022,
+        364: 733,
+        365: 765,
+        366: 473,
+        367: 505,
+        368: 475,
+        369: 507,
+        370: 985,
+        371: 1017,
+        376: 5054,
+        377: 428,
+        378: 444,
+        379: 431,
+        380: 447,
+        381: 430,
+        382: 446,
+        402: 2294,
+        466: 16777681,
+        711: 439,
+        728: 418,
+        729: 511,
+        731: 434,
+        733: 445,
+        901: 1966,
+        902: 1953,
+        904: 1954,
+        905: 1955,
+        906: 1956,
+        908: 1959,
+        910: 1960,
+        911: 1963,
+        912: 1974,
+        913: 1985,
+        914: 1986,
+        915: 1987,
+        916: 1988,
+        917: 1989,
+        918: 1990,
+        919: 1991,
+        920: 1992,
+        921: 1993,
+        922: 1994,
+        923: 1995,
+        924: 1996,
+        925: 1997,
+        926: 1998,
+        927: 1999,
+        928: 2e3,
+        929: 2001,
+        931: 2002,
+        932: 2004,
+        933: 2005,
+        934: 2006,
+        935: 2007,
+        936: 2008,
+        937: 2009,
+        938: 1957,
+        939: 1961,
+        940: 1969,
+        941: 1970,
+        942: 1971,
+        943: 1972,
+        944: 1978,
+        945: 2017,
+        946: 2018,
+        947: 2019,
+        948: 2020,
+        949: 2021,
+        950: 2022,
+        951: 2023,
+        952: 2024,
+        953: 2025,
+        954: 2026,
+        955: 2027,
+        956: 2028,
+        957: 2029,
+        958: 2030,
+        959: 2031,
+        960: 2032,
+        961: 2033,
+        962: 2035,
+        963: 2034,
+        964: 2036,
+        965: 2037,
+        966: 2038,
+        967: 2039,
+        968: 2040,
+        969: 2041,
+        970: 1973,
+        971: 1977,
+        972: 1975,
+        973: 1976,
+        974: 1979,
+        1025: 1715,
+        1026: 1713,
+        1027: 1714,
+        1028: 1716,
+        1029: 1717,
+        1030: 1718,
+        1031: 1719,
+        1032: 1720,
+        1033: 1721,
+        1034: 1722,
+        1035: 1723,
+        1036: 1724,
+        1038: 1726,
+        1039: 1727,
+        1040: 1761,
+        1041: 1762,
+        1042: 1783,
+        1043: 1767,
+        1044: 1764,
+        1045: 1765,
+        1046: 1782,
+        1047: 1786,
+        1048: 1769,
+        1049: 1770,
+        1050: 1771,
+        1051: 1772,
+        1052: 1773,
+        1053: 1774,
+        1054: 1775,
+        1055: 1776,
+        1056: 1778,
+        1057: 1779,
+        1058: 1780,
+        1059: 1781,
+        1060: 1766,
+        1061: 1768,
+        1062: 1763,
+        1063: 1790,
+        1064: 1787,
+        1065: 1789,
+        1066: 1791,
+        1067: 1785,
+        1068: 1784,
+        1069: 1788,
+        1070: 1760,
+        1071: 1777,
+        1072: 1729,
+        1073: 1730,
+        1074: 1751,
+        1075: 1735,
+        1076: 1732,
+        1077: 1733,
+        1078: 1750,
+        1079: 1754,
+        1080: 1737,
+        1081: 1738,
+        1082: 1739,
+        1083: 1740,
+        1084: 1741,
+        1085: 1742,
+        1086: 1743,
+        1087: 1744,
+        1088: 1746,
+        1089: 1747,
+        1090: 1748,
+        1091: 1749,
+        1092: 1734,
+        1093: 1736,
+        1094: 1731,
+        1095: 1758,
+        1096: 1755,
+        1097: 1757,
+        1098: 1759,
+        1099: 1753,
+        1100: 1752,
+        1101: 1756,
+        1102: 1728,
+        1103: 1745,
+        1105: 1699,
+        1106: 1697,
+        1107: 1698,
+        1108: 1700,
+        1109: 1701,
+        1110: 1702,
+        1111: 1703,
+        1112: 1704,
+        1113: 1705,
+        1114: 1706,
+        1115: 1707,
+        1116: 1708,
+        1118: 1710,
+        1119: 1711,
+        1168: 1725,
+        1169: 1709,
+        1488: 3296,
+        1489: 3297,
+        1490: 3298,
+        1491: 3299,
+        1492: 3300,
+        1493: 3301,
+        1494: 3302,
+        1495: 3303,
+        1496: 3304,
+        1497: 3305,
+        1498: 3306,
+        1499: 3307,
+        1500: 3308,
+        1501: 3309,
+        1502: 3310,
+        1503: 3311,
+        1504: 3312,
+        1505: 3313,
+        1506: 3314,
+        1507: 3315,
+        1508: 3316,
+        1509: 3317,
+        1510: 3318,
+        1511: 3319,
+        1512: 3320,
+        1513: 3321,
+        1514: 3322,
+        1548: 1452,
+        1563: 1467,
+        1567: 1471,
+        1569: 1473,
+        1570: 1474,
+        1571: 1475,
+        1572: 1476,
+        1573: 1477,
+        1574: 1478,
+        1575: 1479,
+        1576: 1480,
+        1577: 1481,
+        1578: 1482,
+        1579: 1483,
+        1580: 1484,
+        1581: 1485,
+        1582: 1486,
+        1583: 1487,
+        1584: 1488,
+        1585: 1489,
+        1586: 1490,
+        1587: 1491,
+        1588: 1492,
+        1589: 1493,
+        1590: 1494,
+        1591: 1495,
+        1592: 1496,
+        1593: 1497,
+        1594: 1498,
+        1600: 1504,
+        1601: 1505,
+        1602: 1506,
+        1603: 1507,
+        1604: 1508,
+        1605: 1509,
+        1606: 1510,
+        1607: 1511,
+        1608: 1512,
+        1609: 1513,
+        1610: 1514,
+        1611: 1515,
+        1612: 1516,
+        1613: 1517,
+        1614: 1518,
+        1615: 1519,
+        1616: 1520,
+        1617: 1521,
+        1618: 1522,
+        3585: 3489,
+        3586: 3490,
+        3587: 3491,
+        3588: 3492,
+        3589: 3493,
+        3590: 3494,
+        3591: 3495,
+        3592: 3496,
+        3593: 3497,
+        3594: 3498,
+        3595: 3499,
+        3596: 3500,
+        3597: 3501,
+        3598: 3502,
+        3599: 3503,
+        3600: 3504,
+        3601: 3505,
+        3602: 3506,
+        3603: 3507,
+        3604: 3508,
+        3605: 3509,
+        3606: 3510,
+        3607: 3511,
+        3608: 3512,
+        3609: 3513,
+        3610: 3514,
+        3611: 3515,
+        3612: 3516,
+        3613: 3517,
+        3614: 3518,
+        3615: 3519,
+        3616: 3520,
+        3617: 3521,
+        3618: 3522,
+        3619: 3523,
+        3620: 3524,
+        3621: 3525,
+        3622: 3526,
+        3623: 3527,
+        3624: 3528,
+        3625: 3529,
+        3626: 3530,
+        3627: 3531,
+        3628: 3532,
+        3629: 3533,
+        3630: 3534,
+        3631: 3535,
+        3632: 3536,
+        3633: 3537,
+        3634: 3538,
+        3635: 3539,
+        3636: 3540,
+        3637: 3541,
+        3638: 3542,
+        3639: 3543,
+        3640: 3544,
+        3641: 3545,
+        3642: 3546,
+        3647: 3551,
+        3648: 3552,
+        3649: 3553,
+        3650: 3554,
+        3651: 3555,
+        3652: 3556,
+        3653: 3557,
+        3654: 3558,
+        3655: 3559,
+        3656: 3560,
+        3657: 3561,
+        3658: 3562,
+        3659: 3563,
+        3660: 3564,
+        3661: 3565,
+        3664: 3568,
+        3665: 3569,
+        3666: 3570,
+        3667: 3571,
+        3668: 3572,
+        3669: 3573,
+        3670: 3574,
+        3671: 3575,
+        3672: 3576,
+        3673: 3577,
+        8194: 2722,
+        8195: 2721,
+        8196: 2723,
+        8197: 2724,
+        8199: 2725,
+        8200: 2726,
+        8201: 2727,
+        8202: 2728,
+        8210: 2747,
+        8211: 2730,
+        8212: 2729,
+        8213: 1967,
+        8215: 3295,
+        8216: 2768,
+        8217: 2769,
+        8218: 2813,
+        8220: 2770,
+        8221: 2771,
+        8222: 2814,
+        8224: 2801,
+        8225: 2802,
+        8226: 2790,
+        8229: 2735,
+        8230: 2734,
+        8240: 2773,
+        8242: 2774,
+        8243: 2775,
+        8248: 2812,
+        8254: 1150,
+        8361: 3839,
+        8364: 8364,
+        8453: 2744,
+        8470: 1712,
+        8471: 2811,
+        8478: 2772,
+        8482: 2761,
+        8531: 2736,
+        8532: 2737,
+        8533: 2738,
+        8534: 2739,
+        8535: 2740,
+        8536: 2741,
+        8537: 2742,
+        8538: 2743,
+        8539: 2755,
+        8540: 2756,
+        8541: 2757,
+        8542: 2758,
+        8592: 2299,
+        8593: 2300,
+        8594: 2301,
+        8595: 2302,
+        8658: 2254,
+        8660: 2253,
+        8706: 2287,
+        8711: 2245,
+        8728: 3018,
+        8730: 2262,
+        8733: 2241,
+        8734: 2242,
+        8743: 2270,
+        8744: 2271,
+        8745: 2268,
+        8746: 2269,
+        8747: 2239,
+        8756: 2240,
+        8764: 2248,
+        8771: 2249,
+        8773: 16785992,
+        8800: 2237,
+        8801: 2255,
+        8804: 2236,
+        8805: 2238,
+        8834: 2266,
+        8835: 2267,
+        8866: 3068,
+        8867: 3036,
+        8868: 3010,
+        8869: 3022,
+        8968: 3027,
+        8970: 3012,
+        8981: 2810,
+        8992: 2212,
+        8993: 2213,
+        9109: 3020,
+        9115: 2219,
+        9117: 2220,
+        9118: 2221,
+        9120: 2222,
+        9121: 2215,
+        9123: 2216,
+        9124: 2217,
+        9126: 2218,
+        9128: 2223,
+        9132: 2224,
+        9143: 2209,
+        9146: 2543,
+        9147: 2544,
+        9148: 2546,
+        9149: 2547,
+        9225: 2530,
+        9226: 2533,
+        9227: 2537,
+        9228: 2531,
+        9229: 2532,
+        9251: 2732,
+        9252: 2536,
+        9472: 2211,
+        9474: 2214,
+        9484: 2210,
+        9488: 2539,
+        9492: 2541,
+        9496: 2538,
+        9500: 2548,
+        9508: 2549,
+        9516: 2551,
+        9524: 2550,
+        9532: 2542,
+        9618: 2529,
+        9642: 2791,
+        9643: 2785,
+        9644: 2779,
+        9645: 2786,
+        9646: 2783,
+        9647: 2767,
+        9650: 2792,
+        9651: 2787,
+        9654: 2781,
+        9655: 2765,
+        9660: 2793,
+        9661: 2788,
+        9664: 2780,
+        9665: 2764,
+        9670: 2528,
+        9675: 2766,
+        9679: 2782,
+        9702: 2784,
+        9734: 2789,
+        9742: 2809,
+        9747: 2762,
+        9756: 2794,
+        9758: 2795,
+        9792: 2808,
+        9794: 2807,
+        9827: 2796,
+        9829: 2798,
+        9830: 2797,
+        9837: 2806,
+        9839: 2805,
+        10003: 2803,
+        10007: 2804,
+        10013: 2777,
+        10016: 2800,
+        10216: 2748,
+        10217: 2750,
+        12289: 1188,
+        12290: 1185,
+        12300: 1186,
+        12301: 1187,
+        12443: 1246,
+        12444: 1247,
+        12449: 1191,
+        12450: 1201,
+        12451: 1192,
+        12452: 1202,
+        12453: 1193,
+        12454: 1203,
+        12455: 1194,
+        12456: 1204,
+        12457: 1195,
+        12458: 1205,
+        12459: 1206,
+        12461: 1207,
+        12463: 1208,
+        12465: 1209,
+        12467: 1210,
+        12469: 1211,
+        12471: 1212,
+        12473: 1213,
+        12475: 1214,
+        12477: 1215,
+        12479: 1216,
+        12481: 1217,
+        12483: 1199,
+        12484: 1218,
+        12486: 1219,
+        12488: 1220,
+        12490: 1221,
+        12491: 1222,
+        12492: 1223,
+        12493: 1224,
+        12494: 1225,
+        12495: 1226,
+        12498: 1227,
+        12501: 1228,
+        12504: 1229,
+        12507: 1230,
+        12510: 1231,
+        12511: 1232,
+        12512: 1233,
+        12513: 1234,
+        12514: 1235,
+        12515: 1196,
+        12516: 1236,
+        12517: 1197,
+        12518: 1237,
+        12519: 1198,
+        12520: 1238,
+        12521: 1239,
+        12522: 1240,
+        12523: 1241,
+        12524: 1242,
+        12525: 1243,
+        12527: 1244,
+        12530: 1190,
+        12531: 1245,
+        12539: 1189,
+        12540: 1200,
+    },
+    keysyms = {
+        lookup(u) {
+            if (u >= 32 && u <= 255) return u;
+            const keysym = codepoints[u];
+            return void 0 !== keysym ? keysym : 16777216 | u;
+        },
+    },
+    vkeys = {
+        8: 'Backspace',
+        9: 'Tab',
+        10: 'NumpadClear',
+        12: 'Numpad5',
+        13: 'Enter',
+        16: 'ShiftLeft',
+        17: 'ControlLeft',
+        18: 'AltLeft',
+        19: 'Pause',
+        20: 'CapsLock',
+        21: 'Lang1',
+        25: 'Lang2',
+        27: 'Escape',
+        28: 'Convert',
+        29: 'NonConvert',
+        32: 'Space',
+        33: 'PageUp',
+        34: 'PageDown',
+        35: 'End',
+        36: 'Home',
+        37: 'ArrowLeft',
+        38: 'ArrowUp',
+        39: 'ArrowRight',
+        40: 'ArrowDown',
+        41: 'Select',
+        44: 'PrintScreen',
+        45: 'Insert',
+        46: 'Delete',
+        47: 'Help',
+        48: 'Digit0',
+        49: 'Digit1',
+        50: 'Digit2',
+        51: 'Digit3',
+        52: 'Digit4',
+        53: 'Digit5',
+        54: 'Digit6',
+        55: 'Digit7',
+        56: 'Digit8',
+        57: 'Digit9',
+        91: 'MetaLeft',
+        92: 'MetaRight',
+        93: 'ContextMenu',
+        95: 'Sleep',
+        96: 'Numpad0',
+        97: 'Numpad1',
+        98: 'Numpad2',
+        99: 'Numpad3',
+        100: 'Numpad4',
+        101: 'Numpad5',
+        102: 'Numpad6',
+        103: 'Numpad7',
+        104: 'Numpad8',
+        105: 'Numpad9',
+        106: 'NumpadMultiply',
+        107: 'NumpadAdd',
+        108: 'NumpadDecimal',
+        109: 'NumpadSubtract',
+        110: 'NumpadDecimal',
+        111: 'NumpadDivide',
+        112: 'F1',
+        113: 'F2',
+        114: 'F3',
+        115: 'F4',
+        116: 'F5',
+        117: 'F6',
+        118: 'F7',
+        119: 'F8',
+        120: 'F9',
+        121: 'F10',
+        122: 'F11',
+        123: 'F12',
+        124: 'F13',
+        125: 'F14',
+        126: 'F15',
+        127: 'F16',
+        128: 'F17',
+        129: 'F18',
+        130: 'F19',
+        131: 'F20',
+        132: 'F21',
+        133: 'F22',
+        134: 'F23',
+        135: 'F24',
+        144: 'NumLock',
+        145: 'ScrollLock',
+        166: 'BrowserBack',
+        167: 'BrowserForward',
+        168: 'BrowserRefresh',
+        169: 'BrowserStop',
+        170: 'BrowserSearch',
+        171: 'BrowserFavorites',
+        172: 'BrowserHome',
+        173: 'AudioVolumeMute',
+        174: 'AudioVolumeDown',
+        175: 'AudioVolumeUp',
+        176: 'MediaTrackNext',
+        177: 'MediaTrackPrevious',
+        178: 'MediaStop',
+        179: 'MediaPlayPause',
+        180: 'LaunchMail',
+        181: 'MediaSelect',
+        182: 'LaunchApp1',
+        183: 'LaunchApp2',
+        225: 'AltRight',
+    },
+    fixedkeys = {
+        Backspace: 'Backspace',
+        AltLeft: 'Alt',
+        AltRight: 'Alt',
+        CapsLock: 'CapsLock',
+        ContextMenu: 'ContextMenu',
+        ControlLeft: 'Control',
+        ControlRight: 'Control',
+        Enter: 'Enter',
+        MetaLeft: 'Meta',
+        MetaRight: 'Meta',
+        ShiftLeft: 'Shift',
+        ShiftRight: 'Shift',
+        Tab: 'Tab',
+        Delete: 'Delete',
+        End: 'End',
+        Help: 'Help',
+        Home: 'Home',
+        Insert: 'Insert',
+        PageDown: 'PageDown',
+        PageUp: 'PageUp',
+        ArrowDown: 'ArrowDown',
+        ArrowLeft: 'ArrowLeft',
+        ArrowRight: 'ArrowRight',
+        ArrowUp: 'ArrowUp',
+        NumLock: 'NumLock',
+        NumpadBackspace: 'Backspace',
+        NumpadClear: 'Clear',
+        Escape: 'Escape',
+        F1: 'F1',
+        F2: 'F2',
+        F3: 'F3',
+        F4: 'F4',
+        F5: 'F5',
+        F6: 'F6',
+        F7: 'F7',
+        F8: 'F8',
+        F9: 'F9',
+        F10: 'F10',
+        F11: 'F11',
+        F12: 'F12',
+        F13: 'F13',
+        F14: 'F14',
+        F15: 'F15',
+        F16: 'F16',
+        F17: 'F17',
+        F18: 'F18',
+        F19: 'F19',
+        F20: 'F20',
+        F21: 'F21',
+        F22: 'F22',
+        F23: 'F23',
+        F24: 'F24',
+        F25: 'F25',
+        F26: 'F26',
+        F27: 'F27',
+        F28: 'F28',
+        F29: 'F29',
+        F30: 'F30',
+        F31: 'F31',
+        F32: 'F32',
+        F33: 'F33',
+        F34: 'F34',
+        F35: 'F35',
+        PrintScreen: 'PrintScreen',
+        ScrollLock: 'ScrollLock',
+        Pause: 'Pause',
+        BrowserBack: 'BrowserBack',
+        BrowserFavorites: 'BrowserFavorites',
+        BrowserForward: 'BrowserForward',
+        BrowserHome: 'BrowserHome',
+        BrowserRefresh: 'BrowserRefresh',
+        BrowserSearch: 'BrowserSearch',
+        BrowserStop: 'BrowserStop',
+        Eject: 'Eject',
+        LaunchApp1: 'LaunchMyComputer',
+        LaunchApp2: 'LaunchCalendar',
+        LaunchMail: 'LaunchMail',
+        MediaPlayPause: 'MediaPlay',
+        MediaStop: 'MediaStop',
+        MediaTrackNext: 'MediaTrackNext',
+        MediaTrackPrevious: 'MediaTrackPrevious',
+        Power: 'Power',
+        Sleep: 'Sleep',
+        AudioVolumeDown: 'AudioVolumeDown',
+        AudioVolumeMute: 'AudioVolumeMute',
+        AudioVolumeUp: 'AudioVolumeUp',
+        WakeUp: 'WakeUp',
+    },
+    DOMKeyTable = {};
+
+function addStandard(key, standard) {
+    if (void 0 === standard) throw new Error('Undefined keysym for key "' + key + '"');
+    if (key in DOMKeyTable) throw new Error('Duplicate entry for key "' + key + '"');
+    DOMKeyTable[key] = [standard, standard, standard, standard];
+}
+
+function addLeftRight(key, left, right) {
+    if (void 0 === left) throw new Error('Undefined keysym for key "' + key + '"');
+    if (void 0 === right) throw new Error('Undefined keysym for key "' + key + '"');
+    if (key in DOMKeyTable) throw new Error('Duplicate entry for key "' + key + '"');
+    DOMKeyTable[key] = [left, left, right, left];
+}
+
+function addNumpad(key, standard, numpad) {
+    if (void 0 === standard) throw new Error('Undefined keysym for key "' + key + '"');
+    if (void 0 === numpad) throw new Error('Undefined keysym for key "' + key + '"');
+    if (key in DOMKeyTable) throw new Error('Duplicate entry for key "' + key + '"');
+    DOMKeyTable[key] = [standard, standard, standard, numpad];
+}
+
+function getKeycode(evt) {
+    if (evt.code) {
+        switch (evt.code) {
+            case 'OSLeft':
+                return 'MetaLeft';
+
+            case 'OSRight':
+                return 'MetaRight';
+        }
+        return evt.code;
+    }
+    if ('keypress' !== evt.type && evt.keyCode in vkeys) {
+        let code = vkeys[evt.keyCode];
+        if ((isMac() && 'ContextMenu' === code && (code = 'MetaRight'), 2 === evt.location))
+            switch (code) {
+                case 'ShiftLeft':
+                    return 'ShiftRight';
+
+                case 'ControlLeft':
+                    return 'ControlRight';
+
+                case 'AltLeft':
+                    return 'AltRight';
+            }
+        if (3 === evt.location)
+            switch (code) {
+                case 'Delete':
+                    return 'NumpadDecimal';
+
+                case 'Insert':
+                    return 'Numpad0';
+
+                case 'End':
+                    return 'Numpad1';
+
+                case 'ArrowDown':
+                    return 'Numpad2';
+
+                case 'PageDown':
+                    return 'Numpad3';
+
+                case 'ArrowLeft':
+                    return 'Numpad4';
+
+                case 'ArrowRight':
+                    return 'Numpad6';
+
+                case 'Home':
+                    return 'Numpad7';
+
+                case 'ArrowUp':
+                    return 'Numpad8';
+
+                case 'PageUp':
+                    return 'Numpad9';
+
+                case 'Enter':
+                    return 'NumpadEnter';
+            }
+        return code;
+    }
+    return 'Unidentified';
+}
+
+function getKeysym(evt) {
+    const key = (function (evt) {
+        if (void 0 !== evt.key) {
+            switch (evt.key) {
+                case 'Spacebar':
+                    return ' ';
+
+                case 'Esc':
+                    return 'Escape';
+
+                case 'Scroll':
+                    return 'ScrollLock';
+
+                case 'Win':
+                    return 'Meta';
+
+                case 'Apps':
+                    return 'ContextMenu';
+
+                case 'Up':
+                    return 'ArrowUp';
+
+                case 'Left':
+                    return 'ArrowLeft';
+
+                case 'Right':
+                    return 'ArrowRight';
+
+                case 'Down':
+                    return 'ArrowDown';
+
+                case 'Del':
+                    return 'Delete';
+
+                case 'Divide':
+                    return '/';
+
+                case 'Multiply':
+                    return '*';
+
+                case 'Subtract':
+                    return '-';
+
+                case 'Add':
+                    return '+';
+
+                case 'Decimal':
+                    return evt.char;
+            }
+            switch (evt.key) {
+                case 'OS':
+                    return 'Meta';
+
+                case 'LaunchMyComputer':
+                    return 'LaunchApplication1';
+
+                case 'LaunchCalculator':
+                    return 'LaunchApplication2';
+            }
+            switch (evt.key) {
+                case 'UIKeyInputUpArrow':
+                    return 'ArrowUp';
+
+                case 'UIKeyInputDownArrow':
+                    return 'ArrowDown';
+
+                case 'UIKeyInputLeftArrow':
+                    return 'ArrowLeft';
+
+                case 'UIKeyInputRightArrow':
+                    return 'ArrowRight';
+
+                case 'UIKeyInputEscape':
+                    return 'Escape';
+            }
+            if ('\0' === evt.key && 'NumpadDecimal' === evt.code) return 'Delete';
+            if (!isIE() && !isEdge()) return evt.key;
+            if (1 !== evt.key.length && 'Unidentified' !== evt.key) return evt.key;
+        }
+        const code = getKeycode(evt);
+        return code in fixedkeys ? fixedkeys[code] : evt.charCode ? String.fromCharCode(evt.charCode) : 'Unidentified';
+    })(evt);
+    if ('Unidentified' === key) return null;
+    if (key in DOMKeyTable) {
+        let location = evt.location;
+        if (('Meta' === key && 0 === location && (location = 2), 'Clear' === key && 3 === location)) {
+            'NumLock' === getKeycode(evt) && (location = 0);
+        }
+        if (((void 0 === location || location > 3) && (location = 0), 'Meta' === key)) {
+            let code = getKeycode(evt);
+            if ('AltLeft' === code) return KeyTable_XK_Meta_L;
+            if ('AltRight' === code) return KeyTable_XK_Meta_R;
+        }
+        if ('Clear' === key) {
+            if ('NumLock' === getKeycode(evt)) return KeyTable_XK_Num_Lock;
+        }
+        return DOMKeyTable[key][location];
+    }
+    if (1 !== key.length) return null;
+    const codepoint = key.charCodeAt();
+    return codepoint ? keysyms.lookup(codepoint) : null;
+}
+
+addLeftRight('Alt', KeyTable_XK_Alt_L, KeyTable_XK_Alt_R),
+    addStandard('AltGraph', KeyTable_XK_ISO_Level3_Shift),
+    addStandard('CapsLock', KeyTable_XK_Caps_Lock),
+    addLeftRight('Control', KeyTable_XK_Control_L, KeyTable_XK_Control_R),
+    addLeftRight('Meta', KeyTable_XK_Super_L, KeyTable_XK_Super_R),
+    addStandard('NumLock', KeyTable_XK_Num_Lock),
+    addStandard('ScrollLock', KeyTable_XK_Scroll_Lock),
+    addLeftRight('Shift', KeyTable_XK_Shift_L, KeyTable_XK_Shift_R),
+    addNumpad('Enter', KeyTable_XK_Return, KeyTable_XK_KP_Enter),
+    addStandard('Tab', KeyTable_XK_Tab),
+    addNumpad(' ', KeyTable_XK_space, KeyTable_XK_KP_Space),
+    addNumpad('ArrowDown', KeyTable_XK_Down, KeyTable_XK_KP_Down),
+    addNumpad('ArrowUp', KeyTable_XK_Up, KeyTable_XK_KP_Up),
+    addNumpad('ArrowLeft', KeyTable_XK_Left, KeyTable_XK_KP_Left),
+    addNumpad('ArrowRight', KeyTable_XK_Right, KeyTable_XK_KP_Right),
+    addNumpad('End', KeyTable_XK_End, KeyTable_XK_KP_End),
+    addNumpad('Home', KeyTable_XK_Home, KeyTable_XK_KP_Home),
+    addNumpad('PageDown', KeyTable_XK_Next, KeyTable_XK_KP_Next),
+    addNumpad('PageUp', KeyTable_XK_Prior, KeyTable_XK_KP_Prior),
+    addStandard('Backspace', KeyTable_XK_BackSpace),
+    addNumpad('Clear', KeyTable_XK_Clear, KeyTable_XK_KP_Begin),
+    addStandard('Copy', KeyTable_XF86XK_Copy),
+    addStandard('Cut', KeyTable_XF86XK_Cut),
+    addNumpad('Delete', KeyTable_XK_Delete, KeyTable_XK_KP_Delete),
+    addNumpad('Insert', KeyTable_XK_Insert, KeyTable_XK_KP_Insert),
+    addStandard('Paste', KeyTable_XF86XK_Paste),
+    addStandard('Redo', KeyTable_XK_Redo),
+    addStandard('Undo', KeyTable_XK_Undo),
+    addStandard('Cancel', KeyTable_XK_Cancel),
+    addStandard('ContextMenu', KeyTable_XK_Menu),
+    addStandard('Escape', KeyTable_XK_Escape),
+    addStandard('Execute', KeyTable_XK_Execute),
+    addStandard('Find', KeyTable_XK_Find),
+    addStandard('Help', KeyTable_XK_Help),
+    addStandard('Pause', KeyTable_XK_Pause),
+    addStandard('Select', KeyTable_XK_Select),
+    addStandard('ZoomIn', KeyTable_XF86XK_ZoomIn),
+    addStandard('ZoomOut', KeyTable_XF86XK_ZoomOut),
+    addStandard('BrightnessDown', KeyTable_XF86XK_MonBrightnessDown),
+    addStandard('BrightnessUp', KeyTable_XF86XK_MonBrightnessUp),
+    addStandard('Eject', KeyTable_XF86XK_Eject),
+    addStandard('LogOff', KeyTable_XF86XK_LogOff),
+    addStandard('Power', KeyTable_XF86XK_PowerOff),
+    addStandard('PowerOff', KeyTable_XF86XK_PowerDown),
+    addStandard('PrintScreen', KeyTable_XK_Print),
+    addStandard('Hibernate', KeyTable_XF86XK_Hibernate),
+    addStandard('Standby', KeyTable_XF86XK_Standby),
+    addStandard('WakeUp', KeyTable_XF86XK_WakeUp),
+    addStandard('AllCandidates', KeyTable_XK_MultipleCandidate),
+    addStandard('Alphanumeric', KeyTable_XK_Eisu_Shift),
+    addStandard('CodeInput', KeyTable_XK_Codeinput),
+    addStandard('Compose', KeyTable_XK_Multi_key),
+    addStandard('Convert', KeyTable_XK_Henkan),
+    addStandard('GroupFirst', KeyTable_XK_ISO_First_Group),
+    addStandard('GroupLast', KeyTable_XK_ISO_Last_Group),
+    addStandard('GroupNext', KeyTable_XK_ISO_Next_Group),
+    addStandard('GroupPrevious', KeyTable_XK_ISO_Prev_Group),
+    addStandard('NonConvert', KeyTable_XK_Muhenkan),
+    addStandard('PreviousCandidate', KeyTable_XK_PreviousCandidate),
+    addStandard('SingleCandidate', KeyTable_XK_SingleCandidate),
+    addStandard('HangulMode', KeyTable_XK_Hangul),
+    addStandard('HanjaMode', KeyTable_XK_Hangul_Hanja),
+    addStandard('JunjuaMode', KeyTable_XK_Hangul_Jeonja),
+    addStandard('Eisu', KeyTable_XK_Eisu_toggle),
+    addStandard('Hankaku', KeyTable_XK_Hankaku),
+    addStandard('Hiragana', KeyTable_XK_Hiragana),
+    addStandard('HiraganaKatakana', KeyTable_XK_Hiragana_Katakana),
+    addStandard('KanaMode', KeyTable_XK_Kana_Shift),
+    addStandard('KanjiMode', KeyTable_XK_Kanji),
+    addStandard('Katakana', KeyTable_XK_Katakana),
+    addStandard('Romaji', KeyTable_XK_Romaji),
+    addStandard('Zenkaku', KeyTable_XK_Zenkaku),
+    addStandard('ZenkakuHanaku', KeyTable_XK_Zenkaku_Hankaku),
+    addStandard('F1', KeyTable_XK_F1),
+    addStandard('F2', KeyTable_XK_F2),
+    addStandard('F3', KeyTable_XK_F3),
+    addStandard('F4', KeyTable_XK_F4),
+    addStandard('F5', KeyTable_XK_F5),
+    addStandard('F6', KeyTable_XK_F6),
+    addStandard('F7', KeyTable_XK_F7),
+    addStandard('F8', KeyTable_XK_F8),
+    addStandard('F9', KeyTable_XK_F9),
+    addStandard('F10', KeyTable_XK_F10),
+    addStandard('F11', KeyTable_XK_F11),
+    addStandard('F12', KeyTable_XK_F12),
+    addStandard('F13', KeyTable_XK_F13),
+    addStandard('F14', KeyTable_XK_F14),
+    addStandard('F15', KeyTable_XK_F15),
+    addStandard('F16', KeyTable_XK_F16),
+    addStandard('F17', KeyTable_XK_F17),
+    addStandard('F18', KeyTable_XK_F18),
+    addStandard('F19', KeyTable_XK_F19),
+    addStandard('F20', KeyTable_XK_F20),
+    addStandard('F21', KeyTable_XK_F21),
+    addStandard('F22', KeyTable_XK_F22),
+    addStandard('F23', KeyTable_XK_F23),
+    addStandard('F24', KeyTable_XK_F24),
+    addStandard('F25', KeyTable_XK_F25),
+    addStandard('F26', KeyTable_XK_F26),
+    addStandard('F27', KeyTable_XK_F27),
+    addStandard('F28', KeyTable_XK_F28),
+    addStandard('F29', KeyTable_XK_F29),
+    addStandard('F30', KeyTable_XK_F30),
+    addStandard('F31', KeyTable_XK_F31),
+    addStandard('F32', KeyTable_XK_F32),
+    addStandard('F33', KeyTable_XK_F33),
+    addStandard('F34', KeyTable_XK_F34),
+    addStandard('F35', KeyTable_XK_F35),
+    addStandard('Close', KeyTable_XF86XK_Close),
+    addStandard('MailForward', KeyTable_XF86XK_MailForward),
+    addStandard('MailReply', KeyTable_XF86XK_Reply),
+    addStandard('MailSend', KeyTable_XF86XK_Send),
+    addStandard('MediaFastForward', KeyTable_XF86XK_AudioForward),
+    addStandard('MediaPause', KeyTable_XF86XK_AudioPause),
+    addStandard('MediaPlay', KeyTable_XF86XK_AudioPlay),
+    addStandard('MediaRecord', KeyTable_XF86XK_AudioRecord),
+    addStandard('MediaRewind', KeyTable_XF86XK_AudioRewind),
+    addStandard('MediaStop', KeyTable_XF86XK_AudioStop),
+    addStandard('MediaTrackNext', KeyTable_XF86XK_AudioNext),
+    addStandard('MediaTrackPrevious', KeyTable_XF86XK_AudioPrev),
+    addStandard('New', KeyTable_XF86XK_New),
+    addStandard('Open', KeyTable_XF86XK_Open),
+    addStandard('Print', KeyTable_XK_Print),
+    addStandard('Save', KeyTable_XF86XK_Save),
+    addStandard('SpellCheck', KeyTable_XF86XK_Spell),
+    addStandard('AudioVolumeDown', KeyTable_XF86XK_AudioLowerVolume),
+    addStandard('AudioVolumeUp', KeyTable_XF86XK_AudioRaiseVolume),
+    addStandard('AudioVolumeMute', KeyTable_XF86XK_AudioMute),
+    addStandard('MicrophoneVolumeMute', KeyTable_XF86XK_AudioMicMute),
+    addStandard('LaunchApplication1', KeyTable_XF86XK_MyComputer),
+    addStandard('LaunchApplication2', KeyTable_XF86XK_Calculator),
+    addStandard('LaunchCalendar', KeyTable_XF86XK_Calendar),
+    addStandard('LaunchMail', KeyTable_XF86XK_Mail),
+    addStandard('LaunchMediaPlayer', KeyTable_XF86XK_AudioMedia),
+    addStandard('LaunchMusicPlayer', KeyTable_XF86XK_Music),
+    addStandard('LaunchPhone', KeyTable_XF86XK_Phone),
+    addStandard('LaunchScreenSaver', KeyTable_XF86XK_ScreenSaver),
+    addStandard('LaunchSpreadsheet', KeyTable_XF86XK_Excel),
+    addStandard('LaunchWebBrowser', KeyTable_XF86XK_WWW),
+    addStandard('LaunchWebCam', KeyTable_XF86XK_WebCam),
+    addStandard('LaunchWordProcessor', KeyTable_XF86XK_Word),
+    addStandard('BrowserBack', KeyTable_XF86XK_Back),
+    addStandard('BrowserFavorites', KeyTable_XF86XK_Favorites),
+    addStandard('BrowserForward', KeyTable_XF86XK_Forward),
+    addStandard('BrowserHome', KeyTable_XF86XK_HomePage),
+    addStandard('BrowserRefresh', KeyTable_XF86XK_Refresh),
+    addStandard('BrowserSearch', KeyTable_XF86XK_Search),
+    addStandard('BrowserStop', KeyTable_XF86XK_Stop),
+    addStandard('Dimmer', KeyTable_XF86XK_BrightnessAdjust),
+    addStandard('MediaAudioTrack', KeyTable_XF86XK_AudioCycleTrack),
+    addStandard('RandomToggle', KeyTable_XF86XK_AudioRandomPlay),
+    addStandard('SplitScreenToggle', KeyTable_XF86XK_SplitScreen),
+    addStandard('Subtitle', KeyTable_XF86XK_Subtitle),
+    addStandard('VideoModeNext', KeyTable_XF86XK_Next_VMode),
+    addNumpad('=', KeyTable_XK_equal, KeyTable_XK_KP_Equal),
+    addNumpad('+', KeyTable_XK_plus, KeyTable_XK_KP_Add),
+    addNumpad('-', KeyTable_XK_minus, KeyTable_XK_KP_Subtract),
+    addNumpad('*', KeyTable_XK_asterisk, KeyTable_XK_KP_Multiply),
+    addNumpad('/', KeyTable_XK_slash, KeyTable_XK_KP_Divide),
+    addNumpad('.', KeyTable_XK_period, KeyTable_XK_KP_Decimal),
+    addNumpad(',', KeyTable_XK_comma, KeyTable_XK_KP_Separator),
+    addNumpad('0', KeyTable_XK_0, KeyTable_XK_KP_0),
+    addNumpad('1', KeyTable_XK_1, KeyTable_XK_KP_1),
+    addNumpad('2', KeyTable_XK_2, KeyTable_XK_KP_2),
+    addNumpad('3', KeyTable_XK_3, KeyTable_XK_KP_3),
+    addNumpad('4', KeyTable_XK_4, KeyTable_XK_KP_4),
+    addNumpad('5', KeyTable_XK_5, KeyTable_XK_KP_5),
+    addNumpad('6', KeyTable_XK_6, KeyTable_XK_KP_6),
+    addNumpad('7', KeyTable_XK_7, KeyTable_XK_KP_7),
+    addNumpad('8', KeyTable_XK_8, KeyTable_XK_KP_8),
+    addNumpad('9', KeyTable_XK_9, KeyTable_XK_KP_9);
+
+class Keyboard {
+    constructor(target) {
+        (this._target = target || null),
+            (this._keyDownList = {}),
+            (this._pendingKey = null),
+            (this._altGrArmed = !1),
+            (this._eventHandlers = {
+                keyup: this._handleKeyUp.bind(this),
+                keydown: this._handleKeyDown.bind(this),
+                keypress: this._handleKeyPress.bind(this),
+                blur: this._allKeysUp.bind(this),
+                checkalt: this._checkAlt.bind(this),
+            }),
+            (this.onkeyevent = () => {});
+    }
+    _sendKeyEvent(keysym, code, down) {
+        if (down) this._keyDownList[code] = keysym;
+        else {
+            if (!(code in this._keyDownList)) return;
+            delete this._keyDownList[code];
+        }
+        Debug('onkeyevent ' + (down ? 'down' : 'up') + ', keysym: ' + keysym, ', code: ' + code), this.onkeyevent(keysym, code, down);
+    }
+    _getKeyCode(e2) {
+        const code = getKeycode(e2);
+        if ('Unidentified' !== code) return code;
+        if (e2.keyCode && 'keypress' !== e2.type && 229 !== e2.keyCode) return 'Platform' + e2.keyCode;
+        if (e2.keyIdentifier) {
+            if ('U+' !== e2.keyIdentifier.substr(0, 2)) return e2.keyIdentifier;
+            const codepoint = parseInt(e2.keyIdentifier.substr(2), 16);
+            return 'Platform' + String.fromCharCode(codepoint).toUpperCase().charCodeAt();
+        }
+        return 'Unidentified';
+    }
+    _handleKeyDown(e2) {
+        const code = this._getKeyCode(e2);
+        let keysym = getKeysym(e2);
+        if ((this._altGrArmed && ((this._altGrArmed = !1), clearTimeout(this._altGrTimeout), 'AltRight' === code && e2.timeStamp - this._altGrCtrlTime < 50 ? (keysym = KeyTable_XK_ISO_Level3_Shift) : this._sendKeyEvent(KeyTable_XK_Control_L, 'ControlLeft', !0)), 'Unidentified' === code))
+            return keysym && (this._sendKeyEvent(keysym, code, !0), this._sendKeyEvent(keysym, code, !1)), void stopEvent(e2);
+        if (isMac() || isIOS())
+            switch (keysym) {
+                case KeyTable_XK_Super_L:
+                    keysym = KeyTable_XK_Alt_L;
+                    break;
+
+                case KeyTable_XK_Super_R:
+                    keysym = KeyTable_XK_Super_L;
+                    break;
+
+                case KeyTable_XK_Alt_L:
+                    keysym = KeyTable_XK_Mode_switch;
+                    break;
+
+                case KeyTable_XK_Alt_R:
+                    keysym = KeyTable_XK_ISO_Level3_Shift;
+            }
+        return (
+            code in this._keyDownList && (keysym = this._keyDownList[code]),
+            (isMac() || isIOS()) && 'CapsLock' === code
+                ? (this._sendKeyEvent(KeyTable_XK_Caps_Lock, 'CapsLock', !0), this._sendKeyEvent(KeyTable_XK_Caps_Lock, 'CapsLock', !1), void stopEvent(e2))
+                : keysym || (e2.key && !isIE() && !isEdge())
+                ? ((this._pendingKey = null), stopEvent(e2), 'ControlLeft' === code && isWindows() && !('ControlLeft' in this._keyDownList) ? ((this._altGrArmed = !0), (this._altGrTimeout = setTimeout(this._handleAltGrTimeout.bind(this), 100)), void (this._altGrCtrlTime = e2.timeStamp)) : void this._sendKeyEvent(keysym, code, !0))
+                : ((this._pendingKey = code), void setTimeout(this._handleKeyPressTimeout.bind(this), 10, e2))
+        );
+    }
+    _handleKeyPress(e2) {
+        if ((stopEvent(e2), null === this._pendingKey)) return;
+        let code = this._getKeyCode(e2);
+        const keysym = getKeysym(e2);
+        ('Unidentified' !== code && code != this._pendingKey) || ((code = this._pendingKey), (this._pendingKey = null), keysym ? this._sendKeyEvent(keysym, code, !0) : Info('keypress with no keysym:', e2));
+    }
+    _handleKeyPressTimeout(e2) {
+        if (null === this._pendingKey) return;
+        let keysym;
+        const code = this._pendingKey;
+        if (((this._pendingKey = null), e2.keyCode >= 48 && e2.keyCode <= 57)) keysym = e2.keyCode;
+        else if (e2.keyCode >= 65 && e2.keyCode <= 90) {
+            let char = String.fromCharCode(e2.keyCode);
+            (char = e2.shiftKey ? char.toUpperCase() : char.toLowerCase()), (keysym = char.charCodeAt());
+        } else keysym = 0;
+        this._sendKeyEvent(keysym, code, !0);
+    }
+    _handleKeyUp(e2) {
+        stopEvent(e2);
+        const code = this._getKeyCode(e2);
+        if ((this._altGrArmed && ((this._altGrArmed = !1), clearTimeout(this._altGrTimeout), this._sendKeyEvent(KeyTable_XK_Control_L, 'ControlLeft', !0)), (isMac() || isIOS()) && 'CapsLock' === code)) return this._sendKeyEvent(KeyTable_XK_Caps_Lock, 'CapsLock', !0), void this._sendKeyEvent(KeyTable_XK_Caps_Lock, 'CapsLock', !1);
+        this._sendKeyEvent(this._keyDownList[code], code, !1), !isWindows() || ('ShiftLeft' !== code && 'ShiftRight' !== code) || ('ShiftRight' in this._keyDownList && this._sendKeyEvent(this._keyDownList.ShiftRight, 'ShiftRight', !1), 'ShiftLeft' in this._keyDownList && this._sendKeyEvent(this._keyDownList.ShiftLeft, 'ShiftLeft', !1));
+    }
+    _handleAltGrTimeout() {
+        (this._altGrArmed = !1), clearTimeout(this._altGrTimeout), this._sendKeyEvent(KeyTable_XK_Control_L, 'ControlLeft', !0);
+    }
+    _allKeysUp() {
+        Debug('>> Keyboard.allKeysUp');
+        for (let code in this._keyDownList) this._sendKeyEvent(this._keyDownList[code], code, !1);
+        Debug('<< Keyboard.allKeysUp');
+    }
+    _checkAlt(e2) {
+        if (e2.skipCheckAlt) return;
+        if (e2.altKey) return;
+        const target = this._target,
+            downList = this._keyDownList;
+        ['AltLeft', 'AltRight'].forEach(code => {
+            if (!(code in downList)) return;
+            const event = new KeyboardEvent('keyup', {
+                key: downList[code],
+                code: code,
+            });
+            (event.skipCheckAlt = !0), target.dispatchEvent(event);
+        });
+    }
+    grab() {
+        if ((this._target.addEventListener('keydown', this._eventHandlers.keydown), this._target.addEventListener('keyup', this._eventHandlers.keyup), this._target.addEventListener('keypress', this._eventHandlers.keypress), window.addEventListener('blur', this._eventHandlers.blur), isWindows() && isFirefox())) {
+            const handler = this._eventHandlers.checkalt;
+            ['mousedown', 'mouseup', 'mousemove', 'wheel', 'touchstart', 'touchend', 'touchmove', 'keydown', 'keyup'].forEach(type =>
+                document.addEventListener(type, handler, {
+                    capture: !0,
+                    passive: !0,
+                }),
+            );
+        }
+    }
+    ungrab() {
+        if (isWindows() && isFirefox()) {
+            const handler = this._eventHandlers.checkalt;
+            ['mousedown', 'mouseup', 'mousemove', 'wheel', 'touchstart', 'touchend', 'touchmove', 'keydown', 'keyup'].forEach(type => document.removeEventListener(type, handler));
+        }
+        this._target.removeEventListener('keydown', this._eventHandlers.keydown), this._target.removeEventListener('keyup', this._eventHandlers.keyup), this._target.removeEventListener('keypress', this._eventHandlers.keypress), window.removeEventListener('blur', this._eventHandlers.blur), this._allKeysUp();
+    }
+}
+
+class GestureHandler {
+    constructor() {
+        (this._target = null), (this._state = 127), (this._tracked = []), (this._ignored = []), (this._waitingRelease = !1), (this._releaseStart = 0), (this._longpressTimeoutId = null), (this._twoTouchTimeoutId = null), (this._boundEventHandler = this._eventHandler.bind(this));
+    }
+    attach(target) {
+        this.detach(), (this._target = target), this._target.addEventListener('touchstart', this._boundEventHandler), this._target.addEventListener('touchmove', this._boundEventHandler), this._target.addEventListener('touchend', this._boundEventHandler), this._target.addEventListener('touchcancel', this._boundEventHandler);
+    }
+    detach() {
+        this._target && (this._stopLongpressTimeout(), this._stopTwoTouchTimeout(), this._target.removeEventListener('touchstart', this._boundEventHandler), this._target.removeEventListener('touchmove', this._boundEventHandler), this._target.removeEventListener('touchend', this._boundEventHandler), this._target.removeEventListener('touchcancel', this._boundEventHandler), (this._target = null));
+    }
+    _eventHandler(e2) {
+        let fn;
+        switch ((e2.stopPropagation(), e2.preventDefault(), e2.type)) {
+            case 'touchstart':
+                fn = this._touchStart;
+                break;
+
+            case 'touchmove':
+                fn = this._touchMove;
+                break;
+
+            case 'touchend':
+            case 'touchcancel':
+                fn = this._touchEnd;
+        }
+        for (let i = 0; i < e2.changedTouches.length; i++) {
+            let touch = e2.changedTouches[i];
+            fn.call(this, touch.identifier, touch.clientX, touch.clientY);
+        }
+    }
+    _touchStart(id, x, y) {
+        if (this._hasDetectedGesture() || 0 === this._state) this._ignored.push(id);
+        else {
+            if (this._tracked.length > 0 && Date.now() - this._tracked[0].started > 250) return (this._state = 0), void this._ignored.push(id);
+            if (this._waitingRelease) return (this._state = 0), void this._ignored.push(id);
+            switch (
+                (this._tracked.push({
+                    id: id,
+                    started: Date.now(),
+                    active: !0,
+                    firstX: x,
+                    firstY: y,
+                    lastX: x,
+                    lastY: y,
+                    angle: 0,
+                }),
+                this._tracked.length)
+            ) {
+                case 1:
+                    this._startLongpressTimeout();
+                    break;
+
+                case 2:
+                    (this._state &= -26), this._stopLongpressTimeout();
+                    break;
+
+                case 3:
+                    this._state &= -99;
+                    break;
+
+                default:
+                    this._state = 0;
+            }
+        }
+    }
+    _touchMove(id, x, y) {
+        let touch = this._tracked.find(t => t.id === id);
+        if (void 0 === touch) return;
+        (touch.lastX = x), (touch.lastY = y);
+        let deltaX = x - touch.firstX,
+            deltaY = y - touch.firstY;
+        if (((touch.firstX === touch.lastX && touch.firstY === touch.lastY) || (touch.angle = (180 * Math.atan2(deltaY, deltaX)) / Math.PI), !this._hasDetectedGesture())) {
+            if (Math.hypot(deltaX, deltaY) < 50) return;
+            if (((this._state &= -24), this._stopLongpressTimeout(), 1 !== this._tracked.length && (this._state &= -9), 2 !== this._tracked.length && (this._state &= -97), 2 === this._tracked.length)) {
+                let prevTouch = this._tracked.find(t => t.id !== id);
+                if (Math.hypot(prevTouch.firstX - prevTouch.lastX, prevTouch.firstY - prevTouch.lastY) > 50) {
+                    let deltaAngle = Math.abs(touch.angle - prevTouch.angle);
+                    (deltaAngle = Math.abs(((deltaAngle + 180) % 360) - 180)), (this._state &= deltaAngle > 90 ? -33 : -65), this._isTwoTouchTimeoutRunning() && this._stopTwoTouchTimeout();
+                } else this._isTwoTouchTimeoutRunning() || this._startTwoTouchTimeout();
+            }
+            if (!this._hasDetectedGesture()) return;
+            this._pushEvent('gesturestart');
+        }
+        this._pushEvent('gesturemove');
+    }
+    _touchEnd(id, x, y) {
+        if (-1 !== this._ignored.indexOf(id)) return this._ignored.splice(this._ignored.indexOf(id), 1), void (0 === this._ignored.length && 0 === this._tracked.length && ((this._state = 127), (this._waitingRelease = !1)));
+        if ((!this._hasDetectedGesture() && this._isTwoTouchTimeoutRunning() && (this._stopTwoTouchTimeout(), (this._state = 0)), !this._hasDetectedGesture() && ((this._state &= -105), (this._state &= -17), this._stopLongpressTimeout(), !this._waitingRelease)))
+            switch (((this._releaseStart = Date.now()), (this._waitingRelease = !0), this._tracked.length)) {
+                case 1:
+                    this._state &= -7;
+                    break;
+
+                case 2:
+                    this._state &= -6;
+            }
+        if (this._waitingRelease) {
+            if ((Date.now() - this._releaseStart > 250 && (this._state = 0), this._tracked.some(t => Date.now() - t.started > 1e3) && (this._state = 0), (this._tracked.find(t => t.id === id).active = !1), this._hasDetectedGesture())) this._pushEvent('gesturestart');
+            else if (0 !== this._state) return;
+        }
+        this._hasDetectedGesture() && this._pushEvent('gestureend');
+        for (let i = 0; i < this._tracked.length; i++) this._tracked[i].active && this._ignored.push(this._tracked[i].id);
+        (this._tracked = []), (this._state = 0), -1 !== this._ignored.indexOf(id) && this._ignored.splice(this._ignored.indexOf(id), 1), 0 === this._ignored.length && ((this._state = 127), (this._waitingRelease = !1));
+    }
+    _hasDetectedGesture() {
+        return 0 !== this._state && !(this._state & (this._state - 1)) && !(7 & this._state && this._tracked.some(t => t.active));
+    }
+    _startLongpressTimeout() {
+        this._stopLongpressTimeout(), (this._longpressTimeoutId = setTimeout(() => this._longpressTimeout(), 1e3));
+    }
+    _stopLongpressTimeout() {
+        clearTimeout(this._longpressTimeoutId), (this._longpressTimeoutId = null);
+    }
+    _longpressTimeout() {
+        if (this._hasDetectedGesture()) throw new Error('A longpress gesture failed, conflict with a different gesture');
+        (this._state = 16), this._pushEvent('gesturestart');
+    }
+    _startTwoTouchTimeout() {
+        this._stopTwoTouchTimeout(), (this._twoTouchTimeoutId = setTimeout(() => this._twoTouchTimeout(), 50));
+    }
+    _stopTwoTouchTimeout() {
+        clearTimeout(this._twoTouchTimeoutId), (this._twoTouchTimeoutId = null);
+    }
+    _isTwoTouchTimeoutRunning() {
+        return null !== this._twoTouchTimeoutId;
+    }
+    _twoTouchTimeout() {
+        if (0 === this._tracked.length) throw new Error('A pinch or two drag gesture failed, no tracked touches');
+        let avgM = this._getAverageMovement(),
+            avgMoveH = Math.abs(avgM.x),
+            avgMoveV = Math.abs(avgM.y),
+            avgD = this._getAverageDistance(),
+            deltaTouchDistance = Math.abs(Math.hypot(avgD.first.x, avgD.first.y) - Math.hypot(avgD.last.x, avgD.last.y));
+        (this._state = avgMoveV < deltaTouchDistance && avgMoveH < deltaTouchDistance ? 64 : 32), this._pushEvent('gesturestart'), this._pushEvent('gesturemove');
+    }
+    _pushEvent(type) {
+        let detail = {
+                type: this._stateToGesture(this._state),
+            },
+            avg = this._getPosition(),
+            pos = avg.last;
+        switch (('gesturestart' === type && (pos = avg.first), this._state)) {
+            case 32:
+            case 64:
+                pos = avg.first;
+        }
+        if (((detail.clientX = pos.x), (detail.clientY = pos.y), 64 === this._state)) {
+            let distance = this._getAverageDistance();
+            'gesturestart' === type ? ((detail.magnitudeX = distance.first.x), (detail.magnitudeY = distance.first.y)) : ((detail.magnitudeX = distance.last.x), (detail.magnitudeY = distance.last.y));
+        } else if (32 === this._state)
+            if ('gesturestart' === type) (detail.magnitudeX = 0), (detail.magnitudeY = 0);
+            else {
+                let movement = this._getAverageMovement();
+                (detail.magnitudeX = movement.x), (detail.magnitudeY = movement.y);
+            }
+        let gev = new CustomEvent(type, {
+            detail: detail,
+        });
+        this._target.dispatchEvent(gev);
+    }
+    _stateToGesture(state) {
+        switch (state) {
+            case 1:
+                return 'onetap';
+
+            case 2:
+                return 'twotap';
+
+            case 4:
+                return 'threetap';
+
+            case 8:
+                return 'drag';
+
+            case 16:
+                return 'longpress';
+
+            case 32:
+                return 'twodrag';
+
+            case 64:
+                return 'pinch';
+        }
+        throw new Error('Unknown gesture state: ' + state);
+    }
+    _getPosition() {
+        if (0 === this._tracked.length) throw new Error('Failed to get gesture position, no tracked touches');
+        let size = this._tracked.length,
+            fx = 0,
+            fy = 0,
+            lx = 0,
+            ly = 0;
+        for (let i = 0; i < this._tracked.length; i++) (fx += this._tracked[i].firstX), (fy += this._tracked[i].firstY), (lx += this._tracked[i].lastX), (ly += this._tracked[i].lastY);
+        return {
+            first: {
+                x: fx / size,
+                y: fy / size,
+            },
+            last: {
+                x: lx / size,
+                y: ly / size,
+            },
+        };
+    }
+    _getAverageMovement() {
+        if (0 === this._tracked.length) throw new Error('Failed to get gesture movement, no tracked touches');
+        let totalH, totalV;
+        totalH = totalV = 0;
+        let size = this._tracked.length;
+        for (let i = 0; i < this._tracked.length; i++) (totalH += this._tracked[i].lastX - this._tracked[i].firstX), (totalV += this._tracked[i].lastY - this._tracked[i].firstY);
+        return {
+            x: totalH / size,
+            y: totalV / size,
+        };
+    }
+    _getAverageDistance() {
+        if (0 === this._tracked.length) throw new Error('Failed to get gesture distance, no tracked touches');
+        let first = this._tracked[0],
+            last = this._tracked[this._tracked.length - 1];
+        return {
+            first: {
+                x: Math.abs(last.firstX - first.firstX),
+                y: Math.abs(last.firstY - first.firstY),
+            },
+            last: {
+                x: Math.abs(last.lastX - first.lastX),
+                y: Math.abs(last.lastY - first.lastY),
+            },
+        };
+    }
+}
+
+const useFallback = !supportsCursorURIs || isTouchDevice;
+
+class Cursor {
+    constructor() {
+        (this._target = null),
+            (this._canvas = document.createElement('canvas')),
+            useFallback && ((this._canvas.style.position = 'fixed'), (this._canvas.style.zIndex = '65535'), (this._canvas.style.pointerEvents = 'none'), (this._canvas.style.visibility = 'hidden')),
+            (this._position = {
+                x: 0,
+                y: 0,
+            }),
+            (this._hotSpot = {
+                x: 0,
+                y: 0,
+            }),
+            (this._eventHandlers = {
+                mouseover: this._handleMouseOver.bind(this),
+                mouseleave: this._handleMouseLeave.bind(this),
+                mousemove: this._handleMouseMove.bind(this),
+                mouseup: this._handleMouseUp.bind(this),
+            });
+    }
+    attach(target) {
+        if ((this._target && this.detach(), (this._target = target), useFallback)) {
+            document.body.appendChild(this._canvas);
+            const options = {
+                capture: !0,
+                passive: !0,
+            };
+            this._target.addEventListener('mouseover', this._eventHandlers.mouseover, options), this._target.addEventListener('mouseleave', this._eventHandlers.mouseleave, options), this._target.addEventListener('mousemove', this._eventHandlers.mousemove, options), this._target.addEventListener('mouseup', this._eventHandlers.mouseup, options);
+        }
+        this.clear();
+    }
+    detach() {
+        if (this._target) {
+            if (useFallback) {
+                const options = {
+                    capture: !0,
+                    passive: !0,
+                };
+                this._target.removeEventListener('mouseover', this._eventHandlers.mouseover, options),
+                    this._target.removeEventListener('mouseleave', this._eventHandlers.mouseleave, options),
+                    this._target.removeEventListener('mousemove', this._eventHandlers.mousemove, options),
+                    this._target.removeEventListener('mouseup', this._eventHandlers.mouseup, options),
+                    document.body.removeChild(this._canvas);
+            }
+            this._target = null;
+        }
+    }
+    change(rgba, hotx, hoty, w, h) {
+        if (0 === w || 0 === h) return void this.clear();
+        (this._position.x = this._position.x + this._hotSpot.x - hotx), (this._position.y = this._position.y + this._hotSpot.y - hoty), (this._hotSpot.x = hotx), (this._hotSpot.y = hoty);
+        let img,
+            ctx = this._canvas.getContext('2d');
+        (this._canvas.width = w), (this._canvas.height = h);
+        try {
+            img = new ImageData(new Uint8ClampedArray(rgba), w, h);
+        } catch (ex) {
+            (img = ctx.createImageData(w, h)), img.data.set(new Uint8ClampedArray(rgba));
+        }
+        if ((ctx.clearRect(0, 0, w, h), ctx.putImageData(img, 0, 0), useFallback)) this._updatePosition();
+        else {
+            let url = this._canvas.toDataURL();
+            this._target.style.cursor = 'url(' + url + ')' + hotx + ' ' + hoty + ', default';
+        }
+    }
+    clear() {
+        (this._target.style.cursor = 'none'), (this._canvas.width = 0), (this._canvas.height = 0), (this._position.x = this._position.x + this._hotSpot.x), (this._position.y = this._position.y + this._hotSpot.y), (this._hotSpot.x = 0), (this._hotSpot.y = 0);
+    }
+    move(clientX, clientY) {
+        if (!useFallback) return;
+        window.visualViewport ? ((this._position.x = clientX + window.visualViewport.offsetLeft), (this._position.y = clientY + window.visualViewport.offsetTop)) : ((this._position.x = clientX), (this._position.y = clientY)), this._updatePosition();
+        let target = document.elementFromPoint(clientX, clientY);
+        this._updateVisibility(target);
+    }
+    _handleMouseOver(event) {
+        this._handleMouseMove(event);
+    }
+    _handleMouseLeave(event) {
+        this._updateVisibility(event.relatedTarget);
+    }
+    _handleMouseMove(event) {
+        this._updateVisibility(event.target), (this._position.x = event.clientX - this._hotSpot.x), (this._position.y = event.clientY - this._hotSpot.y), this._updatePosition();
+    }
+    _handleMouseUp(event) {
+        let target = document.elementFromPoint(event.clientX, event.clientY);
+        this._updateVisibility(target),
+            this._captureIsActive() &&
+                window.setTimeout(() => {
+                    this._target && ((target = document.elementFromPoint(event.clientX, event.clientY)), this._updateVisibility(target));
+                }, 0);
+    }
+    _showCursor() {
+        'hidden' === this._canvas.style.visibility && (this._canvas.style.visibility = '');
+    }
+    _hideCursor() {
+        'hidden' !== this._canvas.style.visibility && (this._canvas.style.visibility = 'hidden');
+    }
+    _shouldShowCursor(target) {
+        return !!target && (target === this._target || (!!this._target.contains(target) && 'none' === window.getComputedStyle(target).cursor));
+    }
+    _updateVisibility(target) {
+        this._captureIsActive() && (target = document.captureElement), this._shouldShowCursor(target) ? this._showCursor() : this._hideCursor();
+    }
+    _updatePosition() {
+        (this._canvas.style.left = this._position.x + 'px'), (this._canvas.style.top = this._position.y + 'px');
+    }
+    _captureIsActive() {
+        return document.captureElement && document.documentElement.contains(document.captureElement);
+    }
+}
+
+class Websock {
+    constructor() {
+        (this._websocket = null),
+            (this._rQi = 0),
+            (this._rQlen = 0),
+            (this._rQbufferSize = 4194304),
+            (this._rQ = null),
+            (this._sQbufferSize = 10240),
+            (this._sQlen = 0),
+            (this._sQ = null),
+            (this._eventHandlers = {
+                message: () => {},
+                open: () => {},
+                close: () => {},
+                error: () => {},
+            });
+    }
+    get sQ() {
+        return this._sQ;
+    }
+    get rQ() {
+        return this._rQ;
+    }
+    get rQi() {
+        return this._rQi;
+    }
+    set rQi(val) {
+        this._rQi = val;
+    }
+    get rQlen() {
+        return this._rQlen - this._rQi;
+    }
+    rQpeek8() {
+        return this._rQ[this._rQi];
+    }
+    rQskipBytes(bytes) {
+        this._rQi += bytes;
+    }
+    rQshift8() {
+        return this._rQshift(1);
+    }
+    rQshift16() {
+        return this._rQshift(2);
+    }
+    rQshift32() {
+        return this._rQshift(4);
+    }
+    _rQshift(bytes) {
+        let res = 0;
+        for (let byte = bytes - 1; byte >= 0; byte--) res += this._rQ[this._rQi++] << (8 * byte);
+        return res;
+    }
+    rQshiftStr(len) {
+        void 0 === len && (len = this.rQlen);
+        let str = '';
+        for (let i = 0; i < len; i += 4096) {
+            let part = this.rQshiftBytes(Math.min(4096, len - i));
+            str += String.fromCharCode.apply(null, part);
+        }
+        return str;
+    }
+    rQshiftBytes(len) {
+        return void 0 === len && (len = this.rQlen), (this._rQi += len), new Uint8Array(this._rQ.buffer, this._rQi - len, len);
+    }
+    rQshiftTo(target, len) {
+        void 0 === len && (len = this.rQlen), target.set(new Uint8Array(this._rQ.buffer, this._rQi, len)), (this._rQi += len);
+    }
+    rQslice(start, end = this.rQlen) {
+        return new Uint8Array(this._rQ.buffer, this._rQi + start, end - start);
+    }
+    rQwait(msg2, num, goback) {
+        if (this.rQlen < num) {
+            if (goback) {
+                if (this._rQi < goback) throw new Error('rQwait cannot backup ' + goback + ' bytes');
+                this._rQi -= goback;
+            }
+            return !0;
+        }
+        return !1;
+    }
+    flush() {
+        this._sQlen > 0 && this._websocket.readyState === WebSocket.OPEN && (this._websocket.send(this._encodeMessage()), (this._sQlen = 0));
+    }
+    send(arr) {
+        this._sQ.set(arr, this._sQlen), (this._sQlen += arr.length), this.flush();
+    }
+    sendString(str) {
+        this.send(str.split('').map(chr => chr.charCodeAt(0)));
+    }
+    off(evt) {
+        this._eventHandlers[evt] = () => {};
+    }
+    on(evt, handler) {
+        this._eventHandlers[evt] = handler;
+    }
+    _allocateBuffers() {
+        (this._rQ = new Uint8Array(this._rQbufferSize)), (this._sQ = new Uint8Array(this._sQbufferSize));
+    }
+    init() {
+        this._allocateBuffers(), (this._rQi = 0), (this._websocket = null);
+    }
+    open(uri, protocols) {
+        this.init(),
+            (this._websocket = new WebSocket(uri, protocols)),
+            (this._websocket.binaryType = 'arraybuffer'),
+            (this._websocket.onmessage = this._recvMessage.bind(this)),
+            (this._websocket.onopen = () => {
+                Debug('>> WebSock.onopen'), this._websocket.protocol && Info('Server choose sub-protocol: ' + this._websocket.protocol), this._eventHandlers.open(), Debug('<< WebSock.onopen');
+            }),
+            (this._websocket.onclose = e2 => {
+                Debug('>> WebSock.onclose'), this._eventHandlers.close(e2), Debug('<< WebSock.onclose');
+            }),
+            (this._websocket.onerror = e2 => {
+                Debug('>> WebSock.onerror: ' + e2), this._eventHandlers.error(e2), Debug('<< WebSock.onerror: ' + e2);
+            });
+    }
+    close() {
+        this._websocket && ((this._websocket.readyState !== WebSocket.OPEN && this._websocket.readyState !== WebSocket.CONNECTING) || (Info('Closing WebSocket connection'), this._websocket.close()), (this._websocket.onmessage = () => {}));
+    }
+    _encodeMessage() {
+        return new Uint8Array(this._sQ.buffer, 0, this._sQlen);
+    }
+    _expandCompactRQ(minFit) {
+        const requiredBufferSize = 8 * (this._rQlen - this._rQi + minFit),
+            resizeNeeded = this._rQbufferSize < requiredBufferSize;
+        if ((resizeNeeded && (this._rQbufferSize = Math.max(2 * this._rQbufferSize, requiredBufferSize)), this._rQbufferSize > 41943040 && ((this._rQbufferSize = 41943040), this._rQbufferSize - this.rQlen < minFit))) throw new Error('Receive Queue buffer exceeded 41943040 bytes, and the new message could not fit');
+        if (resizeNeeded) {
+            const oldRQbuffer = this._rQ.buffer;
+            (this._rQ = new Uint8Array(this._rQbufferSize)), this._rQ.set(new Uint8Array(oldRQbuffer, this._rQi, this._rQlen - this._rQi));
+        } else this._rQ.set(new Uint8Array(this._rQ.buffer, this._rQi, this._rQlen - this._rQi));
+        (this._rQlen = this._rQlen - this._rQi), (this._rQi = 0);
+    }
+    _DecodeMessage(data) {
+        const u8 = new Uint8Array(data);
+        u8.length > this._rQbufferSize - this._rQlen && this._expandCompactRQ(u8.length), this._rQ.set(u8, this._rQlen), (this._rQlen += u8.length);
+    }
+    _recvMessage(e2) {
+        this._DecodeMessage(e2.data), this.rQlen > 0 ? (this._eventHandlers.message(), this._rQlen == this._rQi && ((this._rQlen = 0), (this._rQi = 0))) : Debug('Ignoring empty message');
+    }
+}
+
+const PC2 = [13, 16, 10, 23, 0, 4, 2, 27, 14, 5, 20, 9, 22, 18, 11, 3, 25, 7, 15, 6, 26, 19, 12, 1, 40, 51, 30, 36, 46, 54, 29, 39, 50, 44, 32, 47, 43, 48, 38, 55, 33, 52, 45, 41, 49, 35, 28, 31],
+    totrot = [1, 2, 4, 6, 8, 10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
+
+let a, b, c, d, e, f;
+
+(a = 65536), (b = 1 << 24), (c = a | b), (d = 4), (e = 1024), (f = d | e);
+
+const SP1 = [
+    c | e,
+    0,
+    0 | a,
+    c | f,
+    c | d,
+    a | f,
+    0 | d,
+    0 | a,
+    0 | e,
+    c | e,
+    c | f,
+    0 | e,
+    b | f,
+    c | d,
+    0 | b,
+    0 | d,
+    0 | f,
+    b | e,
+    b | e,
+    a | e,
+    a | e,
+    0 | c,
+    0 | c,
+    b | f,
+    a | d,
+    b | d,
+    b | d,
+    a | d,
+    0,
+    0 | f,
+    a | f,
+    0 | b,
+    0 | a,
+    c | f,
+    0 | d,
+    0 | c,
+    c | e,
+    0 | b,
+    0 | b,
+    0 | e,
+    c | d,
+    0 | a,
+    a | e,
+    b | d,
+    0 | e,
+    0 | d,
+    b | f,
+    a | f,
+    c | f,
+    a | d,
+    0 | c,
+    b | f,
+    b | d,
+    0 | f,
+    a | f,
+    c | e,
+    0 | f,
+    b | e,
+    b | e,
+    0,
+    a | d,
+    a | e,
+    0,
+    c | d,
+];
+
+(a = 1 << 20), (b = 1 << 31), (c = a | b), (d = 32), (e = 32768), (f = d | e);
+
+const SP2 = [
+    c | f,
+    b | e,
+    0 | e,
+    a | f,
+    0 | a,
+    0 | d,
+    c | d,
+    b | f,
+    b | d,
+    c | f,
+    c | e,
+    0 | b,
+    b | e,
+    0 | a,
+    0 | d,
+    c | d,
+    a | e,
+    a | d,
+    b | f,
+    0,
+    0 | b,
+    0 | e,
+    a | f,
+    0 | c,
+    a | d,
+    b | d,
+    0,
+    a | e,
+    0 | f,
+    c | e,
+    0 | c,
+    0 | f,
+    0,
+    a | f,
+    c | d,
+    0 | a,
+    b | f,
+    0 | c,
+    c | e,
+    0 | e,
+    0 | c,
+    b | e,
+    0 | d,
+    c | f,
+    a | f,
+    0 | d,
+    0 | e,
+    0 | b,
+    0 | f,
+    c | e,
+    0 | a,
+    b | d,
+    a | d,
+    b | f,
+    b | d,
+    a | d,
+    a | e,
+    0,
+    b | e,
+    0 | f,
+    0 | b,
+    c | d,
+    c | f,
+    a | e,
+];
+
+(a = 1 << 17), (b = 1 << 27), (c = a | b), (d = 8), (e = 512), (f = d | e);
+
+const SP3 = [
+    0 | f,
+    c | e,
+    0,
+    c | d,
+    b | e,
+    0,
+    a | f,
+    b | e,
+    a | d,
+    b | d,
+    b | d,
+    0 | a,
+    c | f,
+    a | d,
+    0 | c,
+    0 | f,
+    0 | b,
+    0 | d,
+    c | e,
+    0 | e,
+    a | e,
+    0 | c,
+    c | d,
+    a | f,
+    b | f,
+    a | e,
+    0 | a,
+    b | f,
+    0 | d,
+    c | f,
+    0 | e,
+    0 | b,
+    c | e,
+    0 | b,
+    a | d,
+    0 | f,
+    0 | a,
+    c | e,
+    b | e,
+    0,
+    0 | e,
+    a | d,
+    c | f,
+    b | e,
+    b | d,
+    0 | e,
+    0,
+    c | d,
+    b | f,
+    0 | a,
+    0 | b,
+    c | f,
+    0 | d,
+    a | f,
+    a | e,
+    b | d,
+    0 | c,
+    b | f,
+    0 | f,
+    0 | c,
+    a | f,
+    0 | d,
+    c | d,
+    a | e,
+];
+
+(a = 8192), (b = 1 << 23), (c = a | b), (d = 1), (e = 128), (f = d | e);
+
+const SP4 = [
+    c | d,
+    a | f,
+    a | f,
+    0 | e,
+    c | e,
+    b | f,
+    b | d,
+    a | d,
+    0,
+    0 | c,
+    0 | c,
+    c | f,
+    0 | f,
+    0,
+    b | e,
+    b | d,
+    0 | d,
+    0 | a,
+    0 | b,
+    c | d,
+    0 | e,
+    0 | b,
+    a | d,
+    a | e,
+    b | f,
+    0 | d,
+    a | e,
+    b | e,
+    0 | a,
+    c | e,
+    c | f,
+    0 | f,
+    b | e,
+    b | d,
+    0 | c,
+    c | f,
+    0 | f,
+    0,
+    0,
+    0 | c,
+    a | e,
+    b | e,
+    b | f,
+    0 | d,
+    c | d,
+    a | f,
+    a | f,
+    0 | e,
+    c | f,
+    0 | f,
+    0 | d,
+    0 | a,
+    b | d,
+    a | d,
+    c | e,
+    b | f,
+    a | d,
+    a | e,
+    0 | b,
+    c | d,
+    0 | e,
+    0 | b,
+    0 | a,
+    c | e,
+];
+
+(a = 1 << 25), (b = 1 << 30), (c = a | b), (d = 256), (e = 1 << 19), (f = d | e);
+
+const SP5 = [
+    0 | d,
+    a | f,
+    a | e,
+    c | d,
+    0 | e,
+    0 | d,
+    0 | b,
+    a | e,
+    b | f,
+    0 | e,
+    a | d,
+    b | f,
+    c | d,
+    c | e,
+    0 | f,
+    0 | b,
+    0 | a,
+    b | e,
+    b | e,
+    0,
+    b | d,
+    c | f,
+    c | f,
+    a | d,
+    c | e,
+    b | d,
+    0,
+    0 | c,
+    a | f,
+    0 | a,
+    0 | c,
+    0 | f,
+    0 | e,
+    c | d,
+    0 | d,
+    0 | a,
+    0 | b,
+    a | e,
+    c | d,
+    b | f,
+    a | d,
+    0 | b,
+    c | e,
+    a | f,
+    b | f,
+    0 | d,
+    0 | a,
+    c | e,
+    c | f,
+    0 | f,
+    0 | c,
+    c | f,
+    a | e,
+    0,
+    b | e,
+    0 | c,
+    0 | f,
+    a | d,
+    b | d,
+    0 | e,
+    0,
+    b | e,
+    a | f,
+    b | d,
+];
+
+(a = 1 << 22), (b = 1 << 29), (c = a | b), (d = 16), (e = 16384), (f = d | e);
+
+const SP6 = [
+    b | d,
+    0 | c,
+    0 | e,
+    c | f,
+    0 | c,
+    0 | d,
+    c | f,
+    0 | a,
+    b | e,
+    a | f,
+    0 | a,
+    b | d,
+    a | d,
+    b | e,
+    0 | b,
+    0 | f,
+    0,
+    a | d,
+    b | f,
+    0 | e,
+    a | e,
+    b | f,
+    0 | d,
+    c | d,
+    c | d,
+    0,
+    a | f,
+    c | e,
+    0 | f,
+    a | e,
+    c | e,
+    0 | b,
+    b | e,
+    0 | d,
+    c | d,
+    a | e,
+    c | f,
+    0 | a,
+    0 | f,
+    b | d,
+    0 | a,
+    b | e,
+    0 | b,
+    0 | f,
+    b | d,
+    c | f,
+    a | e,
+    0 | c,
+    a | f,
+    c | e,
+    0,
+    c | d,
+    0 | d,
+    0 | e,
+    0 | c,
+    a | f,
+    0 | e,
+    a | d,
+    b | f,
+    0,
+    c | e,
+    0 | b,
+    a | d,
+    b | f,
+];
+
+(a = 1 << 21), (b = 1 << 26), (c = a | b), (d = 2), (e = 2048), (f = d | e);
+
+const SP7 = [
+    0 | a,
+    c | d,
+    b | f,
+    0,
+    0 | e,
+    b | f,
+    a | f,
+    c | e,
+    c | f,
+    0 | a,
+    0,
+    b | d,
+    0 | d,
+    0 | b,
+    c | d,
+    0 | f,
+    b | e,
+    a | f,
+    a | d,
+    b | e,
+    b | d,
+    0 | c,
+    c | e,
+    a | d,
+    0 | c,
+    0 | e,
+    0 | f,
+    c | f,
+    a | e,
+    0 | d,
+    0 | b,
+    a | e,
+    0 | b,
+    a | e,
+    0 | a,
+    b | f,
+    b | f,
+    c | d,
+    c | d,
+    0 | d,
+    a | d,
+    0 | b,
+    b | e,
+    0 | a,
+    c | e,
+    0 | f,
+    a | f,
+    c | e,
+    0 | f,
+    b | d,
+    c | f,
+    0 | c,
+    a | e,
+    0,
+    0 | d,
+    c | f,
+    0,
+    a | f,
+    0 | c,
+    0 | e,
+    b | d,
+    b | e,
+    0 | e,
+    a | d,
+];
+
+(a = 1 << 18), (b = 1 << 28), (c = a | b), (d = 64), (e = 4096), (f = d | e);
+
+const SP8 = [
+    b | f,
+    0 | e,
+    0 | a,
+    c | f,
+    0 | b,
+    b | f,
+    0 | d,
+    0 | b,
+    a | d,
+    0 | c,
+    c | f,
+    a | e,
+    c | e,
+    a | f,
+    0 | e,
+    0 | d,
+    0 | c,
+    b | d,
+    b | e,
+    0 | f,
+    a | e,
+    a | d,
+    c | d,
+    c | e,
+    0 | f,
+    0,
+    0,
+    c | d,
+    b | d,
+    b | e,
+    a | f,
+    0 | a,
+    a | f,
+    0 | a,
+    c | e,
+    0 | e,
+    0 | d,
+    c | d,
+    0 | e,
+    a | f,
+    b | e,
+    0 | d,
+    b | d,
+    0 | c,
+    c | d,
+    0 | b,
+    0 | a,
+    b | f,
+    0,
+    c | f,
+    a | d,
+    b | d,
+    0 | c,
+    b | e,
+    b | f,
+    0,
+    c | f,
+    a | e,
+    a | e,
+    0 | f,
+    0 | f,
+    a | d,
+    0 | b,
+    c | e,
+];
+
+class DES {
+    constructor(password) {
+        this.keys = [];
+        const pc1m = [],
+            pcr = [],
+            kn = [];
+        for (let j = 0, l = 56; j < 56; ++j, l -= 8) {
+            l += l < -5 ? 65 : l < -3 ? 31 : l < -1 ? 63 : 27 === l ? 35 : 0;
+            const m = 7 & l;
+            pc1m[j] = password[l >>> 3] & (1 << m) ? 1 : 0;
+        }
+        for (let i = 0; i < 16; ++i) {
+            const m = i << 1,
+                n = m + 1;
+            kn[m] = kn[n] = 0;
+            for (let o = 28; o < 59; o += 28)
+                for (let j = o - 28; j < o; ++j) {
+                    const l = j + totrot[i];
+                    pcr[j] = l < o ? pc1m[l] : pc1m[l - 28];
+                }
+            for (let j = 0; j < 24; ++j) 0 !== pcr[PC2[j]] && (kn[m] |= 1 << (23 - j)), 0 !== pcr[PC2[j + 24]] && (kn[n] |= 1 << (23 - j));
+        }
+        for (let i = 0, rawi = 0, KnLi = 0; i < 16; ++i) {
+            const raw0 = kn[rawi++],
+                raw1 = kn[rawi++];
+            (this.keys[KnLi] = (16515072 & raw0) << 6), (this.keys[KnLi] |= (4032 & raw0) << 10), (this.keys[KnLi] |= (16515072 & raw1) >>> 10), (this.keys[KnLi] |= (4032 & raw1) >>> 6), ++KnLi, (this.keys[KnLi] = (258048 & raw0) << 12), (this.keys[KnLi] |= (63 & raw0) << 16), (this.keys[KnLi] |= (258048 & raw1) >>> 4), (this.keys[KnLi] |= 63 & raw1), ++KnLi;
+        }
+    }
+    enc8(text) {
+        const b2 = text.slice();
+        let l,
+            r,
+            x,
+            i = 0;
+        (l = (b2[i++] << 24) | (b2[i++] << 16) | (b2[i++] << 8) | b2[i++]),
+            (r = (b2[i++] << 24) | (b2[i++] << 16) | (b2[i++] << 8) | b2[i++]),
+            (x = 252645135 & ((l >>> 4) ^ r)),
+            (r ^= x),
+            (l ^= x << 4),
+            (x = 65535 & ((l >>> 16) ^ r)),
+            (r ^= x),
+            (l ^= x << 16),
+            (x = 858993459 & ((r >>> 2) ^ l)),
+            (l ^= x),
+            (r ^= x << 2),
+            (x = 16711935 & ((r >>> 8) ^ l)),
+            (l ^= x),
+            (r ^= x << 8),
+            (r = (r << 1) | ((r >>> 31) & 1)),
+            (x = 2863311530 & (l ^ r)),
+            (l ^= x),
+            (r ^= x),
+            (l = (l << 1) | ((l >>> 31) & 1));
+        for (let i2 = 0, keysi = 0; i2 < 8; ++i2) {
+            (x = (r << 28) | (r >>> 4)), (x ^= this.keys[keysi++]);
+            let fval = SP7[63 & x];
+            (fval |= SP5[(x >>> 8) & 63]),
+                (fval |= SP3[(x >>> 16) & 63]),
+                (fval |= SP1[(x >>> 24) & 63]),
+                (x = r ^ this.keys[keysi++]),
+                (fval |= SP8[63 & x]),
+                (fval |= SP6[(x >>> 8) & 63]),
+                (fval |= SP4[(x >>> 16) & 63]),
+                (fval |= SP2[(x >>> 24) & 63]),
+                (l ^= fval),
+                (x = (l << 28) | (l >>> 4)),
+                (x ^= this.keys[keysi++]),
+                (fval = SP7[63 & x]),
+                (fval |= SP5[(x >>> 8) & 63]),
+                (fval |= SP3[(x >>> 16) & 63]),
+                (fval |= SP1[(x >>> 24) & 63]),
+                (x = l ^ this.keys[keysi++]),
+                (fval |= SP8[63 & x]),
+                (fval |= SP6[(x >>> 8) & 63]),
+                (fval |= SP4[(x >>> 16) & 63]),
+                (fval |= SP2[(x >>> 24) & 63]),
+                (r ^= fval);
+        }
+        for (r = (r << 31) | (r >>> 1), x = 2863311530 & (l ^ r), l ^= x, r ^= x, l = (l << 31) | (l >>> 1), x = 16711935 & ((l >>> 8) ^ r), r ^= x, l ^= x << 8, x = 858993459 & ((l >>> 2) ^ r), r ^= x, l ^= x << 2, x = 65535 & ((r >>> 16) ^ l), l ^= x, r ^= x << 16, x = 252645135 & ((r >>> 4) ^ l), l ^= x, r ^= x << 4, x = [r, l], i = 0; i < 8; i++)
+            (b2[i] = (x[i >>> 2] >>> (8 * (3 - (i % 4)))) % 256), b2[i] < 0 && (b2[i] += 256);
+        return b2;
+    }
+    encrypt(t) {
+        return this.enc8(t.slice(0, 8)).concat(this.enc8(t.slice(8, 16)));
+    }
+}
+
+const XtScancode = {
+        Again: 57349,
+        AltLeft: 56,
+        AltRight: 57400,
+        ArrowDown: 57424,
+        ArrowLeft: 57419,
+        ArrowRight: 57421,
+        ArrowUp: 57416,
+        AudioVolumeDown: 57390,
+        AudioVolumeMute: 57376,
+        AudioVolumeUp: 57392,
+        Backquote: 41,
+        Backslash: 43,
+        Backspace: 14,
+        BracketLeft: 26,
+        BracketRight: 27,
+        BrowserBack: 57450,
+        BrowserFavorites: 57446,
+        BrowserForward: 57449,
+        BrowserHome: 57394,
+        BrowserRefresh: 57447,
+        BrowserSearch: 57445,
+        BrowserStop: 57448,
+        CapsLock: 58,
+        Comma: 51,
+        ContextMenu: 57437,
+        ControlLeft: 29,
+        ControlRight: 57373,
+        Convert: 121,
+        Copy: 57464,
+        Cut: 57404,
+        Delete: 57427,
+        Digit0: 11,
+        Digit1: 2,
+        Digit2: 3,
+        Digit3: 4,
+        Digit4: 5,
+        Digit5: 6,
+        Digit6: 7,
+        Digit7: 8,
+        Digit8: 9,
+        Digit9: 10,
+        Eject: 57469,
+        End: 57423,
+        Enter: 28,
+        Equal: 13,
+        Escape: 1,
+        F1: 59,
+        F10: 68,
+        F11: 87,
+        F12: 88,
+        F13: 93,
+        F14: 94,
+        F15: 95,
+        F16: 85,
+        F17: 57347,
+        F18: 57463,
+        F19: 57348,
+        F2: 60,
+        F20: 90,
+        F21: 116,
+        F22: 57465,
+        F23: 109,
+        F24: 111,
+        F3: 61,
+        F4: 62,
+        F5: 63,
+        F6: 64,
+        F7: 65,
+        F8: 66,
+        F9: 67,
+        Find: 57409,
+        Help: 57461,
+        Hiragana: 119,
+        Home: 57415,
+        Insert: 57426,
+        IntlBackslash: 86,
+        IntlRo: 115,
+        IntlYen: 125,
+        KanaMode: 112,
+        Katakana: 120,
+        KeyA: 30,
+        KeyB: 48,
+        KeyC: 46,
+        KeyD: 32,
+        KeyE: 18,
+        KeyF: 33,
+        KeyG: 34,
+        KeyH: 35,
+        KeyI: 23,
+        KeyJ: 36,
+        KeyK: 37,
+        KeyL: 38,
+        KeyM: 50,
+        KeyN: 49,
+        KeyO: 24,
+        KeyP: 25,
+        KeyQ: 16,
+        KeyR: 19,
+        KeyS: 31,
+        KeyT: 20,
+        KeyU: 22,
+        KeyV: 47,
+        KeyW: 17,
+        KeyX: 45,
+        KeyY: 21,
+        KeyZ: 44,
+        Lang3: 120,
+        Lang4: 119,
+        Lang5: 118,
+        LaunchApp1: 57451,
+        LaunchApp2: 57377,
+        LaunchMail: 57452,
+        MediaPlayPause: 57378,
+        MediaSelect: 57453,
+        MediaStop: 57380,
+        MediaTrackNext: 57369,
+        MediaTrackPrevious: 57360,
+        MetaLeft: 57435,
+        MetaRight: 57436,
+        Minus: 12,
+        NonConvert: 123,
+        NumLock: 69,
+        Numpad0: 82,
+        Numpad1: 79,
+        Numpad2: 80,
+        Numpad3: 81,
+        Numpad4: 75,
+        Numpad5: 76,
+        Numpad6: 77,
+        Numpad7: 71,
+        Numpad8: 72,
+        Numpad9: 73,
+        NumpadAdd: 78,
+        NumpadComma: 126,
+        NumpadDecimal: 83,
+        NumpadDivide: 57397,
+        NumpadEnter: 57372,
+        NumpadEqual: 89,
+        NumpadMultiply: 55,
+        NumpadParenLeft: 57462,
+        NumpadParenRight: 57467,
+        NumpadSubtract: 74,
+        Open: 100,
+        PageDown: 57425,
+        PageUp: 57417,
+        Paste: 101,
+        Pause: 57414,
+        Period: 52,
+        Power: 57438,
+        PrintScreen: 84,
+        Props: 57350,
+        Quote: 40,
+        ScrollLock: 70,
+        Semicolon: 39,
+        ShiftLeft: 42,
+        ShiftRight: 54,
+        Slash: 53,
+        Sleep: 57439,
+        Space: 57,
+        Suspend: 57381,
+        Tab: 15,
+        Undo: 57351,
+        WakeUp: 57443,
+    },
+    encodings_encodingRaw = 0,
+    encodings_encodingCopyRect = 1,
+    encodings_encodingRRE = 2,
+    encodings_encodingHextile = 5,
+    encodings_encodingTight = 7,
+    encodings_encodingTightPNG = -260,
+    encodings_pseudoEncodingQualityLevel0 = -32,
+    encodings_pseudoEncodingDesktopSize = -223,
+    encodings_pseudoEncodingLastRect = -224,
+    encodings_pseudoEncodingCursor = -239,
+    encodings_pseudoEncodingQEMUExtendedKeyEvent = -258,
+    encodings_pseudoEncodingDesktopName = -307,
+    encodings_pseudoEncodingExtendedDesktopSize = -308,
+    encodings_pseudoEncodingXvp = -309,
+    encodings_pseudoEncodingFence = -312,
+    encodings_pseudoEncodingContinuousUpdates = -313,
+    encodings_pseudoEncodingCompressLevel0 = -256,
+    encodings_pseudoEncodingVMwareCursor = 1464686180,
+    encodings_pseudoEncodingExtendedClipboard = 3231835598;
+
+'function' != typeof Object.assign &&
+    Object.defineProperty(Object, 'assign', {
+        value: function (target, varArgs) {
+            if (null == target) throw new TypeError('Cannot convert undefined or null to object');
+            const to = Object(target);
+            for (let index = 1; index < arguments.length; index++) {
+                const nextSource = arguments[index];
+                if (null != nextSource) for (let nextKey in nextSource) Object.prototype.hasOwnProperty.call(nextSource, nextKey) && (to[nextKey] = nextSource[nextKey]);
+            }
+            return to;
+        },
+        writable: !0,
+        configurable: !0,
+    }),
+    (() => {
+        function CustomEvent2(event, params) {
+            params = params || {
+                bubbles: !1,
+                cancelable: !1,
+                detail: void 0,
+            };
+            const evt = document.createEvent('CustomEvent');
+            return evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail), evt;
+        }
+        (CustomEvent2.prototype = window.Event.prototype), 'function' != typeof window.CustomEvent && (window.CustomEvent = CustomEvent2);
+    })(),
+    (Number.isInteger =
+        Number.isInteger ||
+        function (value) {
+            return 'number' == typeof value && isFinite(value) && Math.floor(value) === value;
+        });
+
+class RawDecoder {
+    constructor() {
+        this._lines = 0;
+    }
+    decodeRect(x, y, width, height, sock, display, depth) {
+        0 === this._lines && (this._lines = height);
+        const bytesPerLine = width * (8 == depth ? 1 : 4);
+        if (sock.rQwait('RAW', bytesPerLine)) return !1;
+        const curY = y + (height - this._lines),
+            currHeight = Math.min(this._lines, Math.floor(sock.rQlen / bytesPerLine));
+        let data = sock.rQ,
+            index = sock.rQi;
+        if (8 == depth) {
+            const pixels = width * currHeight,
+                newdata = new Uint8Array(4 * pixels);
+            for (let i = 0; i < pixels; i++) (newdata[4 * i + 0] = (255 * (3 & data[index + i])) / 3), (newdata[4 * i + 1] = (255 * ((data[index + i] >> 2) & 3)) / 3), (newdata[4 * i + 2] = (255 * ((data[index + i] >> 4) & 3)) / 3), (newdata[4 * i + 4] = 0);
+            (data = newdata), (index = 0);
+        }
+        return display.blitImage(x, curY, width, currHeight, data, index), sock.rQskipBytes(currHeight * bytesPerLine), (this._lines -= currHeight), !(this._lines > 0);
+    }
+}
+
+class CopyRectDecoder {
+    decodeRect(x, y, width, height, sock, display, depth) {
+        if (sock.rQwait('COPYRECT', 4)) return !1;
+        let deltaX = sock.rQshift16(),
+            deltaY = sock.rQshift16();
+        return display.copyImage(deltaX, deltaY, x, y, width, height), !0;
+    }
+}
+
+class RREDecoder {
+    constructor() {
+        this._subrects = 0;
+    }
+    decodeRect(x, y, width, height, sock, display, depth) {
+        if (0 === this._subrects) {
+            if (sock.rQwait('RRE', 8)) return !1;
+            this._subrects = sock.rQshift32();
+            let color = sock.rQshiftBytes(4);
+            display.fillRect(x, y, width, height, color);
+        }
+        for (; this._subrects > 0; ) {
+            if (sock.rQwait('RRE', 12)) return !1;
+            let color = sock.rQshiftBytes(4),
+                sx = sock.rQshift16(),
+                sy = sock.rQshift16(),
+                swidth = sock.rQshift16(),
+                sheight = sock.rQshift16();
+            display.fillRect(x + sx, y + sy, swidth, sheight, color), this._subrects--;
+        }
+        return !0;
+    }
+}
+
+class HextileDecoder {
+    constructor() {
+        (this._tiles = 0), (this._lastsubencoding = 0);
+    }
+    decodeRect(x, y, width, height, sock, display, depth) {
+        for (0 === this._tiles && ((this._tilesX = Math.ceil(width / 16)), (this._tilesY = Math.ceil(height / 16)), (this._totalTiles = this._tilesX * this._tilesY), (this._tiles = this._totalTiles)); this._tiles > 0; ) {
+            let bytes = 1;
+            if (sock.rQwait('HEXTILE', bytes)) return !1;
+            let rQ = sock.rQ,
+                rQi = sock.rQi,
+                subencoding = rQ[rQi];
+            if (subencoding > 30) throw new Error('Illegal hextile subencoding (subencoding: ' + subencoding + ')');
+            const currTile = this._totalTiles - this._tiles,
+                tx = x + 16 * (currTile % this._tilesX),
+                ty = y + 16 * Math.floor(currTile / this._tilesX),
+                tw = Math.min(16, x + width - tx),
+                th = Math.min(16, y + height - ty);
+            if (1 & subencoding) bytes += tw * th * 4;
+            else if ((2 & subencoding && (bytes += 4), 4 & subencoding && (bytes += 4), 8 & subencoding)) {
+                if ((bytes++, sock.rQwait('HEXTILE', bytes))) return !1;
+                let subrects = rQ[rQi + bytes - 1];
+                bytes += 16 & subencoding ? 6 * subrects : 2 * subrects;
+            }
+            if (sock.rQwait('HEXTILE', bytes)) return !1;
+            if ((rQi++, 0 === subencoding)) 1 & this._lastsubencoding ? Debug('     Ignoring blank after RAW') : display.fillRect(tx, ty, tw, th, this._background);
+            else if (1 & subencoding) display.blitImage(tx, ty, tw, th, rQ, rQi), (rQi += bytes - 1);
+            else {
+                if ((2 & subencoding && ((this._background = [rQ[rQi], rQ[rQi + 1], rQ[rQi + 2], rQ[rQi + 3]]), (rQi += 4)), 4 & subencoding && ((this._foreground = [rQ[rQi], rQ[rQi + 1], rQ[rQi + 2], rQ[rQi + 3]]), (rQi += 4)), display.startTile(tx, ty, tw, th, this._background), 8 & subencoding)) {
+                    let subrects = rQ[rQi];
+                    rQi++;
+                    for (let s = 0; s < subrects; s++) {
+                        let color;
+                        16 & subencoding ? ((color = [rQ[rQi], rQ[rQi + 1], rQ[rQi + 2], rQ[rQi + 3]]), (rQi += 4)) : (color = this._foreground);
+                        const xy = rQ[rQi];
+                        rQi++;
+                        const sx = xy >> 4,
+                            sy = 15 & xy,
+                            wh = rQ[rQi];
+                        rQi++;
+                        const sw = 1 + (wh >> 4),
+                            sh = 1 + (15 & wh);
+                        display.subTile(sx, sy, sw, sh, color);
+                    }
+                }
+                display.finishTile();
+            }
+            (sock.rQi = rQi), (this._lastsubencoding = subencoding), this._tiles--;
+        }
+        return !0;
+    }
+}
+
+class TightDecoder {
+    constructor() {
+        (this._ctl = null), (this._filter = null), (this._numColors = 0), (this._palette = new Uint8Array(1024)), (this._len = 0), (this._zlibs = []);
+        for (let i = 0; i < 4; i++) this._zlibs[i] = new Inflate();
+    }
+    decodeRect(x, y, width, height, sock, display, depth) {
+        if (null === this._ctl) {
+            if (sock.rQwait('TIGHT compression-control', 1)) return !1;
+            this._ctl = sock.rQshift8();
+            for (let i = 0; i < 4; i++) (this._ctl >> i) & 1 && (this._zlibs[i].reset(), Info('Reset zlib stream ' + i));
+            this._ctl = this._ctl >> 4;
+        }
+        let ret;
+        if (8 === this._ctl) ret = this._fillRect(x, y, width, height, sock, display, depth);
+        else if (9 === this._ctl) ret = this._jpegRect(x, y, width, height, sock, display, depth);
+        else if (10 === this._ctl) ret = this._pngRect(x, y, width, height, sock, display, depth);
+        else {
+            if (128 & this._ctl) throw new Error('Illegal tight compression received (ctl: ' + this._ctl + ')');
+            ret = this._basicRect(this._ctl, x, y, width, height, sock, display, depth);
+        }
+        return ret && (this._ctl = null), ret;
+    }
+    _fillRect(x, y, width, height, sock, display, depth) {
+        if (sock.rQwait('TIGHT', 3)) return !1;
+        const rQi = sock.rQi,
+            rQ = sock.rQ;
+        return display.fillRect(x, y, width, height, [rQ[rQi + 2], rQ[rQi + 1], rQ[rQi]], !1), sock.rQskipBytes(3), !0;
+    }
+    _jpegRect(x, y, width, height, sock, display, depth) {
+        let data = this._readData(sock);
+        return null !== data && (display.imageRect(x, y, width, height, 'image/jpeg', data), !0);
+    }
+    _pngRect(x, y, width, height, sock, display, depth) {
+        throw new Error('PNG received in standard Tight rect');
+    }
+    _basicRect(ctl, x, y, width, height, sock, display, depth) {
+        if (null === this._filter)
+            if (4 & ctl) {
+                if (sock.rQwait('TIGHT', 1)) return !1;
+                this._filter = sock.rQshift8();
+            } else this._filter = 0;
+        let ret,
+            streamId = 3 & ctl;
+        switch (this._filter) {
+            case 0:
+                ret = this._copyFilter(streamId, x, y, width, height, sock, display, depth);
+                break;
+
+            case 1:
+                ret = this._paletteFilter(streamId, x, y, width, height, sock, display, depth);
+                break;
+
+            case 2:
+                ret = this._gradientFilter(streamId, x, y, width, height, sock, display, depth);
+                break;
+
+            default:
+                throw new Error('Illegal tight filter received (ctl: ' + this._filter + ')');
+        }
+        return ret && (this._filter = null), ret;
+    }
+    _copyFilter(streamId, x, y, width, height, sock, display, depth) {
+        const uncompressedSize = width * height * 3;
+        let data;
+        if (uncompressedSize < 12) {
+            if (sock.rQwait('TIGHT', uncompressedSize)) return !1;
+            data = sock.rQshiftBytes(uncompressedSize);
+        } else {
+            if (((data = this._readData(sock)), null === data)) return !1;
+            this._zlibs[streamId].setInput(data), (data = this._zlibs[streamId].inflate(uncompressedSize)), this._zlibs[streamId].setInput(null);
+        }
+        return display.blitRgbImage(x, y, width, height, data, 0, !1), !0;
+    }
+    _paletteFilter(streamId, x, y, width, height, sock, display, depth) {
+        if (0 === this._numColors) {
+            if (sock.rQwait('TIGHT palette', 1)) return !1;
+            const numColors = sock.rQpeek8() + 1,
+                paletteSize = 3 * numColors;
+            if (sock.rQwait('TIGHT palette', 1 + paletteSize)) return !1;
+            (this._numColors = numColors), sock.rQskipBytes(1), sock.rQshiftTo(this._palette, paletteSize);
+        }
+        const bpp = this._numColors <= 2 ? 1 : 8,
+            uncompressedSize = Math.floor((width * bpp + 7) / 8) * height;
+        let data;
+        if (uncompressedSize < 12) {
+            if (sock.rQwait('TIGHT', uncompressedSize)) return !1;
+            data = sock.rQshiftBytes(uncompressedSize);
+        } else {
+            if (((data = this._readData(sock)), null === data)) return !1;
+            this._zlibs[streamId].setInput(data), (data = this._zlibs[streamId].inflate(uncompressedSize)), this._zlibs[streamId].setInput(null);
+        }
+        return 2 == this._numColors ? this._monoRect(x, y, width, height, data, this._palette, display) : this._paletteRect(x, y, width, height, data, this._palette, display), (this._numColors = 0), !0;
+    }
+    _monoRect(x, y, width, height, data, palette, display) {
+        const dest = this._getScratchBuffer(width * height * 4),
+            w = Math.floor((width + 7) / 8),
+            w1 = Math.floor(width / 8);
+        for (let y2 = 0; y2 < height; y2++) {
+            let dp, sp, x2;
+            for (x2 = 0; x2 < w1; x2++) for (let b2 = 7; b2 >= 0; b2--) (dp = 4 * (y2 * width + 8 * x2 + 7 - b2)), (sp = 3 * ((data[y2 * w + x2] >> b2) & 1)), (dest[dp] = palette[sp]), (dest[dp + 1] = palette[sp + 1]), (dest[dp + 2] = palette[sp + 2]), (dest[dp + 3] = 255);
+            for (let b2 = 7; b2 >= 8 - (width % 8); b2--) (dp = 4 * (y2 * width + 8 * x2 + 7 - b2)), (sp = 3 * ((data[y2 * w + x2] >> b2) & 1)), (dest[dp] = palette[sp]), (dest[dp + 1] = palette[sp + 1]), (dest[dp + 2] = palette[sp + 2]), (dest[dp + 3] = 255);
+        }
+        display.blitRgbxImage(x, y, width, height, dest, 0, !1);
+    }
+    _paletteRect(x, y, width, height, data, palette, display) {
+        const dest = this._getScratchBuffer(width * height * 4),
+            total = width * height * 4;
+        for (let i = 0, j = 0; i < total; i += 4, j++) {
+            const sp = 3 * data[j];
+            (dest[i] = palette[sp]), (dest[i + 1] = palette[sp + 1]), (dest[i + 2] = palette[sp + 2]), (dest[i + 3] = 255);
+        }
+        display.blitRgbxImage(x, y, width, height, dest, 0, !1);
+    }
+    _gradientFilter(streamId, x, y, width, height, sock, display, depth) {
+        throw new Error('Gradient filter not implemented');
+    }
+    _readData(sock) {
+        if (0 === this._len) {
+            if (sock.rQwait('TIGHT', 3)) return null;
+            let byte;
+            (byte = sock.rQshift8()), (this._len = 127 & byte), 128 & byte && ((byte = sock.rQshift8()), (this._len |= (127 & byte) << 7), 128 & byte && ((byte = sock.rQshift8()), (this._len |= byte << 14)));
+        }
+        if (sock.rQwait('TIGHT', this._len)) return null;
+        let data = sock.rQshiftBytes(this._len);
+        return (this._len = 0), data;
+    }
+    _getScratchBuffer(size) {
+        return (!this._scratchBuffer || this._scratchBuffer.length < size) && (this._scratchBuffer = new Uint8Array(size)), this._scratchBuffer;
+    }
+}
+
+class TightPNGDecoder extends TightDecoder {
+    _pngRect(x, y, width, height, sock, display, depth) {
+        let data = this._readData(sock);
+        return null !== data && (display.imageRect(x, y, width, height, 'image/png', data), !0);
+    }
+    _basicRect(ctl, x, y, width, height, sock, display, depth) {
+        throw new Error('BasicCompression received in TightPNG rect');
+    }
+}
+
+class RFB extends EventTargetMixin {
+    constructor(target, url, options) {
+        if (!target) throw new Error('Must specify target');
+        if (!url) throw new Error('Must specify URL');
+        super(),
+            (this._target = target),
+            (this._url = url),
+            (options = options || {}),
+            (this._rfbCredentials = options.credentials || {}),
+            (this._shared = !('shared' in options) || !!options.shared),
+            (this._repeaterID = options.repeaterID || ''),
+            (this._wsProtocols = options.wsProtocols || []),
+            (this._rfbConnectionState = ''),
+            (this._rfbInitState = ''),
+            (this._rfbAuthScheme = -1),
+            (this._rfbCleanDisconnect = !0),
+            (this._rfbVersion = 0),
+            (this._rfbMaxVersion = 3.8),
+            (this._rfbTightVNC = !1),
+            (this._rfbVeNCryptState = 0),
+            (this._rfbXvpVer = 0),
+            (this._fbWidth = 0),
+            (this._fbHeight = 0),
+            (this._fbName = ''),
+            (this._capabilities = {
+                power: !1,
+            }),
+            (this._supportsFence = !1),
+            (this._supportsContinuousUpdates = !1),
+            (this._enabledContinuousUpdates = !1),
+            (this._supportsSetDesktopSize = !1),
+            (this._screenID = 0),
+            (this._screenFlags = 0),
+            (this._qemuExtKeyEventSupported = !1),
+            (this._clipboardText = null),
+            (this._clipboardServerCapabilitiesActions = {}),
+            (this._clipboardServerCapabilitiesFormats = {}),
+            (this._sock = null),
+            (this._display = null),
+            (this._flushing = !1),
+            (this._keyboard = null),
+            (this._gestures = null),
+            (this._disconnTimer = null),
+            (this._resizeTimeout = null),
+            (this._mouseMoveTimer = null),
+            (this._decoders = {}),
+            (this._FBU = {
+                rects: 0,
+                x: 0,
+                y: 0,
+                width: 0,
+                height: 0,
+                encoding: null,
+            }),
+            (this._mousePos = {}),
+            (this._mouseButtonMask = 0),
+            (this._mouseLastMoveTime = 0),
+            (this._viewportDragging = !1),
+            (this._viewportDragPos = {}),
+            (this._viewportHasMoved = !1),
+            (this._accumulatedWheelDeltaX = 0),
+            (this._accumulatedWheelDeltaY = 0),
+            (this._gestureLastTapTime = null),
+            (this._gestureFirstDoubleTapEv = null),
+            (this._gestureLastMagnitudeX = 0),
+            (this._gestureLastMagnitudeY = 0),
+            (this._eventHandlers = {
+                focusCanvas: this._focusCanvas.bind(this),
+                windowResize: this._windowResize.bind(this),
+                handleMouse: this._handleMouse.bind(this),
+                handleWheel: this._handleWheel.bind(this),
+                handleGesture: this._handleGesture.bind(this),
+            }),
+            Debug('>> RFB.constructor'),
+            (this._screen = document.createElement('div')),
+            (this._screen.style.display = 'flex'),
+            (this._screen.style.width = '100%'),
+            (this._screen.style.height = '100%'),
+            (this._screen.style.overflow = 'auto'),
+            (this._screen.style.background = 'rgb(40, 40, 40)'),
+            (this._canvas = document.createElement('canvas')),
+            (this._canvas.style.margin = 'auto'),
+            (this._canvas.style.outline = 'none'),
+            (this._canvas.style.flexShrink = '0'),
+            (this._canvas.width = 0),
+            (this._canvas.height = 0),
+            (this._canvas.tabIndex = -1),
+            this._screen.appendChild(this._canvas),
+            (this._cursor = new Cursor()),
+            (this._cursorImage = RFB.cursors.none),
+            (this._decoders[encodings_encodingRaw] = new RawDecoder()),
+            (this._decoders[encodings_encodingCopyRect] = new CopyRectDecoder()),
+            (this._decoders[encodings_encodingRRE] = new RREDecoder()),
+            (this._decoders[encodings_encodingHextile] = new HextileDecoder()),
+            (this._decoders[encodings_encodingTight] = new TightDecoder()),
+            (this._decoders[encodings_encodingTightPNG] = new TightPNGDecoder());
+        try {
+            this._display = new Display(this._canvas);
+        } catch (exc) {
+            throw (Error$1('Display exception: ' + exc), exc);
+        }
+        (this._display.onflush = this._onFlush.bind(this)),
+            (this._keyboard = new Keyboard(this._canvas)),
+            (this._keyboard.onkeyevent = this._handleKeyEvent.bind(this)),
+            (this._gestures = new GestureHandler()),
+            (this._sock = new Websock()),
+            this._sock.on('message', () => {
+                this._handleMessage();
+            }),
+            this._sock.on('open', () => {
+                'connecting' === this._rfbConnectionState && '' === this._rfbInitState ? ((this._rfbInitState = 'ProtocolVersion'), Debug('Starting VNC handshake')) : this._fail('Unexpected server connection while ' + this._rfbConnectionState);
+            }),
+            this._sock.on('close', e2 => {
+                Debug('WebSocket on-close event');
+                let msg2 = '';
+                switch ((e2.code && ((msg2 = '(code: ' + e2.code), e2.reason && (msg2 += ', reason: ' + e2.reason), (msg2 += ')')), this._rfbConnectionState)) {
+                    case 'connecting':
+                        this._fail('Connection closed ' + msg2);
+                        break;
+
+                    case 'connected':
+                        this._updateConnectionState('disconnecting'), this._updateConnectionState('disconnected');
+                        break;
+
+                    case 'disconnecting':
+                        this._updateConnectionState('disconnected');
+                        break;
+
+                    case 'disconnected':
+                        this._fail('Unexpected server disconnect when already disconnected ' + msg2);
+                        break;
+
+                    default:
+                        this._fail('Unexpected server disconnect before connecting ' + msg2);
+                }
+                this._sock.off('close');
+            }),
+            this._sock.on('error', e2 => Warn('WebSocket on-error event')),
+            setTimeout(this._updateConnectionState.bind(this, 'connecting')),
+            Debug('<< RFB.constructor'),
+            (this.dragViewport = !1),
+            (this.focusOnClick = !0),
+            (this._viewOnly = !1),
+            (this._clipViewport = !1),
+            (this._scaleViewport = !1),
+            (this._resizeSession = !1),
+            (this._showDotCursor = !1),
+            void 0 !== options.showDotCursor && (Warn('Specifying showDotCursor as a RFB constructor argument is deprecated'), (this._showDotCursor = options.showDotCursor)),
+            (this._qualityLevel = 6),
+            (this._compressionLevel = 2);
+    }
+    get viewOnly() {
+        return this._viewOnly;
+    }
+    set viewOnly(viewOnly) {
+        (this._viewOnly = viewOnly), ('connecting' !== this._rfbConnectionState && 'connected' !== this._rfbConnectionState) || (viewOnly ? this._keyboard.ungrab() : this._keyboard.grab());
+    }
+    get capabilities() {
+        return this._capabilities;
+    }
+    get touchButton() {
+        return 0;
+    }
+    set touchButton(button) {
+        Warn('Using old API!');
+    }
+    get clipViewport() {
+        return this._clipViewport;
+    }
+    set clipViewport(viewport) {
+        (this._clipViewport = viewport), this._updateClip();
+    }
+    get scaleViewport() {
+        return this._scaleViewport;
+    }
+    set scaleViewport(scale) {
+        (this._scaleViewport = scale), scale && this._clipViewport && this._updateClip(), this._updateScale(), !scale && this._clipViewport && this._updateClip();
+    }
+    get resizeSession() {
+        return this._resizeSession;
+    }
+    set resizeSession(resize) {
+        (this._resizeSession = resize), resize && this._requestRemoteResize();
+    }
+    get showDotCursor() {
+        return this._showDotCursor;
+    }
+    set showDotCursor(show) {
+        (this._showDotCursor = show), this._refreshCursor();
+    }
+    get background() {
+        return this._screen.style.background;
+    }
+    set background(cssValue) {
+        this._screen.style.background = cssValue;
+    }
+    get qualityLevel() {
+        return this._qualityLevel;
+    }
+    set qualityLevel(qualityLevel) {
+        !Number.isInteger(qualityLevel) || qualityLevel < 0 || qualityLevel > 9 ? Error$1('qualityLevel must be an integer between 0 and 9') : this._qualityLevel !== qualityLevel && ((this._qualityLevel = qualityLevel), 'connected' === this._rfbConnectionState && this._sendEncodings());
+    }
+    get compressionLevel() {
+        return this._compressionLevel;
+    }
+    set compressionLevel(compressionLevel) {
+        !Number.isInteger(compressionLevel) || compressionLevel < 0 || compressionLevel > 9 ? Error$1('compressionLevel must be an integer between 0 and 9') : this._compressionLevel !== compressionLevel && ((this._compressionLevel = compressionLevel), 'connected' === this._rfbConnectionState && this._sendEncodings());
+    }
+    disconnect() {
+        this._updateConnectionState('disconnecting'), this._sock.off('error'), this._sock.off('message'), this._sock.off('open');
+    }
+    sendCredentials(creds) {
+        (this._rfbCredentials = creds), setTimeout(this._initMsg.bind(this), 0);
+    }
+    sendCtrlAltDel() {
+        'connected' !== this._rfbConnectionState ||
+            this._viewOnly ||
+            (Info('Sending Ctrl-Alt-Del'), this.sendKey(KeyTable_XK_Control_L, 'ControlLeft', !0), this.sendKey(KeyTable_XK_Alt_L, 'AltLeft', !0), this.sendKey(KeyTable_XK_Delete, 'Delete', !0), this.sendKey(KeyTable_XK_Delete, 'Delete', !1), this.sendKey(KeyTable_XK_Alt_L, 'AltLeft', !1), this.sendKey(KeyTable_XK_Control_L, 'ControlLeft', !1));
+    }
+    machineShutdown() {
+        this._xvpOp(1, 2);
+    }
+    machineReboot() {
+        this._xvpOp(1, 3);
+    }
+    machineReset() {
+        this._xvpOp(1, 4);
+    }
+    sendKey(keysym, code, down) {
+        if ('connected' !== this._rfbConnectionState || this._viewOnly) return;
+        if (void 0 === down) return this.sendKey(keysym, code, !0), void this.sendKey(keysym, code, !1);
+        const scancode = XtScancode[code];
+        if (this._qemuExtKeyEventSupported && scancode) Info('Sending key (' + (down ? 'down' : 'up') + '): keysym ' + (keysym = keysym || 0) + ', scancode ' + scancode), RFB.messages.QEMUExtendedKeyEvent(this._sock, keysym, down, scancode);
+        else {
+            if (!keysym) return;
+            Info('Sending keysym (' + (down ? 'down' : 'up') + '): ' + keysym), RFB.messages.keyEvent(this._sock, keysym, down ? 1 : 0);
+        }
+    }
+    focus() {
+        this._canvas.focus();
+    }
+    blur() {
+        this._canvas.blur();
+    }
+    clipboardPasteFrom(text) {
+        if ('connected' === this._rfbConnectionState && !this._viewOnly)
+            if (this._clipboardServerCapabilitiesFormats[1] && this._clipboardServerCapabilitiesActions[134217728]) (this._clipboardText = text), RFB.messages.extendedClipboardNotify(this._sock, [1]);
+            else {
+                let data = new Uint8Array(text.length);
+                for (let i = 0; i < text.length; i++) data[i] = text.charCodeAt(i);
+                RFB.messages.clientCutText(this._sock, data);
+            }
+    }
+    _connect() {
+        Debug('>> RFB.connect'), Info('connecting to ' + this._url);
+        try {
+            this._sock.open(this._url, this._wsProtocols);
+        } catch (e2) {
+            'SyntaxError' === e2.name ? this._fail('Invalid host or port (' + e2 + ')') : this._fail('Error when opening socket (' + e2 + ')');
+        }
+        this._target.appendChild(this._screen),
+            this._gestures.attach(this._canvas),
+            this._cursor.attach(this._canvas),
+            this._refreshCursor(),
+            window.addEventListener('resize', this._eventHandlers.windowResize),
+            this._canvas.addEventListener('mousedown', this._eventHandlers.focusCanvas),
+            this._canvas.addEventListener('touchstart', this._eventHandlers.focusCanvas),
+            this._canvas.addEventListener('mousedown', this._eventHandlers.handleMouse),
+            this._canvas.addEventListener('mouseup', this._eventHandlers.handleMouse),
+            this._canvas.addEventListener('mousemove', this._eventHandlers.handleMouse),
+            this._canvas.addEventListener('click', this._eventHandlers.handleMouse),
+            this._canvas.addEventListener('contextmenu', this._eventHandlers.handleMouse),
+            this._canvas.addEventListener('wheel', this._eventHandlers.handleWheel),
+            this._canvas.addEventListener('gesturestart', this._eventHandlers.handleGesture),
+            this._canvas.addEventListener('gesturemove', this._eventHandlers.handleGesture),
+            this._canvas.addEventListener('gestureend', this._eventHandlers.handleGesture),
+            Debug('<< RFB.connect');
+    }
+    _disconnect() {
+        Debug('>> RFB.disconnect'),
+            this._cursor.detach(),
+            this._canvas.removeEventListener('gesturestart', this._eventHandlers.handleGesture),
+            this._canvas.removeEventListener('gesturemove', this._eventHandlers.handleGesture),
+            this._canvas.removeEventListener('gestureend', this._eventHandlers.handleGesture),
+            this._canvas.removeEventListener('wheel', this._eventHandlers.handleWheel),
+            this._canvas.removeEventListener('mousedown', this._eventHandlers.handleMouse),
+            this._canvas.removeEventListener('mouseup', this._eventHandlers.handleMouse),
+            this._canvas.removeEventListener('mousemove', this._eventHandlers.handleMouse),
+            this._canvas.removeEventListener('click', this._eventHandlers.handleMouse),
+            this._canvas.removeEventListener('contextmenu', this._eventHandlers.handleMouse),
+            this._canvas.removeEventListener('mousedown', this._eventHandlers.focusCanvas),
+            this._canvas.removeEventListener('touchstart', this._eventHandlers.focusCanvas),
+            window.removeEventListener('resize', this._eventHandlers.windowResize),
+            this._keyboard.ungrab(),
+            this._gestures.detach(),
+            this._sock.close();
+        try {
+            this._target.removeChild(this._screen);
+        } catch (e2) {
+            if ('NotFoundError' !== e2.name) throw e2;
+        }
+        clearTimeout(this._resizeTimeout), clearTimeout(this._mouseMoveTimer), Debug('<< RFB.disconnect');
+    }
+    _focusCanvas(event) {
+        this.focusOnClick && this.focus();
+    }
+    _setDesktopName(name) {
+        (this._fbName = name),
+            this.dispatchEvent(
+                new CustomEvent('desktopname', {
+                    detail: {
+                        name: this._fbName,
+                    },
+                }),
+            );
+    }
+    _windowResize(event) {
+        window.requestAnimationFrame(() => {
+            this._updateClip(), this._updateScale();
+        }),
+            this._resizeSession && (clearTimeout(this._resizeTimeout), (this._resizeTimeout = setTimeout(this._requestRemoteResize.bind(this), 500)));
+    }
+    _updateClip() {
+        const curClip = this._display.clipViewport;
+        let newClip = this._clipViewport;
+        if ((this._scaleViewport && (newClip = !1), curClip !== newClip && (this._display.clipViewport = newClip), newClip)) {
+            const size = this._screenSize();
+            this._display.viewportChangeSize(size.w, size.h), this._fixScrollbars();
+        }
+    }
+    _updateScale() {
+        if (this._scaleViewport) {
+            const size = this._screenSize();
+            this._display.autoscale(size.w, size.h);
+        } else this._display.scale = 1;
+        this._fixScrollbars();
+    }
+    _requestRemoteResize() {
+        if ((clearTimeout(this._resizeTimeout), (this._resizeTimeout = null), !this._resizeSession || this._viewOnly || !this._supportsSetDesktopSize)) return;
+        const size = this._screenSize();
+        RFB.messages.setDesktopSize(this._sock, Math.floor(size.w), Math.floor(size.h), this._screenID, this._screenFlags), Debug('Requested new desktop size: ' + size.w + 'x' + size.h);
+    }
+    _screenSize() {
+        let r = this._screen.getBoundingClientRect();
+        return {
+            w: r.width,
+            h: r.height,
+        };
+    }
+    _fixScrollbars() {
+        const orig = this._screen.style.overflow;
+        (this._screen.style.overflow = 'hidden'), this._screen.getBoundingClientRect(), (this._screen.style.overflow = orig);
+    }
+    _updateConnectionState(state) {
+        const oldstate = this._rfbConnectionState;
+        if (state !== oldstate)
+            if ('disconnected' !== oldstate) {
+                switch (state) {
+                    case 'connected':
+                        if ('connecting' !== oldstate) return void Error$1('Bad transition to connected state, previous connection state: ' + oldstate);
+                        break;
+
+                    case 'disconnected':
+                        if ('disconnecting' !== oldstate) return void Error$1('Bad transition to disconnected state, previous connection state: ' + oldstate);
+                        break;
+
+                    case 'connecting':
+                        if ('' !== oldstate) return void Error$1('Bad transition to connecting state, previous connection state: ' + oldstate);
+                        break;
+
+                    case 'disconnecting':
+                        if ('connected' !== oldstate && 'connecting' !== oldstate) return void Error$1('Bad transition to disconnecting state, previous connection state: ' + oldstate);
+                        break;
+
+                    default:
+                        return void Error$1('Unknown connection state: ' + state);
+                }
+                switch (((this._rfbConnectionState = state), Debug("New state '" + state + "', was '" + oldstate + "'."), this._disconnTimer && 'disconnecting' !== state && (Debug('Clearing disconnect timer'), clearTimeout(this._disconnTimer), (this._disconnTimer = null), this._sock.off('close')), state)) {
+                    case 'connecting':
+                        this._connect();
+                        break;
+
+                    case 'connected':
+                        this.dispatchEvent(
+                            new CustomEvent('connect', {
+                                detail: {},
+                            }),
+                        );
+                        break;
+
+                    case 'disconnecting':
+                        this._disconnect(),
+                            (this._disconnTimer = setTimeout(() => {
+                                Error$1('Disconnection timed out.'), this._updateConnectionState('disconnected');
+                            }, 3e3));
+                        break;
+
+                    case 'disconnected':
+                        this.dispatchEvent(
+                            new CustomEvent('disconnect', {
+                                detail: {
+                                    clean: this._rfbCleanDisconnect,
+                                },
+                            }),
+                        );
+                }
+            } else Error$1('Tried changing state of a disconnected RFB object');
+        else Debug("Already in state '" + state + "', ignoring");
+    }
+    _fail(details) {
+        switch (this._rfbConnectionState) {
+            case 'disconnecting':
+                Error$1('Failed when disconnecting: ' + details);
+                break;
+
+            case 'connected':
+                Error$1('Failed while connected: ' + details);
+                break;
+
+            case 'connecting':
+                Error$1('Failed when connecting: ' + details);
+                break;
+
+            default:
+                Error$1('RFB failure: ' + details);
+        }
+        return (this._rfbCleanDisconnect = !1), this._updateConnectionState('disconnecting'), this._updateConnectionState('disconnected'), !1;
+    }
+    _setCapability(cap, val) {
+        (this._capabilities[cap] = val),
+            this.dispatchEvent(
+                new CustomEvent('capabilities', {
+                    detail: {
+                        capabilities: this._capabilities,
+                    },
+                }),
+            );
+    }
+    _handleMessage() {
+        if (0 !== this._sock.rQlen)
+            switch (this._rfbConnectionState) {
+                case 'disconnected':
+                    Error$1('Got data while disconnected');
+                    break;
+
+                case 'connected':
+                    for (; !this._flushing && this._normalMsg() && 0 !== this._sock.rQlen; );
+                    break;
+
+                default:
+                    this._initMsg();
+            }
+        else Warn('handleMessage called on an empty receive queue');
+    }
+    _handleKeyEvent(keysym, code, down) {
+        this.sendKey(keysym, code, down);
+    }
+    _handleMouse(ev) {
+        if ('click' === ev.type && ev.target !== this._canvas) return;
+        if ((ev.stopPropagation(), ev.preventDefault(), 'click' === ev.type || 'contextmenu' === ev.type)) return;
+        let pos = clientToElement(ev.clientX, ev.clientY, this._canvas);
+        switch (ev.type) {
+            case 'mousedown':
+                !(function (target) {
+                    if (target.setCapture) target.setCapture(), (document.captureElement = target), target.addEventListener('mouseup', releaseCapture);
+                    else {
+                        releaseCapture();
+                        let proxyElem = document.getElementById('noVNC_mouse_capture_elem');
+                        null === proxyElem &&
+                            ((proxyElem = document.createElement('div')),
+                            (proxyElem.id = 'noVNC_mouse_capture_elem'),
+                            (proxyElem.style.position = 'fixed'),
+                            (proxyElem.style.top = '0px'),
+                            (proxyElem.style.left = '0px'),
+                            (proxyElem.style.width = '100%'),
+                            (proxyElem.style.height = '100%'),
+                            (proxyElem.style.zIndex = 1e4),
+                            (proxyElem.style.display = 'none'),
+                            document.body.appendChild(proxyElem),
+                            proxyElem.addEventListener('contextmenu', _captureProxy),
+                            proxyElem.addEventListener('mousemove', _captureProxy),
+                            proxyElem.addEventListener('mouseup', _captureProxy)),
+                            (document.captureElement = target),
+                            _captureObserver.observe(target, {
+                                attributes: !0,
+                            }),
+                            _capturedElemChanged(),
+                            (proxyElem.style.display = ''),
+                            window.addEventListener('mousemove', _captureProxy),
+                            window.addEventListener('mouseup', _captureProxy);
+                    }
+                })(this._canvas),
+                    this._handleMouseButton(pos.x, pos.y, !0, 1 << ev.button);
+                break;
+
+            case 'mouseup':
+                this._handleMouseButton(pos.x, pos.y, !1, 1 << ev.button);
+                break;
+
+            case 'mousemove':
+                this._handleMouseMove(pos.x, pos.y);
+        }
+    }
+    _handleMouseButton(x, y, down, bmask) {
+        if (this.dragViewport) {
+            if (down && !this._viewportDragging)
+                return (
+                    (this._viewportDragging = !0),
+                    (this._viewportDragPos = {
+                        x: x,
+                        y: y,
+                    }),
+                    void (this._viewportHasMoved = !1)
+                );
+            if (((this._viewportDragging = !1), this._viewportHasMoved)) return;
+            this._sendMouse(x, y, bmask);
+        }
+        null !== this._mouseMoveTimer && (clearTimeout(this._mouseMoveTimer), (this._mouseMoveTimer = null), this._sendMouse(x, y, this._mouseButtonMask)), down ? (this._mouseButtonMask |= bmask) : (this._mouseButtonMask &= ~bmask), this._sendMouse(x, y, this._mouseButtonMask);
+    }
+    _handleMouseMove(x, y) {
+        if (this._viewportDragging) {
+            const deltaX = this._viewportDragPos.x - x,
+                deltaY = this._viewportDragPos.y - y;
+            (this._viewportHasMoved || Math.abs(deltaX) > dragThreshold || Math.abs(deltaY) > dragThreshold) &&
+                ((this._viewportHasMoved = !0),
+                (this._viewportDragPos = {
+                    x: x,
+                    y: y,
+                }),
+                this._display.viewportChangePos(deltaX, deltaY));
+        } else if (
+            ((this._mousePos = {
+                x: x,
+                y: y,
+            }),
+            null == this._mouseMoveTimer)
+        ) {
+            const timeSinceLastMove = Date.now() - this._mouseLastMoveTime;
+            timeSinceLastMove > 17
+                ? (this._sendMouse(x, y, this._mouseButtonMask), (this._mouseLastMoveTime = Date.now()))
+                : (this._mouseMoveTimer = setTimeout(() => {
+                      this._handleDelayedMouseMove();
+                  }, 17 - timeSinceLastMove));
+        }
+    }
+    _handleDelayedMouseMove() {
+        (this._mouseMoveTimer = null), this._sendMouse(this._mousePos.x, this._mousePos.y, this._mouseButtonMask), (this._mouseLastMoveTime = Date.now());
+    }
+    _sendMouse(x, y, mask) {
+        'connected' === this._rfbConnectionState && (this._viewOnly || RFB.messages.pointerEvent(this._sock, this._display.absX(x), this._display.absY(y), mask));
+    }
+    _handleWheel(ev) {
+        if ('connected' !== this._rfbConnectionState) return;
+        if (this._viewOnly) return;
+        ev.stopPropagation(), ev.preventDefault();
+        let pos = clientToElement(ev.clientX, ev.clientY, this._canvas),
+            dX = ev.deltaX,
+            dY = ev.deltaY;
+        0 !== ev.deltaMode && ((dX *= 19), (dY *= 19)),
+            (this._accumulatedWheelDeltaX += dX),
+            (this._accumulatedWheelDeltaY += dY),
+            Math.abs(this._accumulatedWheelDeltaX) >= 50 && (this._accumulatedWheelDeltaX < 0 ? (this._handleMouseButton(pos.x, pos.y, !0, 32), this._handleMouseButton(pos.x, pos.y, !1, 32)) : this._accumulatedWheelDeltaX > 0 && (this._handleMouseButton(pos.x, pos.y, !0, 64), this._handleMouseButton(pos.x, pos.y, !1, 64)), (this._accumulatedWheelDeltaX = 0)),
+            Math.abs(this._accumulatedWheelDeltaY) >= 50 && (this._accumulatedWheelDeltaY < 0 ? (this._handleMouseButton(pos.x, pos.y, !0, 8), this._handleMouseButton(pos.x, pos.y, !1, 8)) : this._accumulatedWheelDeltaY > 0 && (this._handleMouseButton(pos.x, pos.y, !0, 16), this._handleMouseButton(pos.x, pos.y, !1, 16)), (this._accumulatedWheelDeltaY = 0));
+    }
+    _fakeMouseMove(ev, elementX, elementY) {
+        this._handleMouseMove(elementX, elementY), this._cursor.move(ev.detail.clientX, ev.detail.clientY);
+    }
+    _handleTapEvent(ev, bmask) {
+        let pos = clientToElement(ev.detail.clientX, ev.detail.clientY, this._canvas);
+        if (null !== this._gestureLastTapTime && Date.now() - this._gestureLastTapTime < 1e3 && this._gestureFirstDoubleTapEv.detail.type === ev.detail.type) {
+            let dx = this._gestureFirstDoubleTapEv.detail.clientX - ev.detail.clientX,
+                dy = this._gestureFirstDoubleTapEv.detail.clientY - ev.detail.clientY;
+            Math.hypot(dx, dy) < 50 ? (pos = clientToElement(this._gestureFirstDoubleTapEv.detail.clientX, this._gestureFirstDoubleTapEv.detail.clientY, this._canvas)) : (this._gestureFirstDoubleTapEv = ev);
+        } else this._gestureFirstDoubleTapEv = ev;
+        (this._gestureLastTapTime = Date.now()), this._fakeMouseMove(this._gestureFirstDoubleTapEv, pos.x, pos.y), this._handleMouseButton(pos.x, pos.y, !0, bmask), this._handleMouseButton(pos.x, pos.y, !1, bmask);
+    }
+    _handleGesture(ev) {
+        let magnitude,
+            pos = clientToElement(ev.detail.clientX, ev.detail.clientY, this._canvas);
+        switch (ev.type) {
+            case 'gesturestart':
+                switch (ev.detail.type) {
+                    case 'onetap':
+                        this._handleTapEvent(ev, 1);
+                        break;
+
+                    case 'twotap':
+                        this._handleTapEvent(ev, 4);
+                        break;
+
+                    case 'threetap':
+                        this._handleTapEvent(ev, 2);
+                        break;
+
+                    case 'drag':
+                        this._fakeMouseMove(ev, pos.x, pos.y), this._handleMouseButton(pos.x, pos.y, !0, 1);
+                        break;
+
+                    case 'longpress':
+                        this._fakeMouseMove(ev, pos.x, pos.y), this._handleMouseButton(pos.x, pos.y, !0, 4);
+                        break;
+
+                    case 'twodrag':
+                        (this._gestureLastMagnitudeX = ev.detail.magnitudeX), (this._gestureLastMagnitudeY = ev.detail.magnitudeY), this._fakeMouseMove(ev, pos.x, pos.y);
+                        break;
+
+                    case 'pinch':
+                        (this._gestureLastMagnitudeX = Math.hypot(ev.detail.magnitudeX, ev.detail.magnitudeY)), this._fakeMouseMove(ev, pos.x, pos.y);
+                }
+                break;
+
+            case 'gesturemove':
+                switch (ev.detail.type) {
+                    case 'onetap':
+                    case 'twotap':
+                    case 'threetap':
+                        break;
+
+                    case 'drag':
+                    case 'longpress':
+                        this._fakeMouseMove(ev, pos.x, pos.y);
+                        break;
+
+                    case 'twodrag':
+                        for (this._fakeMouseMove(ev, pos.x, pos.y); ev.detail.magnitudeY - this._gestureLastMagnitudeY > 50; ) this._handleMouseButton(pos.x, pos.y, !0, 8), this._handleMouseButton(pos.x, pos.y, !1, 8), (this._gestureLastMagnitudeY += 50);
+                        for (; ev.detail.magnitudeY - this._gestureLastMagnitudeY < -50; ) this._handleMouseButton(pos.x, pos.y, !0, 16), this._handleMouseButton(pos.x, pos.y, !1, 16), (this._gestureLastMagnitudeY -= 50);
+                        for (; ev.detail.magnitudeX - this._gestureLastMagnitudeX > 50; ) this._handleMouseButton(pos.x, pos.y, !0, 32), this._handleMouseButton(pos.x, pos.y, !1, 32), (this._gestureLastMagnitudeX += 50);
+                        for (; ev.detail.magnitudeX - this._gestureLastMagnitudeX < -50; ) this._handleMouseButton(pos.x, pos.y, !0, 64), this._handleMouseButton(pos.x, pos.y, !1, 64), (this._gestureLastMagnitudeX -= 50);
+                        break;
+
+                    case 'pinch':
+                        if ((this._fakeMouseMove(ev, pos.x, pos.y), (magnitude = Math.hypot(ev.detail.magnitudeX, ev.detail.magnitudeY)), Math.abs(magnitude - this._gestureLastMagnitudeX) > 75)) {
+                            for (this._handleKeyEvent(KeyTable_XK_Control_L, 'ControlLeft', !0); magnitude - this._gestureLastMagnitudeX > 75; ) this._handleMouseButton(pos.x, pos.y, !0, 8), this._handleMouseButton(pos.x, pos.y, !1, 8), (this._gestureLastMagnitudeX += 75);
+                            for (; magnitude - this._gestureLastMagnitudeX < -75; ) this._handleMouseButton(pos.x, pos.y, !0, 16), this._handleMouseButton(pos.x, pos.y, !1, 16), (this._gestureLastMagnitudeX -= 75);
+                        }
+                        this._handleKeyEvent(KeyTable_XK_Control_L, 'ControlLeft', !1);
+                }
+                break;
+
+            case 'gestureend':
+                switch (ev.detail.type) {
+                    case 'onetap':
+                    case 'twotap':
+                    case 'threetap':
+                    case 'pinch':
+                    case 'twodrag':
+                        break;
+
+                    case 'drag':
+                        this._fakeMouseMove(ev, pos.x, pos.y), this._handleMouseButton(pos.x, pos.y, !1, 1);
+                        break;
+
+                    case 'longpress':
+                        this._fakeMouseMove(ev, pos.x, pos.y), this._handleMouseButton(pos.x, pos.y, !1, 4);
+                }
+        }
+    }
+    _negotiateProtocolVersion() {
+        if (this._sock.rQwait('version', 12)) return !1;
+        const sversion = this._sock.rQshiftStr(12).substr(4, 7);
+        Info('Server ProtocolVersion: ' + sversion);
+        let isRepeater = 0;
+        switch (sversion) {
+            case '000.000':
+                isRepeater = 1;
+                break;
+
+            case '003.003':
+            case '003.006':
+            case '003.889':
+                this._rfbVersion = 3.3;
+                break;
+
+            case '003.007':
+                this._rfbVersion = 3.7;
+                break;
+
+            case '003.008':
+            case '004.000':
+            case '004.001':
+            case '005.000':
+                this._rfbVersion = 3.8;
+                break;
+
+            default:
+                return this._fail('Invalid server version ' + sversion);
+        }
+        if (isRepeater) {
+            let repeaterID = 'ID:' + this._repeaterID;
+            for (; repeaterID.length < 250; ) repeaterID += '\0';
+            return this._sock.sendString(repeaterID), !0;
+        }
+        this._rfbVersion > this._rfbMaxVersion && (this._rfbVersion = this._rfbMaxVersion);
+        const cversion = '00' + parseInt(this._rfbVersion, 10) + '.00' + ((10 * this._rfbVersion) % 10);
+        this._sock.sendString('RFB ' + cversion + '\n'), Debug('Sent ProtocolVersion: ' + cversion), (this._rfbInitState = 'Security');
+    }
+    _negotiateSecurity() {
+        function includes(item, array) {
+            for (let i = 0; i < array.length; i++) if (array[i] === item) return !0;
+            return !1;
+        }
+        if (this._rfbVersion >= 3.7) {
+            const numTypes = this._sock.rQshift8();
+            if (this._sock.rQwait('security type', numTypes, 1)) return !1;
+            if (0 === numTypes) return (this._rfbInitState = 'SecurityReason'), (this._securityContext = 'no security types'), (this._securityStatus = 1), this._initMsg();
+            const types = this._sock.rQshiftBytes(numTypes);
+            if ((Debug('Server security types: ' + types), includes(1, types))) this._rfbAuthScheme = 1;
+            else if (includes(22, types)) this._rfbAuthScheme = 22;
+            else if (includes(16, types)) this._rfbAuthScheme = 16;
+            else if (includes(2, types)) this._rfbAuthScheme = 2;
+            else {
+                if (!includes(19, types)) return this._fail('Unsupported security types (types: ' + types + ')');
+                this._rfbAuthScheme = 19;
+            }
+            this._sock.send([this._rfbAuthScheme]);
+        } else {
+            if (this._sock.rQwait('security scheme', 4)) return !1;
+            if (((this._rfbAuthScheme = this._sock.rQshift32()), 0 == this._rfbAuthScheme)) return (this._rfbInitState = 'SecurityReason'), (this._securityContext = 'authentication scheme'), (this._securityStatus = 1), this._initMsg();
+        }
+        return (this._rfbInitState = 'Authentication'), Debug('Authenticating using scheme: ' + this._rfbAuthScheme), this._initMsg();
+    }
+    _handleSecurityReason() {
+        if (this._sock.rQwait('reason length', 4)) return !1;
+        const strlen = this._sock.rQshift32();
+        let reason = '';
+        if (strlen > 0) {
+            if (this._sock.rQwait('reason', strlen, 4)) return !1;
+            reason = this._sock.rQshiftStr(strlen);
+        }
+        return '' !== reason
+            ? (this.dispatchEvent(
+                  new CustomEvent('securityfailure', {
+                      detail: {
+                          status: this._securityStatus,
+                          reason: reason,
+                      },
+                  }),
+              ),
+              this._fail('Security negotiation failed on ' + this._securityContext + ' (reason: ' + reason + ')'))
+            : (this.dispatchEvent(
+                  new CustomEvent('securityfailure', {
+                      detail: {
+                          status: this._securityStatus,
+                      },
+                  }),
+              ),
+              this._fail('Security negotiation failed on ' + this._securityContext));
+    }
+    _negotiateXvpAuth() {
+        if (void 0 === this._rfbCredentials.username || void 0 === this._rfbCredentials.password || void 0 === this._rfbCredentials.target)
+            return (
+                this.dispatchEvent(
+                    new CustomEvent('credentialsrequired', {
+                        detail: {
+                            types: ['username', 'password', 'target'],
+                        },
+                    }),
+                ),
+                !1
+            );
+        const xvpAuthStr = String.fromCharCode(this._rfbCredentials.username.length) + String.fromCharCode(this._rfbCredentials.target.length) + this._rfbCredentials.username + this._rfbCredentials.target;
+        return this._sock.sendString(xvpAuthStr), (this._rfbAuthScheme = 2), this._negotiateAuthentication();
+    }
+    _negotiateVeNCryptAuth() {
+        if (0 == this._rfbVeNCryptState) {
+            if (this._sock.rQwait('vencrypt version', 2)) return !1;
+            const major = this._sock.rQshift8(),
+                minor = this._sock.rQshift8();
+            if (0 != major || 2 != minor) return this._fail('Unsupported VeNCrypt version ' + major + '.' + minor);
+            this._sock.send([0, 2]), (this._rfbVeNCryptState = 1);
+        }
+        if (1 == this._rfbVeNCryptState) {
+            if (this._sock.rQwait('vencrypt ack', 1)) return !1;
+            const res = this._sock.rQshift8();
+            if (0 != res) return this._fail('VeNCrypt failure ' + res);
+            this._rfbVeNCryptState = 2;
+        }
+        if (2 == this._rfbVeNCryptState) {
+            if (this._sock.rQwait('vencrypt subtypes length', 1)) return !1;
+            const subtypesLength = this._sock.rQshift8();
+            if (subtypesLength < 1) return this._fail('VeNCrypt subtypes empty');
+            (this._rfbVeNCryptSubtypesLength = subtypesLength), (this._rfbVeNCryptState = 3);
+        }
+        if (3 == this._rfbVeNCryptState) {
+            if (this._sock.rQwait('vencrypt subtypes', 4 * this._rfbVeNCryptSubtypesLength)) return !1;
+            const subtypes = [];
+            for (let i = 0; i < this._rfbVeNCryptSubtypesLength; i++) subtypes.push(this._sock.rQshift32());
+            if (-1 == subtypes.indexOf(256)) return this._fail('VeNCrypt Plain subtype not offered by server');
+            this._sock.send([0, 0, 1, 0]), (this._rfbVeNCryptState = 4);
+        }
+        if (4 == this._rfbVeNCryptState) {
+            if (!this._rfbCredentials.username || !this._rfbCredentials.password)
+                return (
+                    this.dispatchEvent(
+                        new CustomEvent('credentialsrequired', {
+                            detail: {
+                                types: ['username', 'password'],
+                            },
+                        }),
+                    ),
+                    !1
+                );
+            const user = encodeUTF8(this._rfbCredentials.username),
+                pass = encodeUTF8(this._rfbCredentials.password);
+            return this._sock.send([0, 0, 0, user.length]), this._sock.send([0, 0, 0, pass.length]), this._sock.sendString(user), this._sock.sendString(pass), (this._rfbInitState = 'SecurityResult'), !0;
+        }
+    }
+    _negotiateStdVNCAuth() {
+        if (this._sock.rQwait('auth challenge', 16)) return !1;
+        if (void 0 === this._rfbCredentials.password)
+            return (
+                this.dispatchEvent(
+                    new CustomEvent('credentialsrequired', {
+                        detail: {
+                            types: ['password'],
+                        },
+                    }),
+                ),
+                !1
+            );
+        const challenge = Array.prototype.slice.call(this._sock.rQshiftBytes(16)),
+            response = RFB.genDES(this._rfbCredentials.password, challenge);
+        return this._sock.send(response), (this._rfbInitState = 'SecurityResult'), !0;
+    }
+    _negotiateTightUnixAuth() {
+        return void 0 === this._rfbCredentials.username || void 0 === this._rfbCredentials.password
+            ? (this.dispatchEvent(
+                  new CustomEvent('credentialsrequired', {
+                      detail: {
+                          types: ['username', 'password'],
+                      },
+                  }),
+              ),
+              !1)
+            : (this._sock.send([0, 0, 0, this._rfbCredentials.username.length]), this._sock.send([0, 0, 0, this._rfbCredentials.password.length]), this._sock.sendString(this._rfbCredentials.username), this._sock.sendString(this._rfbCredentials.password), (this._rfbInitState = 'SecurityResult'), !0);
+    }
+    _negotiateTightTunnels(numTunnels) {
+        const clientSupportedTunnelTypes_0 = {
+                vendor: 'TGHT',
+                signature: 'NOTUNNEL',
+            },
+            serverSupportedTunnelTypes = {};
+        for (let i = 0; i < numTunnels; i++) {
+            const capCode = this._sock.rQshift32(),
+                capVendor = this._sock.rQshiftStr(4),
+                capSignature = this._sock.rQshiftStr(8);
+            serverSupportedTunnelTypes[capCode] = {
+                vendor: capVendor,
+                signature: capSignature,
+            };
+        }
+        return (
+            Debug('Server Tight tunnel types: ' + serverSupportedTunnelTypes),
+            serverSupportedTunnelTypes[1] &&
+                'SICR' === serverSupportedTunnelTypes[1].vendor &&
+                'SCHANNEL' === serverSupportedTunnelTypes[1].signature &&
+                (Debug('Detected Siemens server. Assuming NOTUNNEL support.'),
+                (serverSupportedTunnelTypes[0] = {
+                    vendor: 'TGHT',
+                    signature: 'NOTUNNEL',
+                })),
+            serverSupportedTunnelTypes[0]
+                ? serverSupportedTunnelTypes[0].vendor != clientSupportedTunnelTypes_0.vendor || serverSupportedTunnelTypes[0].signature != clientSupportedTunnelTypes_0.signature
+                    ? this._fail("Client's tunnel type had the incorrect vendor or signature")
+                    : (Debug('Selected tunnel type: ' + clientSupportedTunnelTypes_0), this._sock.send([0, 0, 0, 0]), !1)
+                : this._fail("Server wanted tunnels, but doesn't support the notunnel type")
+        );
+    }
+    _negotiateTightAuth() {
+        if (!this._rfbTightVNC) {
+            if (this._sock.rQwait('num tunnels', 4)) return !1;
+            const numTunnels = this._sock.rQshift32();
+            if (numTunnels > 0 && this._sock.rQwait('tunnel capabilities', 16 * numTunnels, 4)) return !1;
+            if (((this._rfbTightVNC = !0), numTunnels > 0)) return this._negotiateTightTunnels(numTunnels), !1;
+        }
+        if (this._sock.rQwait('sub auth count', 4)) return !1;
+        const subAuthCount = this._sock.rQshift32();
+        if (0 === subAuthCount) return (this._rfbInitState = 'SecurityResult'), !0;
+        if (this._sock.rQwait('sub auth capabilities', 16 * subAuthCount, 4)) return !1;
+        const clientSupportedTypes = {
+                STDVNOAUTH__: 1,
+                STDVVNCAUTH_: 2,
+                TGHTULGNAUTH: 129,
+            },
+            serverSupportedTypes = [];
+        for (let i = 0; i < subAuthCount; i++) {
+            this._sock.rQshift32();
+            const capabilities = this._sock.rQshiftStr(12);
+            serverSupportedTypes.push(capabilities);
+        }
+        Debug('Server Tight authentication types: ' + serverSupportedTypes);
+        for (let authType in clientSupportedTypes)
+            if (-1 != serverSupportedTypes.indexOf(authType))
+                switch ((this._sock.send([0, 0, 0, clientSupportedTypes[authType]]), Debug('Selected authentication type: ' + authType), authType)) {
+                    case 'STDVNOAUTH__':
+                        return (this._rfbInitState = 'SecurityResult'), !0;
+
+                    case 'STDVVNCAUTH_':
+                        return (this._rfbAuthScheme = 2), this._initMsg();
+
+                    case 'TGHTULGNAUTH':
+                        return (this._rfbAuthScheme = 129), this._initMsg();
+
+                    default:
+                        return this._fail('Unsupported tiny auth scheme (scheme: ' + authType + ')');
+                }
+        return this._fail('No supported sub-auth types!');
+    }
+    _negotiateAuthentication() {
+        switch (this._rfbAuthScheme) {
+            case 1:
+                return this._rfbVersion >= 3.8 ? ((this._rfbInitState = 'SecurityResult'), !0) : ((this._rfbInitState = 'ClientInitialisation'), this._initMsg());
+
+            case 22:
+                return this._negotiateXvpAuth();
+
+            case 2:
+                return this._negotiateStdVNCAuth();
+
+            case 16:
+                return this._negotiateTightAuth();
+
+            case 19:
+                return this._negotiateVeNCryptAuth();
+
+            case 129:
+                return this._negotiateTightUnixAuth();
+
+            default:
+                return this._fail('Unsupported auth scheme (scheme: ' + this._rfbAuthScheme + ')');
+        }
+    }
+    _handleSecurityResult() {
+        if (this._sock.rQwait('VNC auth response ', 4)) return !1;
+        const status = this._sock.rQshift32();
+        return 0 === status
+            ? ((this._rfbInitState = 'ClientInitialisation'), Debug('Authentication OK'), this._initMsg())
+            : this._rfbVersion >= 3.8
+            ? ((this._rfbInitState = 'SecurityReason'), (this._securityContext = 'security result'), (this._securityStatus = status), this._initMsg())
+            : (this.dispatchEvent(
+                  new CustomEvent('securityfailure', {
+                      detail: {
+                          status: status,
+                      },
+                  }),
+              ),
+              this._fail('Security handshake failed'));
+    }
+    _negotiateServerInit() {
+        if (this._sock.rQwait('server initialization', 24)) return !1;
+        const width = this._sock.rQshift16(),
+            height = this._sock.rQshift16(),
+            bpp = this._sock.rQshift8(),
+            depth = this._sock.rQshift8(),
+            bigEndian = this._sock.rQshift8(),
+            trueColor = this._sock.rQshift8(),
+            redMax = this._sock.rQshift16(),
+            greenMax = this._sock.rQshift16(),
+            blueMax = this._sock.rQshift16(),
+            redShift = this._sock.rQshift8(),
+            greenShift = this._sock.rQshift8(),
+            blueShift = this._sock.rQshift8();
+        this._sock.rQskipBytes(3);
+        const nameLength = this._sock.rQshift32();
+        if (this._sock.rQwait('server init name', nameLength, 24)) return !1;
+        let name = this._sock.rQshiftStr(nameLength);
+        if (((name = decodeUTF8(name, !0)), this._rfbTightVNC)) {
+            if (this._sock.rQwait('TightVNC extended server init header', 8, 24 + nameLength)) return !1;
+            const numServerMessages = this._sock.rQshift16(),
+                numClientMessages = this._sock.rQshift16(),
+                numEncodings = this._sock.rQshift16();
+            this._sock.rQskipBytes(2);
+            const totalMessagesLength = 16 * (numServerMessages + numClientMessages + numEncodings);
+            if (this._sock.rQwait('TightVNC extended server init header', totalMessagesLength, 32 + nameLength)) return !1;
+            this._sock.rQskipBytes(16 * numServerMessages), this._sock.rQskipBytes(16 * numClientMessages), this._sock.rQskipBytes(16 * numEncodings);
+        }
+        return (
+            Info('Screen: ' + width + 'x' + height + ', bpp: ' + bpp + ', depth: ' + depth + ', bigEndian: ' + bigEndian + ', trueColor: ' + trueColor + ', redMax: ' + redMax + ', greenMax: ' + greenMax + ', blueMax: ' + blueMax + ', redShift: ' + redShift + ', greenShift: ' + greenShift + ', blueShift: ' + blueShift),
+            this._setDesktopName(name),
+            this._resize(width, height),
+            this._viewOnly || this._keyboard.grab(),
+            (this._fbDepth = 24),
+            'Intel(r) AMT KVM' === this._fbName && (Warn('Intel AMT KVM only supports 8/16 bit depths. Using low color mode.'), (this._fbDepth = 8)),
+            RFB.messages.pixelFormat(this._sock, this._fbDepth, !0),
+            this._sendEncodings(),
+            RFB.messages.fbUpdateRequest(this._sock, !1, 0, 0, this._fbWidth, this._fbHeight),
+            this._updateConnectionState('connected'),
+            !0
+        );
+    }
+    _sendEncodings() {
+        const encs = [];
+        encs.push(encodings_encodingCopyRect),
+            24 == this._fbDepth && (encs.push(encodings_encodingTight), encs.push(encodings_encodingTightPNG), encs.push(encodings_encodingHextile), encs.push(encodings_encodingRRE)),
+            encs.push(encodings_encodingRaw),
+            encs.push(encodings_pseudoEncodingQualityLevel0 + this._qualityLevel),
+            encs.push(encodings_pseudoEncodingCompressLevel0 + this._compressionLevel),
+            encs.push(encodings_pseudoEncodingDesktopSize),
+            encs.push(encodings_pseudoEncodingLastRect),
+            encs.push(encodings_pseudoEncodingQEMUExtendedKeyEvent),
+            encs.push(encodings_pseudoEncodingExtendedDesktopSize),
+            encs.push(encodings_pseudoEncodingXvp),
+            encs.push(encodings_pseudoEncodingFence),
+            encs.push(encodings_pseudoEncodingContinuousUpdates),
+            encs.push(encodings_pseudoEncodingDesktopName),
+            encs.push(encodings_pseudoEncodingExtendedClipboard),
+            24 == this._fbDepth && (encs.push(encodings_pseudoEncodingVMwareCursor), encs.push(encodings_pseudoEncodingCursor)),
+            RFB.messages.clientEncodings(this._sock, encs);
+    }
+    _initMsg() {
+        switch (this._rfbInitState) {
+            case 'ProtocolVersion':
+                return this._negotiateProtocolVersion();
+
+            case 'Security':
+                return this._negotiateSecurity();
+
+            case 'Authentication':
+                return this._negotiateAuthentication();
+
+            case 'SecurityResult':
+                return this._handleSecurityResult();
+
+            case 'SecurityReason':
+                return this._handleSecurityReason();
+
+            case 'ClientInitialisation':
+                return this._sock.send([this._shared ? 1 : 0]), (this._rfbInitState = 'ServerInitialisation'), !0;
+
+            case 'ServerInitialisation':
+                return this._negotiateServerInit();
+
+            default:
+                return this._fail('Unknown init state (state: ' + this._rfbInitState + ')');
+        }
+    }
+    _handleSetColourMapMsg() {
+        return Debug('SetColorMapEntries'), this._fail('Unexpected SetColorMapEntries message');
+    }
+    _handleServerCutText() {
+        if ((Debug('ServerCutText'), this._sock.rQwait('ServerCutText header', 7, 1))) return !1;
+        this._sock.rQskipBytes(3);
+        let length = this._sock.rQshift32();
+        if (((length = toSigned32bit(length)), this._sock.rQwait('ServerCutText content', Math.abs(length), 8))) return !1;
+        if (length >= 0) {
+            const text = this._sock.rQshiftStr(length);
+            if (this._viewOnly) return !0;
+            this.dispatchEvent(
+                new CustomEvent('clipboard', {
+                    detail: {
+                        text: text,
+                    },
+                }),
+            );
+        } else {
+            length = Math.abs(length);
+            const flags = this._sock.rQshift32();
+            let formats = 65535 & flags,
+                actions = 4278190080 & flags;
+            if (!!(16777216 & actions)) {
+                (this._clipboardServerCapabilitiesFormats = {}), (this._clipboardServerCapabilitiesActions = {});
+                for (let i = 0; i <= 15; i++) {
+                    let index = 1 << i;
+                    formats & index && ((this._clipboardServerCapabilitiesFormats[index] = !0), this._sock.rQshift32());
+                }
+                for (let i = 24; i <= 31; i++) {
+                    let index = 1 << i;
+                    this._clipboardServerCapabilitiesActions[index] = !!(actions & index);
+                }
+                let clientActions = [16777216, 33554432, 67108864, 134217728, 268435456];
+                RFB.messages.extendedClipboardCaps(this._sock, clientActions, {
+                    extendedClipboardFormatText: 0,
+                });
+            } else if (33554432 === actions) {
+                if (this._viewOnly) return !0;
+                null != this._clipboardText && this._clipboardServerCapabilitiesActions[268435456] && 1 & formats && RFB.messages.extendedClipboardProvide(this._sock, [1], [this._clipboardText]);
+            } else if (67108864 === actions) {
+                if (this._viewOnly) return !0;
+                this._clipboardServerCapabilitiesActions[134217728] && (null != this._clipboardText ? RFB.messages.extendedClipboardNotify(this._sock, [1]) : RFB.messages.extendedClipboardNotify(this._sock, []));
+            } else if (134217728 === actions) {
+                if (this._viewOnly) return !0;
+                this._clipboardServerCapabilitiesActions[33554432] && 1 & formats && RFB.messages.extendedClipboardRequest(this._sock, [1]);
+            } else {
+                if (268435456 !== actions) return this._fail('Unexpected action in extended clipboard message: ' + actions);
+                {
+                    if (this._viewOnly) return !0;
+                    if (!(1 & formats)) return !0;
+                    this._clipboardText = null;
+                    let zlibStream = this._sock.rQshiftBytes(length - 4),
+                        streamInflator = new Inflate(),
+                        textData = null;
+                    streamInflator.setInput(zlibStream);
+                    for (let i = 0; i <= 15; i++) {
+                        let format = 1 << i;
+                        if (formats & format) {
+                            let size = 0,
+                                sizeArray = streamInflator.inflate(4);
+                            (size |= sizeArray[0] << 24), (size |= sizeArray[1] << 16), (size |= sizeArray[2] << 8), (size |= sizeArray[3]);
+                            let chunk = streamInflator.inflate(size);
+                            1 === format && (textData = chunk);
+                        }
+                    }
+                    if ((streamInflator.setInput(null), null !== textData)) {
+                        let tmpText = '';
+                        for (let i = 0; i < textData.length; i++) tmpText += String.fromCharCode(textData[i]);
+                        (textData = tmpText),
+                            (textData = decodeUTF8(textData)),
+                            textData.length > 0 && '\0' === textData.charAt(textData.length - 1) && (textData = textData.slice(0, -1)),
+                            (textData = textData.replace('\r\n', '\n')),
+                            this.dispatchEvent(
+                                new CustomEvent('clipboard', {
+                                    detail: {
+                                        text: textData,
+                                    },
+                                }),
+                            );
+                    }
+                }
+            }
+        }
+        return !0;
+    }
+    _handleServerFenceMsg() {
+        if (this._sock.rQwait('ServerFence header', 8, 1)) return !1;
+        this._sock.rQskipBytes(3);
+        let flags = this._sock.rQshift32(),
+            length = this._sock.rQshift8();
+        if (this._sock.rQwait('ServerFence payload', length, 9)) return !1;
+        length > 64 && (Warn('Bad payload length (' + length + ') in fence response'), (length = 64));
+        const payload = this._sock.rQshiftStr(length);
+        return (this._supportsFence = !0), flags & (1 << 31) ? ((flags &= 3), RFB.messages.clientFence(this._sock, flags, payload), !0) : this._fail('Unexpected fence response');
+    }
+    _handleXvpMsg() {
+        if (this._sock.rQwait('XVP version and message', 3, 1)) return !1;
+        this._sock.rQskipBytes(1);
+        const xvpVer = this._sock.rQshift8(),
+            xvpMsg = this._sock.rQshift8();
+        switch (xvpMsg) {
+            case 0:
+                Error$1('XVP Operation Failed');
+                break;
+
+            case 1:
+                (this._rfbXvpVer = xvpVer), Info('XVP extensions enabled (version ' + this._rfbXvpVer + ')'), this._setCapability('power', !0);
+                break;
+
+            default:
+                this._fail('Illegal server XVP message (msg: ' + xvpMsg + ')');
+        }
+        return !0;
+    }
+    _normalMsg() {
+        let msgType, first, ret;
+        switch (((msgType = this._FBU.rects > 0 ? 0 : this._sock.rQshift8()), msgType)) {
+            case 0:
+                return (ret = this._framebufferUpdate()), ret && !this._enabledContinuousUpdates && RFB.messages.fbUpdateRequest(this._sock, !0, 0, 0, this._fbWidth, this._fbHeight), ret;
+
+            case 1:
+                return this._handleSetColourMapMsg();
+
+            case 2:
+                return (
+                    Debug('Bell'),
+                    this.dispatchEvent(
+                        new CustomEvent('bell', {
+                            detail: {},
+                        }),
+                    ),
+                    !0
+                );
+
+            case 3:
+                return this._handleServerCutText();
+
+            case 150:
+                return (first = !this._supportsContinuousUpdates), (this._supportsContinuousUpdates = !0), (this._enabledContinuousUpdates = !1), first && ((this._enabledContinuousUpdates = !0), this._updateContinuousUpdates(), Info('Enabling continuous updates.')), !0;
+
+            case 248:
+                return this._handleServerFenceMsg();
+
+            case 250:
+                return this._handleXvpMsg();
+
+            default:
+                return this._fail('Unexpected server message (type ' + msgType + ')'), Debug('sock.rQslice(0, 30): ' + this._sock.rQslice(0, 30)), !0;
+        }
+    }
+    _onFlush() {
+        (this._flushing = !1), this._sock.rQlen > 0 && this._handleMessage();
+    }
+    _framebufferUpdate() {
+        if (0 === this._FBU.rects) {
+            if (this._sock.rQwait('FBU header', 3, 1)) return !1;
+            if ((this._sock.rQskipBytes(1), (this._FBU.rects = this._sock.rQshift16()), this._display.pending())) return (this._flushing = !0), this._display.flush(), !1;
+        }
+        for (; this._FBU.rects > 0; ) {
+            if (null === this._FBU.encoding) {
+                if (this._sock.rQwait('rect header', 12)) return !1;
+                const hdr = this._sock.rQshiftBytes(12);
+                (this._FBU.x = (hdr[0] << 8) + hdr[1]), (this._FBU.y = (hdr[2] << 8) + hdr[3]), (this._FBU.width = (hdr[4] << 8) + hdr[5]), (this._FBU.height = (hdr[6] << 8) + hdr[7]), (this._FBU.encoding = parseInt((hdr[8] << 24) + (hdr[9] << 16) + (hdr[10] << 8) + hdr[11], 10));
+            }
+            if (!this._handleRect()) return !1;
+            this._FBU.rects--, (this._FBU.encoding = null);
+        }
+        return this._display.flip(), !0;
+    }
+    _handleRect() {
+        switch (this._FBU.encoding) {
+            case encodings_pseudoEncodingLastRect:
+                return (this._FBU.rects = 1), !0;
+
+            case encodings_pseudoEncodingVMwareCursor:
+                return this._handleVMwareCursor();
+
+            case encodings_pseudoEncodingCursor:
+                return this._handleCursor();
+
+            case encodings_pseudoEncodingQEMUExtendedKeyEvent:
+                try {
+                    void 0 !== document.createEvent('keyboardEvent').code && (this._qemuExtKeyEventSupported = !0);
+                } catch (err2) {}
+                return !0;
+
+            case encodings_pseudoEncodingDesktopName:
+                return this._handleDesktopName();
+
+            case encodings_pseudoEncodingDesktopSize:
+                return this._resize(this._FBU.width, this._FBU.height), !0;
+
+            case encodings_pseudoEncodingExtendedDesktopSize:
+                return this._handleExtendedDesktopSize();
+
+            default:
+                return this._handleDataRect();
+        }
+    }
+    _handleVMwareCursor() {
+        const hotx = this._FBU.x,
+            hoty = this._FBU.y,
+            w = this._FBU.width,
+            h = this._FBU.height;
+        if (this._sock.rQwait('VMware cursor encoding', 1)) return !1;
+        const cursorType = this._sock.rQshift8();
+        let rgba;
+        this._sock.rQshift8();
+        if (0 == cursorType) {
+            const PIXEL_MASK = -256;
+            if (((rgba = new Array(w * h * 4)), this._sock.rQwait('VMware cursor classic encoding', w * h * 4 * 2, 2))) return !1;
+            let andMask = new Array(w * h);
+            for (let pixel = 0; pixel < w * h; pixel++) andMask[pixel] = this._sock.rQshift32();
+            let xorMask = new Array(w * h);
+            for (let pixel = 0; pixel < w * h; pixel++) xorMask[pixel] = this._sock.rQshift32();
+            for (let pixel = 0; pixel < w * h; pixel++)
+                if (0 == andMask[pixel]) {
+                    let bgr = xorMask[pixel],
+                        r = (bgr >> 8) & 255,
+                        g = (bgr >> 16) & 255,
+                        b2 = (bgr >> 24) & 255;
+                    (rgba[4 * pixel] = r), (rgba[4 * pixel + 1] = g), (rgba[4 * pixel + 2] = b2), (rgba[4 * pixel + 3] = 255);
+                } else
+                    (andMask[pixel] & PIXEL_MASK) == PIXEL_MASK
+                        ? 0 == xorMask[pixel]
+                            ? ((rgba[4 * pixel] = 0), (rgba[4 * pixel + 1] = 0), (rgba[4 * pixel + 2] = 0), (rgba[4 * pixel + 3] = 0))
+                            : (xorMask[pixel], (rgba[4 * pixel] = 0), (rgba[4 * pixel + 1] = 0), (rgba[4 * pixel + 2] = 0), (rgba[4 * pixel + 3] = 255))
+                        : ((rgba[4 * pixel] = 0), (rgba[4 * pixel + 1] = 0), (rgba[4 * pixel + 2] = 0), (rgba[4 * pixel + 3] = 255));
+        } else {
+            if (1 != cursorType) return Warn('The given cursor type is not supported: ' + cursorType + ' given.'), !1;
+            if (this._sock.rQwait('VMware cursor alpha encoding', w * h * 4, 2)) return !1;
+            rgba = new Array(w * h * 4);
+            for (let pixel = 0; pixel < w * h; pixel++) {
+                let data = this._sock.rQshift32();
+                (rgba[4 * pixel] = (data >> 24) & 255), (rgba[4 * pixel + 1] = (data >> 16) & 255), (rgba[4 * pixel + 2] = (data >> 8) & 255), (rgba[4 * pixel + 3] = 255 & data);
+            }
+        }
+        return this._updateCursor(rgba, hotx, hoty, w, h), !0;
+    }
+    _handleCursor() {
+        const hotx = this._FBU.x,
+            hoty = this._FBU.y,
+            w = this._FBU.width,
+            h = this._FBU.height,
+            pixelslength = w * h * 4,
+            masklength = Math.ceil(w / 8) * h;
+        let bytes = pixelslength + masklength;
+        if (this._sock.rQwait('cursor encoding', bytes)) return !1;
+        const pixels = this._sock.rQshiftBytes(pixelslength),
+            mask = this._sock.rQshiftBytes(masklength);
+        let rgba = new Uint8Array(w * h * 4),
+            pixIdx = 0;
+        for (let y = 0; y < h; y++)
+            for (let x = 0; x < w; x++) {
+                let alpha = (mask[y * Math.ceil(w / 8) + Math.floor(x / 8)] << x % 8) & 128 ? 255 : 0;
+                (rgba[pixIdx] = pixels[pixIdx + 2]), (rgba[pixIdx + 1] = pixels[pixIdx + 1]), (rgba[pixIdx + 2] = pixels[pixIdx]), (rgba[pixIdx + 3] = alpha), (pixIdx += 4);
+            }
+        return this._updateCursor(rgba, hotx, hoty, w, h), !0;
+    }
+    _handleDesktopName() {
+        if (this._sock.rQwait('DesktopName', 4)) return !1;
+        let length = this._sock.rQshift32();
+        if (this._sock.rQwait('DesktopName', length, 4)) return !1;
+        let name = this._sock.rQshiftStr(length);
+        return (name = decodeUTF8(name, !0)), this._setDesktopName(name), !0;
+    }
+    _handleExtendedDesktopSize() {
+        if (this._sock.rQwait('ExtendedDesktopSize', 4)) return !1;
+        const numberOfScreens = this._sock.rQpeek8();
+        let bytes = 4 + 16 * numberOfScreens;
+        if (this._sock.rQwait('ExtendedDesktopSize', bytes)) return !1;
+        const firstUpdate = !this._supportsSetDesktopSize;
+        (this._supportsSetDesktopSize = !0), firstUpdate && this._requestRemoteResize(), this._sock.rQskipBytes(1), this._sock.rQskipBytes(3);
+        for (let i = 0; i < numberOfScreens; i += 1) 0 === i ? ((this._screenID = this._sock.rQshiftBytes(4)), this._sock.rQskipBytes(2), this._sock.rQskipBytes(2), this._sock.rQskipBytes(2), this._sock.rQskipBytes(2), (this._screenFlags = this._sock.rQshiftBytes(4))) : this._sock.rQskipBytes(16);
+        if (1 === this._FBU.x && 0 !== this._FBU.y) {
+            let msg2 = '';
+            switch (this._FBU.y) {
+                case 1:
+                    msg2 = 'Resize is administratively prohibited';
+                    break;
+
+                case 2:
+                    msg2 = 'Out of resources';
+                    break;
+
+                case 3:
+                    msg2 = 'Invalid screen layout';
+                    break;
+
+                default:
+                    msg2 = 'Unknown reason';
+            }
+            Warn('Server did not accept the resize request: ' + msg2);
+        } else this._resize(this._FBU.width, this._FBU.height);
+        return !0;
+    }
+    _handleDataRect() {
+        let decoder = this._decoders[this._FBU.encoding];
+        if (!decoder) return this._fail('Unsupported encoding (encoding: ' + this._FBU.encoding + ')'), !1;
+        try {
+            return decoder.decodeRect(this._FBU.x, this._FBU.y, this._FBU.width, this._FBU.height, this._sock, this._display, this._fbDepth);
+        } catch (err2) {
+            return this._fail('Error decoding rect: ' + err2), !1;
+        }
+    }
+    _updateContinuousUpdates() {
+        this._enabledContinuousUpdates && RFB.messages.enableContinuousUpdates(this._sock, !0, 0, 0, this._fbWidth, this._fbHeight);
+    }
+    _resize(width, height) {
+        (this._fbWidth = width), (this._fbHeight = height), this._display.resize(this._fbWidth, this._fbHeight), this._updateClip(), this._updateScale(), this._updateContinuousUpdates();
+    }
+    _xvpOp(ver, op) {
+        this._rfbXvpVer < ver || (Info('Sending XVP operation ' + op + ' (version ' + ver + ')'), RFB.messages.xvpOp(this._sock, ver, op));
+    }
+    _updateCursor(rgba, hotx, hoty, w, h) {
+        (this._cursorImage = {
+            rgbaPixels: rgba,
+            hotx: hotx,
+            hoty: hoty,
+            w: w,
+            h: h,
+        }),
+            this._refreshCursor();
+    }
+    _shouldShowDotCursor() {
+        if (!this._showDotCursor) return !1;
+        for (let i = 3; i < this._cursorImage.rgbaPixels.length; i += 4) if (this._cursorImage.rgbaPixels[i]) return !1;
+        return !0;
+    }
+    _refreshCursor() {
+        if ('connecting' !== this._rfbConnectionState && 'connected' !== this._rfbConnectionState) return;
+        const image = this._shouldShowDotCursor() ? RFB.cursors.dot : this._cursorImage;
+        this._cursor.change(image.rgbaPixels, image.hotx, image.hoty, image.w, image.h);
+    }
+    static genDES(password, challenge) {
+        const passwordChars = password.split('').map(c2 => c2.charCodeAt(0));
+        return new DES(passwordChars).encrypt(challenge);
+    }
+}
+
+(RFB.messages = {
+    keyEvent(sock, keysym, down) {
+        const buff = sock._sQ,
+            offset = sock._sQlen;
+        (buff[offset] = 4), (buff[offset + 1] = down), (buff[offset + 2] = 0), (buff[offset + 3] = 0), (buff[offset + 4] = keysym >> 24), (buff[offset + 5] = keysym >> 16), (buff[offset + 6] = keysym >> 8), (buff[offset + 7] = keysym), (sock._sQlen += 8), sock.flush();
+    },
+    QEMUExtendedKeyEvent(sock, keysym, down, keycode) {
+        const buff = sock._sQ,
+            offset = sock._sQlen;
+        (buff[offset] = 255), (buff[offset + 1] = 0), (buff[offset + 2] = down >> 8), (buff[offset + 3] = down), (buff[offset + 4] = keysym >> 24), (buff[offset + 5] = keysym >> 16), (buff[offset + 6] = keysym >> 8), (buff[offset + 7] = keysym);
+        const RFBkeycode = (function (xtScanCode) {
+            const lowerByte = 255 & keycode;
+            return 224 === keycode >> 8 && lowerByte < 127 ? 128 | lowerByte : xtScanCode;
+        })(keycode);
+        (buff[offset + 8] = RFBkeycode >> 24), (buff[offset + 9] = RFBkeycode >> 16), (buff[offset + 10] = RFBkeycode >> 8), (buff[offset + 11] = RFBkeycode), (sock._sQlen += 12), sock.flush();
+    },
+    pointerEvent(sock, x, y, mask) {
+        const buff = sock._sQ,
+            offset = sock._sQlen;
+        (buff[offset] = 5), (buff[offset + 1] = mask), (buff[offset + 2] = x >> 8), (buff[offset + 3] = x), (buff[offset + 4] = y >> 8), (buff[offset + 5] = y), (sock._sQlen += 6), sock.flush();
+    },
+    _buildExtendedClipboardFlags(actions, formats) {
+        let data = new Uint8Array(4),
+            formatFlag = 0,
+            actionFlag = 0;
+        for (let i = 0; i < actions.length; i++) actionFlag |= actions[i];
+        for (let i = 0; i < formats.length; i++) formatFlag |= formats[i];
+        return (data[0] = actionFlag >> 24), (data[1] = 0), (data[2] = 0), (data[3] = formatFlag), data;
+    },
+    extendedClipboardProvide(sock, formats, inData) {
+        let deflator = new Deflator(),
+            dataToDeflate = [];
+        for (let i = 0; i < formats.length; i++) {
+            if (1 != formats[i]) throw new Error('Unsupported extended clipboard format for Provide message.');
+            inData[i] = inData[i].replace(/\r\n|\r|\n/gm, '\r\n');
+            let text = encodeUTF8(inData[i] + '\0');
+            dataToDeflate.push((text.length >> 24) & 255, (text.length >> 16) & 255, (text.length >> 8) & 255, 255 & text.length);
+            for (let j = 0; j < text.length; j++) dataToDeflate.push(text.charCodeAt(j));
+        }
+        let deflatedData = deflator.deflate(new Uint8Array(dataToDeflate)),
+            data = new Uint8Array(4 + deflatedData.length);
+        data.set(RFB.messages._buildExtendedClipboardFlags([268435456], formats)), data.set(deflatedData, 4), RFB.messages.clientCutText(sock, data, !0);
+    },
+    extendedClipboardNotify(sock, formats) {
+        let flags = RFB.messages._buildExtendedClipboardFlags([134217728], formats);
+        RFB.messages.clientCutText(sock, flags, !0);
+    },
+    extendedClipboardRequest(sock, formats) {
+        let flags = RFB.messages._buildExtendedClipboardFlags([33554432], formats);
+        RFB.messages.clientCutText(sock, flags, !0);
+    },
+    extendedClipboardCaps(sock, actions, formats) {
+        let formatKeys = Object.keys(formats),
+            data = new Uint8Array(4 + 4 * formatKeys.length);
+        formatKeys.map(x => parseInt(x)), formatKeys.sort((a2, b2) => a2 - b2), data.set(RFB.messages._buildExtendedClipboardFlags(actions, []));
+        let loopOffset = 4;
+        for (let i = 0; i < formatKeys.length; i++) (data[loopOffset] = formats[formatKeys[i]] >> 24), (data[loopOffset + 1] = formats[formatKeys[i]] >> 16), (data[loopOffset + 2] = formats[formatKeys[i]] >> 8), (data[loopOffset + 3] = formats[formatKeys[i]] | 0), (loopOffset += 4), (data[3] |= 1 << formatKeys[i]);
+        RFB.messages.clientCutText(sock, data, !0);
+    },
+    clientCutText(sock, data, extended = !1) {
+        const buff = sock._sQ,
+            offset = sock._sQlen;
+        let length;
+        (buff[offset] = 6), (buff[offset + 1] = 0), (buff[offset + 2] = 0), (buff[offset + 3] = 0), (length = extended ? -data.length >>> 0 : data.length), (buff[offset + 4] = length >> 24), (buff[offset + 5] = length >> 16), (buff[offset + 6] = length >> 8), (buff[offset + 7] = length), (sock._sQlen += 8);
+        let dataOffset = 0,
+            remaining = data.length;
+        for (; remaining > 0; ) {
+            let flushSize = Math.min(remaining, sock._sQbufferSize - sock._sQlen);
+            for (let i = 0; i < flushSize; i++) buff[sock._sQlen + i] = data[dataOffset + i];
+            (sock._sQlen += flushSize), sock.flush(), (remaining -= flushSize), (dataOffset += flushSize);
+        }
+    },
+    setDesktopSize(sock, width, height, id, flags) {
+        const buff = sock._sQ,
+            offset = sock._sQlen;
+        (buff[offset] = 251),
+            (buff[offset + 1] = 0),
+            (buff[offset + 2] = width >> 8),
+            (buff[offset + 3] = width),
+            (buff[offset + 4] = height >> 8),
+            (buff[offset + 5] = height),
+            (buff[offset + 6] = 1),
+            (buff[offset + 7] = 0),
+            (buff[offset + 8] = id >> 24),
+            (buff[offset + 9] = id >> 16),
+            (buff[offset + 10] = id >> 8),
+            (buff[offset + 11] = id),
+            (buff[offset + 12] = 0),
+            (buff[offset + 13] = 0),
+            (buff[offset + 14] = 0),
+            (buff[offset + 15] = 0),
+            (buff[offset + 16] = width >> 8),
+            (buff[offset + 17] = width),
+            (buff[offset + 18] = height >> 8),
+            (buff[offset + 19] = height),
+            (buff[offset + 20] = flags >> 24),
+            (buff[offset + 21] = flags >> 16),
+            (buff[offset + 22] = flags >> 8),
+            (buff[offset + 23] = flags),
+            (sock._sQlen += 24),
+            sock.flush();
+    },
+    clientFence(sock, flags, payload) {
+        const buff = sock._sQ,
+            offset = sock._sQlen;
+        (buff[offset] = 248), (buff[offset + 1] = 0), (buff[offset + 2] = 0), (buff[offset + 3] = 0), (buff[offset + 4] = flags >> 24), (buff[offset + 5] = flags >> 16), (buff[offset + 6] = flags >> 8), (buff[offset + 7] = flags);
+        const n = payload.length;
+        buff[offset + 8] = n;
+        for (let i = 0; i < n; i++) buff[offset + 9 + i] = payload.charCodeAt(i);
+        (sock._sQlen += 9 + n), sock.flush();
+    },
+    enableContinuousUpdates(sock, enable, x, y, width, height) {
+        const buff = sock._sQ,
+            offset = sock._sQlen;
+        (buff[offset] = 150), (buff[offset + 1] = enable), (buff[offset + 2] = x >> 8), (buff[offset + 3] = x), (buff[offset + 4] = y >> 8), (buff[offset + 5] = y), (buff[offset + 6] = width >> 8), (buff[offset + 7] = width), (buff[offset + 8] = height >> 8), (buff[offset + 9] = height), (sock._sQlen += 10), sock.flush();
+    },
+    pixelFormat(sock, depth, trueColor) {
+        const buff = sock._sQ,
+            offset = sock._sQlen;
+        let bpp;
+        bpp = depth > 16 ? 32 : depth > 8 ? 16 : 8;
+        const bits = Math.floor(depth / 3);
+        (buff[offset] = 0),
+            (buff[offset + 1] = 0),
+            (buff[offset + 2] = 0),
+            (buff[offset + 3] = 0),
+            (buff[offset + 4] = bpp),
+            (buff[offset + 5] = depth),
+            (buff[offset + 6] = 0),
+            (buff[offset + 7] = trueColor ? 1 : 0),
+            (buff[offset + 8] = 0),
+            (buff[offset + 9] = (1 << bits) - 1),
+            (buff[offset + 10] = 0),
+            (buff[offset + 11] = (1 << bits) - 1),
+            (buff[offset + 12] = 0),
+            (buff[offset + 13] = (1 << bits) - 1),
+            (buff[offset + 14] = 2 * bits),
+            (buff[offset + 15] = 1 * bits),
+            (buff[offset + 16] = 0 * bits),
+            (buff[offset + 17] = 0),
+            (buff[offset + 18] = 0),
+            (buff[offset + 19] = 0),
+            (sock._sQlen += 20),
+            sock.flush();
+    },
+    clientEncodings(sock, encodings2) {
+        const buff = sock._sQ,
+            offset = sock._sQlen;
+        (buff[offset] = 2), (buff[offset + 1] = 0), (buff[offset + 2] = encodings2.length >> 8), (buff[offset + 3] = encodings2.length);
+        let j = offset + 4;
+        for (let i = 0; i < encodings2.length; i++) {
+            const enc = encodings2[i];
+            (buff[j] = enc >> 24), (buff[j + 1] = enc >> 16), (buff[j + 2] = enc >> 8), (buff[j + 3] = enc), (j += 4);
+        }
+        (sock._sQlen += j - offset), sock.flush();
+    },
+    fbUpdateRequest(sock, incremental, x, y, w, h) {
+        const buff = sock._sQ,
+            offset = sock._sQlen;
+        void 0 === x && (x = 0),
+            void 0 === y && (y = 0),
+            (buff[offset] = 3),
+            (buff[offset + 1] = incremental ? 1 : 0),
+            (buff[offset + 2] = (x >> 8) & 255),
+            (buff[offset + 3] = 255 & x),
+            (buff[offset + 4] = (y >> 8) & 255),
+            (buff[offset + 5] = 255 & y),
+            (buff[offset + 6] = (w >> 8) & 255),
+            (buff[offset + 7] = 255 & w),
+            (buff[offset + 8] = (h >> 8) & 255),
+            (buff[offset + 9] = 255 & h),
+            (sock._sQlen += 10),
+            sock.flush();
+    },
+    xvpOp(sock, ver, op) {
+        const buff = sock._sQ,
+            offset = sock._sQlen;
+        (buff[offset] = 250), (buff[offset + 1] = 0), (buff[offset + 2] = ver), (buff[offset + 3] = op), (sock._sQlen += 4), sock.flush();
+    },
+}),
+    (RFB.cursors = {
+        none: {
+            rgbaPixels: new Uint8Array(),
+            w: 0,
+            h: 0,
+            hotx: 0,
+            hoty: 0,
+        },
+        dot: {
+            rgbaPixels: new Uint8Array([255, 255, 255, 255, 0, 0, 0, 255, 255, 255, 255, 255, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 255, 0, 0, 0, 255, 255, 255, 255, 255]),
+            w: 3,
+            h: 3,
+            hotx: 1,
+            hoty: 1,
+        },
+    });
+
+export default RFB;

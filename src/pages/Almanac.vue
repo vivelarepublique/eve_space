@@ -175,7 +175,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '../assets/css/bootstrap.css';
 body {
   background: white;
   margin: 0;

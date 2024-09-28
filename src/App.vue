@@ -29,7 +29,7 @@
         </router-link>
 
         <router-view></router-view>
-        <img :src="require('./assets/image/page' + number + '.jpg')" id="bgimg" />
+        <img :src="'./assets/image/page' + number + '.jpg'" id="bgimg" />
     </div>
 </template>
 

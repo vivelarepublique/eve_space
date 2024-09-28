@@ -34,31 +34,32 @@
 </template>
 
 <script setup>
-import { NButton } from 'naive-ui';
+    import { ref } from 'vue';
+    import { NButton } from 'naive-ui';
 
-import { useMarketStore } from './shared/marketStore';
-const store = useMarketStore();
-const { update } = store;
-update();
+    import { useMarketStore } from './shared/marketStore';
+    const store = useMarketStore();
+    const { update } = store;
+    update();
 
-const number = Math.floor(Math.random() * 10) <= 4 ? 4 : 5;
+    const number = ref(Math.floor(Math.random() * 10) <= 4 ? 4 : 5);
 </script>
 
 <style scoped>
-button {
-    margin: 15px;
-    color: black;
-}
+    button {
+        margin: 15px;
+        color: black;
+    }
 
-#bgimg {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    height: auto;
-    width: auto;
-    overflow: hidden;
-    z-index: -1000;
-}
+    #bgimg {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        height: auto;
+        width: auto;
+        overflow: hidden;
+        z-index: -1000;
+    }
 </style>

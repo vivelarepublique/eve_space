@@ -6,7 +6,7 @@ export const useMarketStore = defineStore('market', () => {
     async function update() {
         try {
             const response = await fetch('https://esi.evepc.163.com/latest/markets/prices/?datasource=serenity');
-            if (response.status !== 200) return;
+            if (!response.ok) return;
             const res = await response.data;
             data.splice(0, data.length);
             data.push(...res);

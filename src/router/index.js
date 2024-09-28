@@ -10,46 +10,44 @@ import Ice from '../pages/Ice.vue';
 import Moon from '../pages/Moon.vue';
 import Planet from '../pages/Planet.vue';
 
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes: [
-    {
-      path: '/',
-      component: Main,
-    },
-    {
-      path: '/almanac',
-      component: Almanac,
-    },
-    {
-      path: '/campaigns',
-      component: Campaigns,
-    },
-    {
-      path: '/market',
-      component: Market,
-    },
-    {
-      path: '/starmap',
-      component: StarMap,
-    },
-    {
-      path: '/mineral',
-      component: Mineral,
-    },
-    {
-      path: '/ice',
-      component: Ice,
-    },
-    {
-      path: '/moon',
-      component: Moon,
-    },
-    {
-      path: '/planet',
-      component: Planet,
-    },
-  ],
+export default createRouter({
+    history: createWebHashHistory(),
+    routes: [
+        {
+            path: '/',
+            component: Main,
+        },
+        {
+            path: '/almanac',
+            component: Almanac,
+        },
+        {
+            path: '/campaigns',
+            component: Campaigns,
+        },
+        {
+            path: '/market',
+            component: Market,
+        },
+        {
+            path: '/starmap',
+            component: StarMap,
+        },
+        {
+            path: '/mineral',
+            component: Mineral,
+        },
+        {
+            path: '/ice',
+            component: Ice,
+        },
+        {
+            path: '/moon',
+            component: Moon,
+        },
+        {
+            path: '/planet',
+            component: Planet,
+        },
+    ],
 });
-
-export default router;
